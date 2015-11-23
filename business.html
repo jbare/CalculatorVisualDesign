@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carbon Tax Swap Calculator</title>
+
+  <!--
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <script src="assets/bootstrap/js/bootstrap.js"></script>  
+  <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
+  <script src="assets/javascripts/jquery.validate.js"></script>  
+  <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
+  -->
+  
+  <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
+  
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
+  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
+  <script src="assets/javascripts/jquery-ui.min.js"></script>
+
+  <script src="assets/javascripts/business.js"></script>
+  <script>
+    $(function() {
+      $( "#accordion" ).accordion({
+        collapsible:true,
+        heightStyle: "content",
+        active: 0
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+  <div align="center">
+    <header>
+        <h1>Revenue Neutral Carbon Tax Calculator</h1>
+        <h2>For Businesses</h2>
+    </header>
+  </div>
+
+  <div id="accordion">
+    <!-- <h3>Welcome</h3>
+    <div>
+      <fieldset>
+        <p>
+          <h4>Description</h4>
+
+          <p>
+            Please note: 
+            <ul>
+             <li>You must allow scripts to run on this website for proper functionality</li>
+            </ul>  
+            <br>
+            You can use the following online calculator to estimate how one specific carbon tax proposal would impact your business financially. The specific proposal, from <a href="http://carbonwa.org/policy/" target="_blank">CarbonWA.org</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.
+            This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy.
+            It will show you an estimate of the amount of money your business would save from the reduced sales tax and the elimination of the Manufacturing B&O tax. 
+            It will also show you an estimate of the amount your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicle, flying in airplanes, and powering and heating buildings. Most users should be able to complete this calculator in about 10 minutes. 
+            <br> <br>
+            If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
+          </p>
+              
+          <h4>Methodology</h4>
+          
+          <p>
+            Want an in depth look at whats going on behind the scenes as you use this calculator? Check out the <a href="assets/docs/methodology.pdf" target="_blank">methodology report</a> to see how we estimate the financial effect of the policy on your business.
+          </p>
+          
+          <h4>Privacy</h4>
+          
+          <p>
+            No personally identifiable information from your session is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. 
+          </p>
+
+        </p>
+      </fieldset>
+    </div> -->
+
+    <h3>Sales Tax Savings</h3>
+    <div>
+      <p>
+      <form id="salesTaxForm">
+        <fieldset>
+          <p>
+            <label for="submitSalesTax">Enter the amount of state and local sales tax your business pays annually (this is sales tax that your business pays on goods that it buys, not the sales tax that your business collects on goods that it sells): $</label>
+            <input type="text" id="salesTaxPayment" value="0" name="salesTaxPayment" >  
+            <input type="button" value="Submit"  id="submitSalesTax" > 
+          </p>
+            <!-- <a class="box"><b>?</b></a><br><br> -->
+          <div class="reveal" id="salesTax" >
+            <label for="salesTaxRate">Enter the sales tax rate your business pays to state and local governments (the state rate is 6.5%; the 8.95% default is the combined state-and-local average): </label> 
+            <input type="text" id="salesTaxRate" value="8.95" > % 
+            <input type="button" value="Submit"  id="submitSalesTaxRate" > <br><br><br>
+            With a 1 percentage point reduction in sales tax, we estimate that your business would save: <br> <br>
+            <center>$<input value="0" type="text" id="salesTaxSavings" class="autofill" readonly> per year</center><br>
+          </div>
+          
+        </fieldset>
+      </form>
+      </p>
+    </div>
+
+    <h3>Manufacturing B&O Tax Savings</h3>
+    <div>
+      <p>
+        <form id="manufacturingForm">
+          <fieldset>
+            <div >
+              If you are sure that your business is not a manufacturer please <input type="button" value="Skip" id="skip">
+              this section. <br><br>
+            </div>
+
+            <p>
+              <label for="submitSalesTax">The CarbonWA proposal effectively eliminates B&O taxes on manufacturing activities covered by RCW <a href="http://app.leg.wa.gov/RCW/default.aspx?cite=82.04.240" target="_blank">82.04.240</a> (general manufacturing), RCW  <a href="http://app.leg.wa.gov/RCW/default.aspx?cite=82.04.2404" target="_blank">82.04.2404</a> (semiconductors), and RCW <a href="http://app.leg.wa.gov/RCW/default.aspx?cite=82.04.260" target="_blank">82.04.260</a> (1), (2), (4), (11), or (12)(b) (food products, timber and wood products, and airplanes). Because of the Multiple Activities Tax Credit, manufacturing B&O taxes may qualify as credits against other B&O taxes, or other B&O taxes may qualify as credits against your manufacturing B&O taxes. So please enter below the amount of state B&O taxes you would ACTUALLY SAVE if the state manufacturing B&O tax was eliminated (note: for many manufacturers, this is likely to be the state manufacturing B&O taxes you paid on goods sold outside the state; goods sold inside the state receive the Multiple Activities Tax Credit): $</label>
+              <input type="text" id="BOTaxes" value="0"  >  
+              <input type="button" value="Submit"  id="submitBOTax" > <br>
+            </p><br>
+
+            <div class="reveal" id="BOTax" >
+              With the elimination of state manufacturing B&O taxes, we estimate that your business would save: <br> <br>
+              <center>$<input value="0" type="text" id="BOTaxSavings" class="autofill" readonly> per year</center><br>
+            </div>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+
+    <h3>Gasoline and Diesel Usage</h3>
+    <div>
+      <p>
+        <form id="gasForm">
+          <fieldset>
+            How much gasoline does your business use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <b>one</b> of these three calculation options: <br><br><br>  
+            <div> 
+              
+              <b>1 - Enter your business's usage directly: </b>
+              <input type="text" id="gallons" value="0.00" required>
+              gallons of gasoline per
+              <select id="gasTimeframe">
+                <option value="52">Week</option>
+                <option value="12">Month</option>
+                <option value="1">Year</option>
+              </select>
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitGallons"> 
+              
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div>
+
+            <div>
+              <b>2 - Enter how much your business spends on gasoline: </b>
+              $<input type="text" id="dollars" value="0.00" required>
+              per
+              <select id="dollarTimeframe">
+                <option value="52">Week</option>
+                <option value="12">Month</option>
+                <option value="1">Year</option>
+              </select> 
+              and gas costs about <br> $<input type="text" id="gasCost" value="2.40"> per gallon
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitDollars"> 
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div>
+            
+            <div>
+              <b>3 - Enter your business's mileage: </b>
+              <input type="text" id="miles" value="0" required>
+              miles per
+              <select id="mileageTimeframe">
+                <option value="1">Year</option>
+                <option value="12">Month</option>
+                <option value="52">Week</option>
+                
+                
+              </select>
+              and the average fuel economy of <br> the vehicles is <input type="text" id="mpg" value="30"> mpg
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitMileage"> 
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                &nbsp;
+                <br>We estimate that your business would spend this much more due to carbon taxes on gasoline: <br> <br>
+              </p>
+            </div>
+            
+            <div class="result">
+              <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year</center><br>
+            </div>
+            
+          </fieldset>
+        </form>
+      </p>
+    </div>
+
+    <h3>Air Travel</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+            Please choose <b>one</b> of these two calculation options: <br><br>
+
+            <b>1 - Considering only flights taking off from airports in Washington State, how many seat-miles does your business fly each year? </b>(Example: 3 people flying 500 miles = 3 x 500 = 1500 seat-miles):
+            <input type="text" id="seatMiles" value="0"> seat-miles
+            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSeatMiles"> <br><br>
+            (Here are some sample flight distances: from Seattle it is about 200 miles to Walla Walla, 1000 miles to Los Angeles, 1500 miles to Chicago, 2500 miles to New York City, or 5000 miles to London or Beijing) <br> <br>
+
+            <b>2 - How much money does your business spend on air travel involving Washington State airports (to or from)?</b> (We then assume $0.13 a mile and divide by two because only half of that travel involves flights taking off from airports in Washington State. First class or business class is taken care of automatically because they're more expensive): <br> $
+            <input type="text" id="airPayments" value="0"> per year
+            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitAirPayments"> <br><br>
+
+            <br>We estimate that your business would spend this much more due to carbon taxes on jet fuel: <br> <br>
+            <center>$<input value="0" type="text" id="airTaxes" readonly> per year</center><br>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+
+    <h3>Facility Energy Usage</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+
+            <div id="electricBlock">
+              What is the zipcode your business is located in: 
+              <input type="text" id="zipcode"> 
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+            </div>
+            <div class="reveal" id="utilityBlock">
+              Choose the electric utility for your business (if the correct utility is not listed, first check that the zipcode is correct, and then contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>):
+              <select id="utilities" >
+              </select>
+            </div>
+
+            <div class="reveal" id="approxOrExact">
+              <br>Do you know your business's energy usage in units of therms, kWh, etc. (from utility bills or another source)?
+              <input type="button" value="Yes" class="btn btn-primary btn-medium" id="yes"> 
+              <input type="button" value="No" class="btn btn-primary btn-medium" id="no"><br><br>
+            </div>
+
+            <div class="reveal" id="energyUsage">
+              <span id="exactLabel">Enter your business&#39;s energy use per year:</span> <br>
+              <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
+              <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
+              <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitUsage"> <br><br>
+            </div>
+
+            <div class="reveal" id="approxEnergy" >
+              We will attempt to help you estimate your business&#39;s energy usage by comparing it to an average house in Washington State. Note that this is just a ballpark estimate and may only be appropriate for certain kinds of businesses. <br><br>
+              How is your business heated? <br>
+              <input class="radioLeft" type="radio" name="heating" value="natGas">
+              Natural gas<br>
+              <input class="radioLeft" type="radio" name="heating" value="fuelOil">
+              Fuel oil<br>
+              <input class="radioLeft" type="radio" name="heating" value="elec">
+              Electricity<br>
+              <input class="radioLeft" type="radio" name="heating" value="wood">
+              Wood or wood pellets<br>
+              <input class="radioLeft" type="radio" name="heating" value="other">
+              Other/don't know (we will assume you use natural gas.)<br><br>
+            </div>
+            <div class="reveal" id="approxPercentage" >
+              How much purchased energy do you think your business uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your business uses half the energy of an average home, enter "50". If your business uses twice the energy of an average home, enter "200": <br><br>
+
+              <input type="text" id="percentOfAverage" value="100"> %
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitPercentOfAverage"> <br><br>
+
+            </div>
+
+            <div class="reveal" id="energyResult">
+              <br><br>We estimate that your business would spend this much more due to carbon taxes on fossil fuel sources for home energy: <br> <br>
+              <label for="natGasLosses" class="lineupLabel">Natural gas: $</label><input class="lineup" value="0" type="text" id="natGasLosses" readonly> <label for="natGasLosses" class="lineupPostLabel" >per year</label><br>
+              <label for="fuelOilLosses" class="lineupLabel">Fuel oil: $</label><input value="0" class="lineup" type="text" id="fuelOilLosses" readonly> <label for="fuelOilLosses" class="lineupPostLabel">per year</label><br>
+              <label for="elecLosses" class="lineupLabel">Electricity: $</label><input value="0" class="lineup" type="text" id="elecLosses" readonly> <label for="elecLosses" class="lineupPostLabel">per year</label><br>
+              <label for="homeEnergyLosses" class="lineupLabel"><b>Total: $</b></label><input value="0" class="lineup" type="text" id="homeEnergyLosses" readonly> <label for="homeEnergyLosses" class="lineupPostLabel"><b>per year</b></label><br>
+            </div>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+    <h3>Summary of Results</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+            Based on the information you entered and our calculations, we estimate your business's tax <b>savings</b> would total: <br><br>
+            <center>$<input value="0" type="text" id="totalSavings" readonly> per year</center><br><br>
+
+            Based on the information you entered and our calculations, we estimate your business's tax <b>payments</b> would total: <br><br>
+            <center>$<input value="0" type="text" id="totalCosts" readonly> per year</center><br><br>
+
+            <div class="reveal" id="save">
+              In total we estimate your business would <b>save</b>: <br><br>
+            </div>
+            <div class="reveal" id="pay">
+              In total we estimate your business would <b>pay</b>: <br><br>
+            </div>
+            <div id="zero">
+              Overall we estimate the effect on your business would be <b>neutral</b>: <br><br>
+            </div>
+            <center>$<input value="0" type="text" id="totalNet" readonly> per year</center><br><br>
+
+            Thank you! And feel free to go back and change any information to see how it affects the results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
+          </fieldset>
+        </form>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

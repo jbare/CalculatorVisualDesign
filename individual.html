@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carbon Tax Swap Calculator</title>
+
+  <!--
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <script src="assets/bootstrap/js/bootstrap.js"></script>  
+  <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
+  <script src="assets/javascripts/jquery.validate.js"></script>  
+  <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
+  -->
+  
+  <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster.css" />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster-shadow.css" />
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
+  
+  
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
+  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
+  <script src="assets/javascripts/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="assets/javascripts/jquery.tooltipster.js"></script>
+
+  <script src="assets/javascripts/individual.js"></script>
+  <script>
+    $(function() {
+      $( "#accordion" ).accordion({
+        collapsible:true,
+        heightStyle: "content",
+        active: 0
+      });
+
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('.tooltip').tooltipster();
+      $('#salesTaxTool').tooltipster({
+        content: $('<img src="salesTaxEstimate.png" style="float:left;margin-right:10px;"/> <div style="float:right;width:300px"> <p >This estimate of the amount of sales tax your household pays per year is computed using data from the <a href="http://dor.wa.gov/content/aboutus/statisticsandreports/wataxstudy/final_report.htm" target="_blank">2002 Tax Structure Study Report</a>. The graph shown here depicts the data from Table 9-1 of this study in <strong><font color="red">red</font></strong>. The <strong>black</strong> line depicts a smooth trend curve among the data points. We input your income into the function represented by this black line and the result is an estimate of the sales tax that you pay. </p> </div>'),
+        position: 'left',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#salesTaxSavingsTool').tooltipster({
+        content: $('<p>Given your estimated annual state sales tax payments, the state sales tax rate (8.95%), and the Carbon Wasington sales tax reduction (1%), we can calculate your estimated sales tax savings under the Carbon Wasington policy by multiplying your estimated current payments by the ratio 1/8.95 </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#eitcTool').tooltipster({
+        content: $('<img src="eitc.gif" style="float:left;margin-right:10px;max-height:450px"/> <div style="float:right;width:300px"><p>Your estimated federal EITC is computed using the parameters of the federal EITC policy. This graph from the <a href="http://www.taxpolicycenter.org/briefing-book/key-elements/family/eitc.cfm" target="_blank">Tax Policy Center</a> shows how a household&#39;s number of children, marital status, and income affect the level of EITC that household can receive.</p></div>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#wfrTool').tooltipster({
+        content: $('<p>Your Working Families Rebate is estimated as one quarter of your estimated federal EITC.</p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#gasTool').tooltipster({
+        content: $('<p>To obtain your estimated additional gas tax, we first use the information you provided to determine approximately how many gallons of fuel you use per year. Then we multiply this number by 0.00891 metric tons of CO<sub>2</sub> per gallon, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#airTool').tooltipster({
+        content: $('<p>This calculation is very similar to the gasoline and diesel usage one above. To obtain your estimated additional air travel tax, we first use the information you provided to determine approximately how many gallons of jet fuel you use through your flights. To do this, we assume a 60 miles per gallon fuel efficiency for each passenger. Then we multiply this number by 0.00957 metric tons of CO<sub>2</sub> per gallon of jet fuel, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#natGasTool').tooltipster({
+        content: $('<p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many therms of natural gas you use for heating your home. Then we multiply this number by 0.005306 metric tons of CO<sub>2</sub> per therm of natural gas, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of natural gas. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#fuelOilTool').tooltipster({
+        content: $('<p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many gallons of fuel oil you use for heating your home. Then we multiply this number by 0.01015 metric tons of CO<sub>2</sub> per gallon of fuel oil, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel oil. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+      $('#elecTool').tooltipster({
+        content: $('<p>To obtain your estimated additional electricity taxes, we first use the information you provided to look up the carbon impact (metric tons of CO<sub>2</sub> per kWh) of your electric utility, which is based on the proportions of fuel sources (coal, natural gas, petroleum, and renewables) that are used to generate that electricity. Then we multiply this number by the approximate number of kWh of electricity you use per year. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow'
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div align = "center">
+    <header>
+        <h1>Revenue Neutral Carbon Tax Calculator</h1>
+        <h2>For Households</h2>
+    </header>
+  </div>
+
+  <div id="accordion">
+
+    <h3>Sales Tax Savings</h3>
+    <div>
+      <p>
+      <form id="salesTaxForm">
+        <fieldset>
+          <p>
+            
+            <label for="submitIncome">Enter your annual household income: $</label>
+            <input type="text" id="income" value="0" name="income" >  
+            <input type="button" value="Submit"  id="submitIncome" > 
+          </p>
+            <!-- <a class="box"><b>?</b></a><br><br> -->
+          <div class="reveal" id="salesTax" >
+            <label for="salesTaxPayment">We estimate that you currently pay state and local sales taxes totalling $</label> 
+            <input type="text" id="salesTaxPayment" value="0" > per year. <img id="salesTaxTool" src="questionMark.png"  /><br>
+            <label for"submitSalesTax">If you have a better estimate of your total annual sales tax payments, please edit the value above and click </label>
+            <input type="button" value="Submit"  id="submitSalesTax"> <br><br> <br> 
+            With a 1 percentage point reduction in sales tax, we estimate that your household would save: <br> <br>
+            <center>$<input value="0" type="text" id="salesTaxSavings" class="autofill" readonly> per year <img id="salesTaxSavingsTool" src="questionMark.png"  /></center><br>
+          </div>
+          
+        </fieldset>
+      </form>
+      </p>
+    </div>
+
+    <h3>Working Families Rebate (WFR)</h3>
+    <div>
+      <p>
+        <form id="wfrForm">
+          <fieldset>
+            <div >
+              If you are sure that your annual household income of $<input type="text" id="income1" value="0" readonly> does not qualify for the federal Earned Income Tax Credit (EITC), please <input type="button" value="Skip" id="skip">
+              this section. <br><br>
+            </div>
+
+            How many dependents do you claim on your taxes:
+            <select id="dependents">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3+</option>
+            </select> <br> <br>
+
+            What is your tax filing status? <br><br>
+
+            <input class="" type="radio" name="taxStatus" value="marriedJointly">
+            Married filing jointly <br>
+            <input class="" type="radio" name="taxStatus" value="single">
+            Other (single, married filing separately, etc.) <br> <br>
+            
+            <div class="reveal" id="WFR" >
+              
+              We estimate that you qualify for a federal EITC of:
+              $<input type="text" id="eitc"> <img id="eitcTool" src="questionMark.png"  /> If you have a better estimate of your federal EITC, please edit the value above and click
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitEITC">. <br> <br>
+              <br>We estimate that your household would qualify for a state Working Families Rebate of: <br> <br>
+              <center>$<input value="0.00" type="text" id="wfrSavings" readonly> per year <img id="wfrTool" src="questionMark.png"  /></center><br>
+            </div>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+
+    <h3>Gasoline and Diesel Usage</h3>
+    <div>
+      <p>
+        <form id="gasForm">
+          <fieldset>
+            How much gasoline does your household use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <b>one</b> of these three calculation options: <br><br><br>  
+            
+            <div style="width:100%;float:left"> 
+              <div style="float:left">
+                <input style="radioLeft" type="radio" name="gas" value="one" checked>
+              </div>
+
+              <fieldset id="gasOptionOne" style="width:80%;float:left">
+                <b>Option 1: Enter your household's usage directly: </b>
+                <input type="text" id="gallons" value="0.00" required>
+                gallons of gasoline per
+                <select id="gasTimeframe">
+                  <option value="52">Week</option>
+                  <option value="12">Month</option>
+                  <option value="1">Year</option>
+                </select>
+                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitGallons"> 
+              </fieldset>
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div>
+            
+            <div style="width:100%;float:left">
+              <div style="float:left">
+                <input style="radioLeft" type="radio" name="gas" value="two">
+              </div>
+
+              <fieldset id="gasOptionTwo" style="width:80%;float:left" >
+                <b>Option 2: Enter how much your household spends on gasoline: </b>
+                $<input type="text" id="dollars" value="0.00" required>
+                per
+                <select id="dollarTimeframe">
+                  <option value="52">Week</option>
+                  <option value="12">Month</option>
+                  <option value="1">Year</option>
+                </select> 
+                and gas costs about $<input type="text" id="gasCost" value="2.40"> per gallon
+                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitDollars"> 
+              </fieldset>
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                &nbsp;<br>
+              </p>
+            </div>
+
+            
+            <div style="width:100%;float:left">
+              <div style="float:left">
+                <input style="radioLeft" type="radio" name="gas" value="three">
+              </div>
+
+              <fieldset id="gasOptionThree" style="width:80%;float:left" >
+                <b>Option 3: Enter your household's mileage: </b>
+                <input type="text" id="miles" value="0" required>
+                miles per
+                <select id="mileageTimeframe">
+                  <option value="1">Year</option>
+                  <option value="12">Month</option>
+                  <option value="52">Week</option>                               
+                </select>
+                and the average fuel economy of the vehicles is <input type="text" id="mpg" value="30"> mpg
+                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitMileage"> 
+              </fieldset>
+            </div>
+
+            <!-- <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div> -->
+            
+            <!-- <div> 
+              
+              <b>1 - Enter your household's usage directly: </b>
+              <input type="text" id="gallons" value="0.00" required>
+              gallons of gasoline per
+              <select id="gasTimeframe">
+                <option value="52">Week</option>
+                <option value="12">Month</option>
+                <option value="1">Year</option>
+              </select>
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitGallons"> 
+              
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div>
+
+            <div>
+              <b>2 - Enter how much your household spends on gasoline: </b>
+              $<input type="text" id="dollars" value="0.00" required>
+              per
+              <select id="dollarTimeframe">
+                <option value="52">Week</option>
+                <option value="12">Month</option>
+                <option value="1">Year</option>
+              </select> 
+              and gas costs about <br> $<input type="text" id="gasCost" value="2.40"> per gallon
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitDollars"> 
+            </div>
+
+            <div class="blankSpace">
+              <p>
+                <br>
+              </p>
+            </div>
+            
+            <div>
+              <b>3 - Enter your household's mileage: </b>
+              <input type="text" id="miles" value="0" required>
+              miles per
+              <select id="mileageTimeframe">
+                <option value="1">Year</option>
+                <option value="12">Month</option>
+                <option value="52">Week</option>
+                
+                
+              </select>
+              and the average fuel economy of <br> the vehicles is <input type="text" id="mpg" value="30"> mpg
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitMileage"> 
+            </div>-->
+
+            <div class="blankSpace">
+              <p>
+                &nbsp;
+                <br>We estimate that your household would spend this much more due to carbon taxes on gasoline: <br> <br>
+              </p>
+            </div> 
+            
+            <div class="result">
+              <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year <img id="gasTool" src="questionMark.png"  /></center><br>
+            </div>
+            
+          </fieldset>
+        </form>
+      </p>
+    </div>
+
+    <!-- <h3>Gasoline Usage</h3>
+    <div>
+      <p>
+        <form id="gasForm">
+          <fieldset>
+            How much gasoline does your household use? Please choose the most convenient calculation option: <br><br>  
+            <div> 
+              <input class="radioLeft" type="radio" name="gasInputType" value="usage" checked>
+              <div class="radioDiv">
+                &nbsp; &nbsp;
+                <input type="text" id="gallons" value="0.00" required>
+                <select id="gasUnits">
+                  <option value="Gallons">gallons</option>
+                  <option value="Dollars">$</option>
+                </select>
+                of gasoline per
+                <select id="gasTimeframe">
+                  <option value="52">Week</option>
+                  <option value="12">Month</option>
+                  <option value="1">Year</option>
+                </select> 
+                <div class="reveal" id="gasCostBlock">
+                  and gas costs about $<input type="text" id="gasCost" value="4.00"> per gallon
+                </div>
+                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitGallons"> 
+              </div>
+            </div>
+            <div class="blankSpace">
+              <p>
+              </p>
+            </div>
+            <div class="radioDiv">
+
+              <input class="radioLeft" type="radio" name="gasInputType" value="mileage">
+              <div class="radioDiv">
+                &nbsp; &nbsp;
+                <input type="text" id="miles" value="0" required>
+                miles per
+                <select id="gasTimeframe2">
+                  <option value="1">Year</option>
+                  <option value="12">Month</option>
+                  <option value="52">Week</option>
+                  
+                  
+                </select>
+                and the average fuel economy of <br> my vehicles is <input type="text" id="mpg" value="30"> mpg
+                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitMileage"> 
+              </div>
+            </div>
+            <div class="blankSpace">
+              <p>
+                &nbsp;
+                <br> <br>We estimate that your household would spend this much more due to carbon taxes on gasoline: <br> <br>
+              </p>
+            </div>
+            
+            <div class="result">
+              <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year</center><br>
+            </div>
+            
+          </fieldset>
+        </form>
+      </p>
+    </div> -->
+
+
+    <h3>Air Travel</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+            Considering only air travel for personal reasons (not business) and only flights taking off from airports in Washington State, fill out the following: <br><br>
+            How many seat-miles does your household fly each year (example: 3 people flying 500 miles = 3 x 500 = 1500 seat-miles):
+            <input type="text" id="seatMiles" value="0"> seat-miles
+            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSeatMiles"> <br><br>
+            (Here are some sample flight distances: from Seattle it is about 200 miles to Walla Walla, 1000 miles to Los Angeles, 1500 miles to Chicago, 2500 miles to New York City, or 5000 miles to London or Beijing.) <br> <br>
+
+            <br>We estimate that your household would spend this much more due to carbon taxes on jet fuel: <br> <br>
+            <center>$<input value="0" type="text" id="airTaxes" readonly> per year <img id="airTool" src="questionMark.png"  /></center><br>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+    <h3>Home Energy Usage</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+            Is your utility bill split among several people? (Choose &quot;Yes&quot; if, for example, you have one or more housemates; choose &quot;No&quot; if, for example, you live in a single-family house or a single-family apartment.)
+            <input type="button" value="Yes" class="btn btn-primary btn-medium" id="split"> 
+            <input type="button" value="No" class="btn btn-primary btn-medium" id="noSplit"><br><br>
+
+            <div class="reveal" id="partialEnergy" >
+              The percentage of the utility bills that <b>your</b> household is responsible for is <input type="text" id="percentSplit" value="100">%
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSplit"><br><br>
+            </div>
+
+            <div class="reveal" id="electricBlock">
+              What is your zipcode: 
+              <input type="text" id="zipcode"> 
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+            </div>
+            <div class="reveal" id="utilityBlock">
+              Choose your electric utility (if your utility is not listed, first check that your zipcode is correct, and then contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>):
+              <select id="utilities" >
+              </select>
+            </div>
+
+            <div class="reveal" id="approxOrExact">
+              <br>Do you know your home energy usage in units of therms, kWh, etc. (from utility bills or another source)?
+              <input type="button" value="Yes" class="btn btn-primary btn-medium" id="yes"> 
+              <input type="button" value="No" class="btn btn-primary btn-medium" id="no"><br><br>
+            </div>
+
+            <div class="reveal" id="energyUsage">
+              <span id="exactLabel">Enter your household&#39;s energy use per year:</span> <br>
+              <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
+              <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
+              <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitUsage"> <br><br>
+            </div>
+
+            <div class="reveal" id="approxEnergy" >
+              How is your home heated? <br>
+              <input class="radioLeft" type="radio" name="heating" value="natGas">
+              Natural gas<br>
+              <input class="radioLeft" type="radio" name="heating" value="fuelOil">
+              Fuel oil<br>
+              <input class="radioLeft" type="radio" name="heating" value="elec">
+              Electricity<br>
+              <input class="radioLeft" type="radio" name="heating" value="wood">
+              Wood or wood pellets<br>
+              <input class="radioLeft" type="radio" name="heating" value="other">
+              Other/don't know (we will assume you use natural gas.)<br><br>
+            </div>
+            <div class="reveal" id="approxPercentage" >
+              How much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200": <br><br>
+
+              <input type="text" id="percentOfAverage" value="100"> %
+              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitPercentOfAverage"> <br><br>
+
+            </div>
+
+            <div class="reveal" id="energyResult">
+              <br><br>We estimate that your household would spend this much more due to carbon taxes on fossil fuel sources for home energy: <br> <br>
+              <label for="natGasLosses" class="lineupLabel">Natural gas: $</label><input class="lineup" value="0" type="text" id="natGasLosses" readonly> <label for="natGasLosses" class="lineupPostLabel" >per year <img id="natGasTool" src="questionMark.png"  /></label><br>
+              <label for="fuelOilLosses" class="lineupLabel">Fuel oil: $</label><input value="0" class="lineup" type="text" id="fuelOilLosses" readonly> <label for="fuelOilLosses" class="lineupPostLabel">per year <img id="fuelOilTool" src="questionMark.png"  /></label><br>
+              <label for="elecLosses" class="lineupLabel">Electricity: $</label><input value="0" class="lineup" type="text" id="elecLosses" readonly> <label for="elecLosses" class="lineupPostLabel">per year <img id="elecTool" src="questionMark.png"  /></label><br>
+              <label for="homeEnergyLosses" class="lineupLabel"><b>Total: $</b></label><input value="0" class="lineup" type="text" id="homeEnergyLosses" readonly> <label for="homeEnergyLosses" class="lineupPostLabel"><b>per year</b></label><br>
+            </div>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+    <h3>Summary of Results</h3>
+    <div>
+      <p>
+        <form>
+          <fieldset>
+            Based on the information you entered and our calculations, we estimate your household's tax <b>savings</b> would total: <br><br>
+            <center>$<input value="0" type="text" id="totalSavings" readonly> per year</center><br><br>
+
+            Based on the information you entered and our calculations, we estimate your household's tax <b>payments</b> would total: <br><br>
+            <center>$<input value="0" type="text" id="totalCosts" readonly> per year</center><br><br>
+
+            <div class="reveal" id="save">
+              In total we estimate you would <b>save</b>: <br><br>
+            </div>
+            <div class="reveal" id="pay">
+              In total we estimate you would <b>pay</b>: <br><br>
+            </div>
+            <div id="zero">
+              Overall we estimate the effect on your household would be <b>neutral</b>: <br><br>
+            </div>
+            <center>$<input value="0" type="text" id="totalNet" readonly> per year</center><br><br>
+
+            Thank you! And feel free to go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
+          </fieldset>
+        </form>
+      </p>
+    </div>
+  </div>
+
+
+</body>
+</html>

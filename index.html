@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carbon Tax Swap Calculator</title>
+
+  <!--
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <script src="assets/bootstrap/js/bootstrap.js"></script>  
+  <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
+  <script src="assets/javascripts/jquery.validate.js"></script>  
+  <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
+  -->
+  
+  <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
+  
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
+  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
+  <script src="assets/javascripts/jquery-ui.min.js"></script>
+
+  <script src="assets/javascripts/individual.js"></script>
+  <script>
+    $(function() {
+      $( "#accordion" ).accordion({
+        collapsible:true,
+        heightStyle: "content",
+        active: 0
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div>
+    <header>
+        <h1>Revenue Neutral Carbon Tax Calculator</h1>
+    </header>
+  </div>
+
+
+  <h2>Welcome!</h2>
+
+  <p>
+    <p>
+      You can use the following online calculators to estimate how one specific carbon tax proposal would impact your household or business financially. <br>
+
+      <div>
+        <h3><a href="./individual.html">Go to the household calculator</a></h3>
+      </div>
+
+      <div>
+        <h3><a href="./business.html">Go to the business calculator</a></h3>
+      </div>
+
+      <div>
+        <h3><a href="./statewideBeta/combinedVis.html" target="_blank">Go to the statewide impact visualization tool</a></h3>
+      </div>
+
+      Please note: You must allow scripts to run on this website for proper calculator functionality <br><br>
+
+      The specific proposal, from <a href="http://carbonwa.org/policy/" target="_blank">CarbonWA.org</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
+
+      This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.<br><br>
+
+      It will show you an estimate of the amount of money you or your business would save from the reduced sales tax, the Working Families Rebate, and the elimination of the B&O Manufacturing Tax. <br><br>
+
+      It will also show you an estimate of the amount you or your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home or building. <br><br>
+
+      If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter. <br><br>
+
+      Most users should be able to complete this calculator in about 10 minutes. <br><br>
+
+      If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
+    </p>
+        
+    
+   <!--  <h4>Instructions</h4>
+
+    <p>
+      If you ever need help, click on one of the question marks ( <a class="box"><b>?</b></a> ) for more information about how to fill out the calculator. 
+    </p> -->
+
+    <h2>Methodology</h2>
+    
+    <p>
+      Want an in depth look at whats going on behind the scenes as you use this calculator? Check out the <a href="assets/docs/methodology.pdf" target="_blank">methodology report</a> to see how we estimate the financial effect of the policy on your household.
+    </p>
+    
+    <h2>Privacy</h2>
+    
+    <p>
+      No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. 
+    </p>
+
+    <h2>About</h2>
+    
+    <p>
+      This calculator was developed by <b>Justin Bare</b> and <b>Alan Borning</b>. Justin is a PhD student in <b>Computer Science and Engineering</b> at the <b>University of Washington</b>. Alan is a professor in the same department. 
+    </p>
+
+  </p>
+
+</body>
+</html>

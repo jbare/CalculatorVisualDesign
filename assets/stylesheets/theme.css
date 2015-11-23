@@ -1,0 +1,88 @@
+.blankSpace {
+  width: 100%;
+  float:left;
+  display: inline-block;
+}
+
+.result {
+  float: left;
+  width: 100%;
+}
+
+.radioDiv {
+  float: left;
+
+}
+
+.radioLeft {
+  float: left;
+
+}
+
+.lineupLabel{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 40%;
+    text-align: right;
+    margin: 0.5% 0% 0% 0%;
+}
+.lineup {
+  display: inline-block;
+  float: left;
+}
+.lineupPostLabel {
+  display: inline-block;
+  float: left;
+  margin: 0.2% 0% 0% 0%;
+}
+
+/*html {
+  overflow-y:scroll;
+}*/
+
+input {
+  overflow: visible;
+}
+
+.reveal {
+  display: none;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  vertical-align: middle; 
+  margin: 0px 0px 0px 40px; 
+}
+
+input[type="text"][readonly] {
+    cursor: auto;
+    background-color: #FFFFFF;
+    border: 1px solid gray;
+    box-shadow: none;
+}
+
+input[type="text"][readonly]:focus {
+    cursor: auto;
+    background-color: #FFFFFF;
+    border: 1px solid gray;
+    box-shadow: none;
+}
+
+body {    
+    font-family: "Droid Sans", sans-serif;
+    margin: 1% 10% 10% 10%;
+}
+
+h1, h4, .center {
+  text-align: center;
+}
+
+a[class="box"] {
+  padding: 0px 5px 0px 5px;
+  border: 2px solid #5a82b4;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
