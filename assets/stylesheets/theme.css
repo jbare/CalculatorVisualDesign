@@ -71,6 +71,7 @@ input[type="text"][readonly]:focus {
 body {    
     font-family: "Droid Sans", sans-serif;
     margin: 1% 10% 10% 10%;
+    padding:50px 0px 0px 0px;
 }
 
 h1, h4, .center {

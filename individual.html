@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
   <title>Carbon Tax Swap Calculator</title>
 
@@ -13,17 +16,23 @@
   <script src="assets/javascripts/jquery.validate.js"></script>  
   <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
   -->
-  
+
   <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster.css" />
   <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster-shadow.css" />
+  <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
   
+  <!-- Bootstrap -->
+  <script src="assets/javascripts/bootstrap.min.js"></script>
   
+
   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
   <script src="assets/javascripts/jquery-1.11.1.js"></script>  
   <script src="assets/javascripts/jquery-ui.min.js"></script>
   <script type="text/javascript" src="assets/javascripts/jquery.tooltipster.js"></script>
+  
 
   <script src="assets/javascripts/individual.js"></script>
   <script>
@@ -107,6 +116,40 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Revenue Neutral Carbon Tax Calculator</a>
+        </div>
+
+        <!-- this div hides the items from the navigation bar for smaller screens -->
+          <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="index.html">Home</a>
+                  </li>
+                  <li class="active">
+                    <a href="individual.html">Household Calculator</a>
+                  </li>
+                  <li>
+                    <a href="business.html">Business Calculator</a>
+                  </li>
+                  <li>
+                    <a href="statewideBeta/combinedVis.html">Statewide Impact Visualization</a>
+                  </li>
+                  <li>
+                    <a href="about.html">About</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
   <div align = "center">
     <header>
         <h1>Revenue Neutral Carbon Tax Calculator</h1>
@@ -514,7 +557,5 @@
       </p>
     </div>
   </div>
-
-
 </body>
 </html>

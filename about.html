@@ -67,8 +67,8 @@
         <!-- collapsable nav for small screens -->
           <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
-                  <li class="active">
-                    <a href="index.html">Home</a>
+                  <li>
+                    <a href="/index.html">Home</a>
                   </li>
                   <li>
                     <a href="individual.html">Household Calculator</a>
@@ -79,7 +79,7 @@
                   <li>
                     <a href="statewideBeta/combinedVis.html">Statewide Impact Visualization</a>
                   </li>
-                  <li>
+                  <li class="active">
                     <a href="about.html">About</a>
                   </li>
               </ul>
@@ -94,38 +94,10 @@
   </div>
 
 
-  <p>
-    <p>
-      You can use the following online calculators to estimate how one specific carbon tax proposal would impact your household or business financially. <br>
 
-      <div>
-        <h3><a href="./individual.html">Go to the household calculator</a></h3>
-      </div>
+  <h1>About</h1>
 
-      <div>
-        <h3><a href="./business.html">Go to the business calculator</a></h3>
-      </div>
 
-      <div>
-        <h3><a href="./statewideBeta/combinedVis.html" target="_blank">Go to the statewide impact visualization tool</a></h3>
-      </div>
-
-      Please note: You must allow scripts to run on this website for proper calculator functionality <br><br>
-
-      The specific proposal, from <a href="http://carbonwa.org/policy/" target="_blank">CarbonWA.org</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
-
-      This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.<br><br>
-
-      It will show you an estimate of the amount of money you or your business would save from the reduced sales tax, the Working Families Rebate, and the elimination of the B&O Manufacturing Tax. <br><br>
-
-      It will also show you an estimate of the amount you or your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home or building. <br><br>
-
-      If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter. <br><br>
-
-      Most users should be able to complete this calculator in about 10 minutes. <br><br>
-
-      If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
-    </p>
         
     
    <!--  <h4>Instructions</h4>
@@ -133,6 +105,12 @@
     <p>
       If you ever need help, click on one of the question marks ( <a class="box"><b>?</b></a> ) for more information about how to fill out the calculator. 
     </p> -->
+
+    <h2>Methodology</h2>
+    
+    <p>
+      Want an in depth look at whats going on behind the scenes as you use this calculator? Check out the <a href="assets/docs/methodology.pdf" target="_blank">methodology report</a> to see how we estimate the financial effect of the policy on your household.
+    </p>
     
     <h2>Privacy</h2>
     
@@ -142,7 +120,43 @@
 
   </p>
 
-  <script src="assets/javascripts/-2.1.4.min.js"></script>
+  <div class="container">
+    <div class="row row-content">
+      <div class="col-xs-12 col-sm-9">
+          <div class="media">
+              <div class="media-left media-middle">
+                  <a href="#">
+                  <img class="media-object img-thumbnail"
+                   src="#" alt="Justin profile">
+                  </a>
+              </div>
+              <div class="media-body">
+                  <p>Justin Bare is a PhD student in Computer Science and Engineering at the University of Washington. 
+                    Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
+              </div>
+          </div>
+      </div>
+    </div>
+
+     <div class="row row-content">
+      <div class="col-xs-12 col-sm-9">
+          <div class="media">
+              <div class="media-left media-middle">
+                  <a href="#">
+                  <img class="media-object img-thumbnail"
+                   src="#" alt="Alan profile">
+                  </a>
+              </div>
+              <div class="media-body">
+                  <p>Alan Boring is a professor in Computer Science and Engineering at the University of Washington. 
+                    Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/javascripts/jquery.min.js"></script>
   <script src="assets/javascripts/bootstrap.min.js"></script>
 
 </body>
