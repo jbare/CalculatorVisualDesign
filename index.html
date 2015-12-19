@@ -44,11 +44,6 @@
       });
     });
   </script>
-
-  <script type="text/javascript">
-    var source=$("navbar_script").html();
-    var template=Handlebars.compile(source);
-  </script>
 </head>
 
 <body>
@@ -87,62 +82,74 @@
       </div>
   </nav>
 
-  <div>
-    <header>
+  <div class="container">
+    <div class="row row-content">
+      <div class="col-xs-12">
         <h1>Revenue Neutral Carbon Tax Calculator</h1>
-    </header>
-  </div>
-
-
-  <p>
-    <p>
-      You can use the following online calculators to estimate how one specific carbon tax proposal would impact your household or business financially. <br>
-
-      <div>
-        <h3><a href="./individual.html">Go to the household calculator</a></h3>
       </div>
+    </div>
 
-      <div>
-        <h3><a href="./business.html">Go to the business calculator</a></h3>
+    <div class="row row-content">
+      <p>
+        The specific proposal, from <a href="http://carbonwa.org/policy/" target="_blank">CarbonWA.org</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
+
+        This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.<br><br>
+
+        It will show you an estimate of the amount of money you or your business would save from the reduced sales tax, the Working Families Rebate, and the elimination of the B&O Manufacturing Tax. <br><br>
+
+        It will also show you an estimate of the amount you or your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home or building. <br><br>
+
+        If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter. <br><br>
+
+        Most users should be able to complete this calculator in about 10 minutes. <br><br>
+      </p>
+    </div>
+
+    <div class="row row-content">
+      <p>
+        You can use the following online calculators to estimate how one specific carbon tax proposal would impact your household or business financially. <br>
+
+        <div>
+          <h3><a href="./individual.html">Go to the household calculator</a></h3>
+        </div>
+
+        <div>
+          <h3><a href="./business.html">Go to the business calculator</a></h3>
+        </div>
+
+        <div>
+          <h3><a href="./statewideBeta/combinedVis.html" target="_blank">Go to the statewide impact visualization tool</a></h3>
+        </div>
+
+        Please note: You must allow scripts to run on this website for proper calculator functionality <br><br>
+      </p>
+    </div>
+  </div>  
+
+  <footer class="row-footer">
+    <div class="container">
+      <div class="row">
+         <div class="col-xs-12">
+            <h5>Site Map</h5>
+            <ul class="list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="individual.html">Household Calculator</a></li>
+                <li><a href="business.html">Business Calculator</a></li>
+                <li><a href="./statewideBeta/combinedVis.html">Statewide Visualization</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
       </div>
-
-      <div>
-        <h3><a href="./statewideBeta/combinedVis.html" target="_blank">Go to the statewide impact visualization tool</a></h3>
-      </div>
-
-      Please note: You must allow scripts to run on this website for proper calculator functionality <br><br>
-
-      The specific proposal, from <a href="http://carbonwa.org/policy/" target="_blank">CarbonWA.org</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
-
-      This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.<br><br>
-
-      It will show you an estimate of the amount of money you or your business would save from the reduced sales tax, the Working Families Rebate, and the elimination of the B&O Manufacturing Tax. <br><br>
-
-      It will also show you an estimate of the amount you or your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home or building. <br><br>
-
-      If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter. <br><br>
-
-      Most users should be able to complete this calculator in about 10 minutes. <br><br>
-
-      If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
-    </p>
-        
+    </div>
+  </footer>
     
    <!--  <h4>Instructions</h4>
 
     <p>
       If you ever need help, click on one of the question marks ( <a class="box"><b>?</b></a> ) for more information about how to fill out the calculator. 
     </p> -->
-    
-    <h2>Privacy</h2>
-    
-    <p>
-      No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. 
-    </p>
 
-  </p>
-
-  <script src="assets/javascripts/-2.1.4.min.js"></script>
+  <script src="assets/javascripts/jquery.min.js"></script>
   <script src="assets/javascripts/bootstrap.min.js"></script>
 
 </body>
