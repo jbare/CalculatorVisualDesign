@@ -24,14 +24,12 @@
   <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
   
-
-  <script src="assets/javascripts/jquery-2.1.4.min.js"></script> 
   <!-- Bootstrap -->
   <script src="assets/javascripts/bootstrap.min.js"></script>
   
 
   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
-  <script src="assets/javascripts/jquery-2.1.4.min.js"></script>  
+  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
 
   <script src="assets/javascripts/jquery-ui.min.js"></script>
   <script type="text/javascript" src="assets/javascripts/jquery.tooltipster.js"></script>
@@ -162,11 +160,11 @@
       <li>Summary</li>
     </ul>
 
-    <!-- pages of forms -->
-    <div class="form_page col-sm-12">
+    <!-- fieldsets -->
+    <fieldset>
       <h2 class="fs-title">Sales Tax Savings</h2>
       <div class="form-group">
-        <label for="submitIncome" class="control-label">What is your annual household income?: $</label>
+        <label for="submitIncome" class="control-label">Enter annual household income: $</label>
         <input type="text" id="income" placeholder="Enter annual income" name="income">
         <input type="button" class="btn btn-primary" value="Submit" id="submitIncome">
       </div>
@@ -178,11 +176,11 @@
         <input type="button" class="btn btn-primary" value="Submit"  id="submitSalesTax"> <br><br> <br> 
         With a 1 percentage point reduction in sales tax, we estimate that your household would save: <br> <br>
         <center>$<input value="0" type="text" id="salesTaxSavings" class="autofill" readonly> per year <img id="salesTaxSavingsTool" src="questionMark.png"  /></center><br>
+        <input type="button" name="next" class="next action-button btn-primary" value="Next"/>
       </div>
-      <input type="button" name="next" class="next btn btn-primary disabled" value="Next" id="next">
-    </div>
+    </fieldset>
 
-    <div class="form_page">
+    <fieldset>
       <h2 class="fs-title">Working Family Rebate (WFR)</h2>
       <div>
         <p>
@@ -215,19 +213,18 @@
           <br>We estimate that your household would qualify for a state Working Families Rebate of: <br> <br>
           <center>$<input value="0.00" type="text" id="wfrSavings" readonly> per year <img id="wfrTool" src="questionMark.png"  /></center><br>
         </p>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
       </div>
-      <input type="button" name="previous" class="previous action-button" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn-primary" value="Next" id="next">
-    </div>
+    </fieldset>
 
-    <div class="form_page">
+    <fieldset>
       <h2 class="fs-title">Gasoline and Diesel Usage</h2>
       <p>
         How much gasoline does your household use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <strong>one</strong> of these three calculation options: <br><br><br> 
       </p> 
-
       
-      <div style="width:100%;float:left">
+      <div style="width:100%;float:left"> 
         <div style="float:left">
           <input style="radioLeft" type="radio" name="gas" value="one" checked>
         </div>
@@ -302,17 +299,15 @@
           <br>We estimate that your household would spend this much more due to carbon taxes on gasoline: <br> <br>
         </p>
       </div> 
-
       
       <div class="result">
         <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year <img id="gasTool" src="questionMark.png"  /></center><br>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
       </div>
-    
-      <input type="button" name="previous" class="previous action-button" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn-primary" value="Next" id="next">
-    </div>
+    </fieldset>
 
-    <div class="form_page">
+    <fieldset>
       <h2 class="fs-title">Air Travel</h2>
       <div>
         <p>
@@ -327,12 +322,12 @@
           <br>We estimate that your household would spend this much more due to carbon taxes on jet fuel: <br> <br>
           <center>$<input value="0" type="text" id="airTaxes" readonly> per year <img id="airTool" src="questionMark.png"  /></center><br>
         </p>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
       </div>
-      <input type="button" name="previous" class="previous action-button" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn-primary" value="Next" id="next">
-    </div>
+    </fieldset>
 
-    <div class="form_page">
+    <fieldset>
       <h2 class="fs-title">Home Energy Usage</h2>
       <p>
         Is your utility bill split among several people? (Choose &quot;Yes&quot; if, for example, you have one or more housemates; choose &quot;No&quot; if, for example, you live in a single-family house or a single-family apartment.)
@@ -399,12 +394,12 @@
         <label for="fuelOilLosses" class="lineupLabel">Fuel oil: $</label><input value="0" class="lineup" type="text" id="fuelOilLosses" readonly> <label for="fuelOilLosses" class="lineupPostLabel">per year <img id="fuelOilTool" src="questionMark.png"  /></label><br>
         <label for="elecLosses" class="lineupLabel">Electricity: $</label><input value="0" class="lineup" type="text" id="elecLosses" readonly> <label for="elecLosses" class="lineupPostLabel">per year <img id="elecTool" src="questionMark.png"  /></label><br>
         <label for="homeEnergyLosses" class="lineupLabel"><b>Total: $</b></label><input value="0" class="lineup" type="text" id="homeEnergyLosses" readonly> <label for="homeEnergyLosses" class="lineupPostLabel"><b>per year</b></label><br>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
       </div>
-      <input type="button" name="previous" class="previous action-button" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn-primary" value="Next" id="next">
-    </div>
+    </fieldset>
 
-    <div class="form_page">
+    <fieldset>
       <h2 class="fs-title">Summary</h2>
       Based on the information you entered and our calculations, we estimate your household's tax <b>savings</b> would total: <br><br>
       <center>$<input value="0" type="text" id="totalSavings" readonly> per year</center><br><br>
@@ -424,11 +419,10 @@
       <center>$<input value="0" type="text" id="totalNet" readonly> per year</center><br><br>
 
       Thank you! And feel free to go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
-    </div>
+    </fieldset>
 
 
   </form>
-
 
 </body>
 </html>

@@ -97,3 +97,86 @@ a:hover {
     margin:0px auto;
     padding:0px auto;
 }
+
+#individual_class_form{
+  margin: 50px auto;
+  text-align: center;
+  position: relative;
+}
+
+.form_page{
+  background: white;
+  border: 0 none;
+  border-radius:3px;
+  box-shadow: 0 0 15px 1px rgba(0,0,0,4);
+  padding: 20px 30px;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin 0 10%;
+
+  /* stacking pages so only one is shown at a time */
+  position: absolute;
+}
+
+#individual_class_form .form_page:not(:first-of-type){
+  display:none;
+}
+
+/*progress bar styling */
+#individual_progress_bar{
+  /*margin-bottom: 20px;*/
+  margin: 0 auto 20px 100px;
+  overflow: hidden;
+   /* counters to number progress bar steps */
+   counter-reset: step;
+}
+
+#individual_progress_bar li{
+  list-style-type: none;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 10%;
+  float: left;
+  position: relative;
+}
+
+#individual_progress_bar li:before{
+  content: counter(step);
+  counter-increment: step;
+  width: 25px;
+  line-height: 25px;
+  display: block;
+  font-size: 15px;
+  color: #333;
+  background: #EEEEEE;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+}
+
+/*connectors between steps */
+#individual_progress_bar li:after{
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: gray;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /* places line behind numbers */
+}
+
+#individual_progress_bar li:first-child:after{
+  /*first item doesn't need line behind it */
+  content: none;
+}
+
+#individual_progress_bar li.active:before, #individual_progress_bar li.active:after{
+  background: #27AE60;
+  color: white;
+}
+
+#gas2{
+  color: purple;
+}

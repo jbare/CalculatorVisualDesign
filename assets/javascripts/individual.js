@@ -53,6 +53,7 @@ var dpg = "gasCost";
 var calculateWFR = "calculateWFR";
 var displaySalesTaxBlock = "displaySalesTaxBlock";
 
+
 $(document).ready(function () {
   $( document ).tooltip(); 
   
@@ -501,6 +502,7 @@ $(document).ready(function () {
   $("#gasOptionTwo").attr('disabled', 'disabled');
   $("#gasOptionThree").attr('disabled', 'disabled');
 
+
   $("#submitIncome").on("click", 
     function () {
       nodes.displaySalesTaxBlock.setValueBasic(true);
@@ -509,6 +511,29 @@ $(document).ready(function () {
       elements.income.updateNode();
       nodes.income1.setValue(nodes.income.getValue());
       calc.compute();
+      $(".next").removeClass("disabled");
+    }
+  );
+
+  $(".next").on("click", 
+    function(){
+      $(this).parent().next().fadeIn("fast");
+      $(this).parent().css({
+        'display': 'none'
+      });
+
+      $("#individual_progress_bar li").eq($(".form_page").index($(this).parent().next())).addClass("active");
+    }
+  );
+
+  $(".previous").on("click", 
+    function(){
+      $(this).parent().prev().fadeIn("fast");
+      $(this).parent().css({
+        'display': 'none'
+      });
+
+      $(".active:last").removeClass("active");
     }
   );
 
