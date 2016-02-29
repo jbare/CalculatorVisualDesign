@@ -1,24 +1,26 @@
-.blankSpace {
-  width: 100%;
-  float:left;
-  display: inline-block;
-}
 
+/*
 .result {
   float: left;
   width: 100%;
 }
+*/
 
+/*
 .radioDiv {
   float: left;
 
 }
+*/
 
+/*
 .radioLeft {
   float: left;
 
 }
+*/
 
+/*
 .lineupLabel{
     display: inline-block;
     float: left;
@@ -36,6 +38,7 @@
   float: left;
   margin: 0.2% 0% 0% 0%;
 }
+*/
 
 /*html {
   overflow-y:scroll;
@@ -49,6 +52,7 @@ input {
   display: none;
 }
 
+/*
 input[type="radio"], input[type="checkbox"] {
   vertical-align: middle; 
   margin: 0px 0px 0px 40px; 
@@ -57,16 +61,17 @@ input[type="radio"], input[type="checkbox"] {
 input[type="text"][readonly] {
     cursor: auto;
     background-color: #FFFFFF;
-    border: 1px solid gray;
+    border: none;
     box-shadow: none;
 }
 
 input[type="text"][readonly]:focus {
     cursor: auto;
     background-color: #FFFFFF;
-    border: 1px solid gray;
+    border: none;
     box-shadow: none;
 }
+*/
 
 body {    
     font-family: "Droid Sans", sans-serif;
@@ -110,6 +115,7 @@ a:hover {
   border-radius:3px;
   box-shadow: 0 0 15px 1px rgba(0,0,0,4);
   padding: 20px 30px;
+  text-align: left;
 
   box-sizing: border-box;
   width: 100%;
@@ -126,7 +132,7 @@ a:hover {
 /*progress bar styling */
 #individual_progress_bar{
   /*margin-bottom: 20px;*/
-  margin: 0 auto 20px 100px;
+  margin: 0 auto 20px 200px;
   overflow: hidden;
    /* counters to number progress bar steps */
    counter-reset: step;
@@ -177,6 +183,39 @@ a:hover {
   color: white;
 }
 
-#gas2{
-  color: purple;
+.navbar-inverse{
+  background: #2e2929;
+}
+
+#navbar li> a{
+  color: #ECF0F1;
+}
+
+#navbar-title{
+  color: #ECF0F1;
+}
+
+.form-control{
+  width: 10%;
+}
+
+.div{
+  display: block;
+  position: relative;
+}
+
+.label{
+  display: block;
+}
+
+.final{
+  font-weight: bold
+}
+
+.save{
+  color: LimeGreen;
+}
+
+.pay{
+  color: Crimson;
 }

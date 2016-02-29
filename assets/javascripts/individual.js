@@ -64,18 +64,35 @@ $(document).ready(function () {
   nodes.totalNet.computeSpecific = function() {
     this.value = Math.round(this.children[totalSavings].getValue() - this.children[totalCosts].getValue());
 
+    //update net total
+    var net_total = document.getElementById("totalNet_static");
+    var net_total_value = nodes.totalNet.value;
+    net_total.innerHTML = net_total_value;
+
+    //update whether save/pay/neutral
+    var total_summary = document.getElementById("final_summary");
+
     if (this.value > 0) {
+      total_summary.innerHTML="you would save $";
+      /*
       this.divs.save.css( "display", "block");
       this.divs.pay.css( "display", "none");
       this.divs.zero.css( "display", "none");
+      */
     } else if (this.value < 0) {
+      total_summary.innerHTML="you would pay $";
+      /*
       this.divs.save.css( "display", "none");
       this.divs.pay.css( "display", "block");
       this.divs.zero.css( "display", "none");
+      */
     } else {
+      total_summary.innerHTML = "would be neutral: $";
+      /*
       this.divs.save.css( "display", "none");
       this.divs.pay.css( "display", "none");
       this.divs.zero.css( "display", "block");
+      */
     }
   }  
 
@@ -83,17 +100,30 @@ $(document).ready(function () {
   nodes.totalCosts.computeSpecific = function() {
     this.value = Math.round(this.children[gasolineTaxes].getValue() + this.children[airTaxes].getValue() + this.children[homeTaxes].getValue());
 
+    //update summary total cost
+    var costs_total = document.getElementById("totalCosts_static");
+    var costs_total_value = nodes.totalCosts.value;
+    costs_total.innerHTML = costs_total_value;
+
   }
   nodes.totalSavings = new Node(calc, {type: "num", round: 0}, totalSavings, 0, [nodes.totalNet]);
   nodes.totalSavings.computeSpecific = function() {
     this.value = Math.round(this.children[salesTaxSavings].getValue() + this.children[wfr].getValue());
 
-  }
+    //update summary total savings
+    var savings_total = document.getElementById("totalSavings_static");
+    var savings_total_value = nodes.totalSavings.value;
+    savings_total.innerHTML = savings_total_value;
+  }  
 
 
   nodes.salesTaxSavings = new Node(calc, {type: "num", round: 0}, salesTaxSavings, 0, [nodes.totalSavings]);
   nodes.salesTaxSavings.computeSpecific = function() {
     this.value = Math.round(this.children[salesTax].getValue()/8.95);
+
+    //update sales tax summary savings
+    var sales_tax_savings_total = document.getElementById("salesTaxSavings");
+    sales_tax_savings_total.innerHTML = nodes.salesTaxSavings.value;
   }
   nodes.salesTax = new Node(calc, {type: "num", round: 0}, salesTax, 0, [nodes.salesTaxSavings]);
   nodes.salesTax.computeSpecific = function() {
@@ -108,6 +138,9 @@ $(document).ready(function () {
     if (this.children[displaySalesTaxBlock].getValue()) {
       this.divs.salesTaxBlock.css( "display", "block");
     }
+    //update sales tax summary savings
+    var sales_tax_savings_total = document.getElementById("salesTaxSavings");
+    sales_tax_savings_total.innerHTML = nodes.salesTaxSavings.value;
   }
   nodes.displaySalesTaxBlock = new Node(calc, {type: "bool"}, displaySalesTaxBlock, false, [nodes.income]);
 
@@ -116,6 +149,10 @@ $(document).ready(function () {
     if (this.children[calculateWFR].getValue()) {
       this.value = Math.round(this.children[eitc].getValue() * 0.25);
     }
+
+    //update WFR summary
+    var wfr_total = document.getElementById("wfrSavings");
+    wfr_total.innerHTML = nodes.wfr.value;
   }
 
   nodes.calculateWFR = new Node(calc, {type: "bool"}, calculateWFR, false, [nodes.wfr]);
@@ -173,6 +210,10 @@ $(document).ready(function () {
 
       this.value = Math.max(this.value, 0);
     }
+
+    //update eitc
+    var eitc_filled_total = document.getElementById("eitc_filled");
+    eitc_filled_total.innerHTML = Math.round(nodes.eitc.value);
   }
 
   nodes.autoUpdateEITC = new Node(calc, {type: "bool"}, autoUpdateEITC, true, [nodes.eitc]);
@@ -193,6 +234,8 @@ $(document).ready(function () {
       this.value = Math.round(this.children[miles].getValue()/this.children[mpg].getValue()*this.children[milesTimeframe].getValue()*8.91/1000*25);
     }
 
+    var gas_cost_final = document.getElementById("gasolineLosses");
+    gas_cost_final.innerHTML = nodes.gasolineTaxes.value;
   }
 
   nodes.gasolineCalcMethod = new Node(calc, {type: "num", round: 0}, gasolineCalcMethod, 0, [nodes.gasolineTaxes]);
@@ -219,6 +262,10 @@ $(document).ready(function () {
   nodes.airTaxes.computeSpecific = function() {
     this.value = Math.round(this.children[seatMiles].getValue()/60*9.57/1000*25);
 
+    //update final air taxes summary
+    var airTaxes_final = document.getElementById("airTaxes");
+    airTaxes_final.innerHTML = nodes.airTaxes.value;
+
   }
   nodes.seatMiles = new Node(calc, {type: "num", round: 0}, seatMiles, 0, [nodes.airTaxes]);
   nodes.homeTaxes = new Node(calc, {type: "num", round: 0}, homeTaxes, 0, [nodes.totalCosts]);
@@ -234,6 +281,10 @@ $(document).ready(function () {
 
       this.divs.energyResult.css( "display", "block");
     }
+
+    //update span for total energy usages
+    var homeTaxes_final = document.getElementById("homeEnergyLosses");
+    homeTaxes_final.innerHTML = nodes.homeTaxes.value;
   }
   nodes.noClicked = new Node(calc, {type: "bool"}, noClicked, false, [nodes.homeTaxes]);
   nodes.displayApproxPercentage = new Node(calc, {type: "bool"}, displayApproxPercentage, false, [nodes.homeTaxes]);
@@ -250,6 +301,9 @@ $(document).ready(function () {
         this.value = 0;
       }
     }
+
+    var natGas_final = document.getElementById("natGasLosses");
+    natGas_final.innerHTML = nodes.natGasLosses.value;
   }
 
   nodes.fuelOilLosses = new Node(calc, {type: "num", round: 0}, fuelOilLosses, 0, [nodes.homeTaxes]);
@@ -263,6 +317,10 @@ $(document).ready(function () {
         this.value = 0;
       }
     }
+
+    //update summary span for fuel
+    var fuelOil_final = document.getElementById("fuelOilLosses");
+    fuelOil_final.innerHTML = nodes.fuelOilLosses.value;
   }
 
   nodes.elecLosses = new Node(calc, {type: "num", round: 0}, elecLosses, 0, [nodes.homeTaxes]);
@@ -276,6 +334,10 @@ $(document).ready(function () {
         this.value = Math.round(this.children[utilityCostRate].getValue()*(11000)/100*this.children[usageComp].getValue()/100*this.children[percentSplit].getValue()/100);
       }
     }
+
+    //update summary span for electricity
+    var elecLosses_final = document.getElementById("elecLosses");
+    elecLosses_final.innerHTML = nodes.elecLosses.value;
   }
   nodes.heatingType = new Node(calc, {type: "num"}, heatingType, natGas, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
 
@@ -512,6 +574,16 @@ $(document).ready(function () {
       nodes.income1.setValue(nodes.income.getValue());
       calc.compute();
       $(".next").removeClass("disabled");
+
+      //update estimated sales tax payment
+      var sales_tax_elements = document.getElementById("salesTaxPayment_filled");
+      var sales_tax_calc = nodes.salesTax.value;
+      sales_tax_elements.innerHTML = sales_tax_calc;
+
+      //update household income on WFR page
+      var income_elements = document.getElementById("income1");
+      var income_val = nodes.income1.value;
+      income_elements.innerHTML = income_val;
     }
   );
 
@@ -595,6 +667,18 @@ $(document).ready(function () {
           nodes.gasolineCalcMethod.setValueBasic(0);
           elements.gallons.updateNode();
           elements.gallonsTimeframe.updateNode();
+
+          //disable text entry fields for option 2
+          $("#gasCost").attr('disabled', 'disabled');
+          $("#dollars").attr('disabled', 'disabled');
+
+          //enable text entry field for option 1
+          $("#gallons").removeAttr('disabled');
+
+          //disable text entry field for option 3
+          $("#mpg").attr('disabled', 'disabled');
+          $("#miles").attr('disabled', 'disabled');
+
         } else if (_i == 1) {
           $("#gasOptionOne").attr('disabled', 'disabled');
           $("#gasOptionOne").css('background-color', 'white');
@@ -606,6 +690,19 @@ $(document).ready(function () {
           elements.dollars.updateNode();
           elements.dollarsTimeframe.updateNode();
           elements.dpg.updateNode();
+
+
+          //enable text entry fields for option 2
+          $("#gasCost").removeAttr('disabled');
+          $("#dollars").removeAttr('disabled');
+
+          //disable text entry field for option 1
+          $("#gallons").attr('disabled', 'disabled');
+
+          //disable text entry field for option 3
+          $("#mpg").attr('disabled', 'disabled');
+          $("#miles").attr('disabled', 'disabled');
+
         } else {
           $("#gasOptionOne").attr('disabled', 'disabled');
           $("#gasOptionOne").css('background-color', 'white');
@@ -617,12 +714,24 @@ $(document).ready(function () {
           elements.miles.updateNode();
           elements.milesTimeframe.updateNode();
           elements.mpg.updateNode();
+
+          //disable text entry fields for option 2
+          $("#gasCost").attr('disabled', 'disabled');
+          $("#dollars").attr('disabled', 'disabled');
+
+          //disable text entry field for option 1
+          $("#gallons").attr('disabled', 'disabled');
+
+          //enable text entry field for option 3
+          $("#mpg").removeAttr('disabled');
+          $("#miles").removeAttr('disabled');
         }
         calc.compute();
         
       };
     })(i);
   }
+
 
   $("#submitGallons").click(
       function () {
@@ -652,6 +761,42 @@ $(document).ready(function () {
         calc.compute();
     }
   );
+
+
+/*
+  $("#submitGas").on("click", 
+    function(){
+      if(document.getElementById("gasOptionOne_radio").checked){
+        console.log("foo");
+        function submitGallons(){
+          console.log("inside_foo");
+          nodes.gasolineCalcMethod.setValueBasic(0);
+          elements.gallons.updateNode();
+          elements.gallonsTimeframe.updateNode();
+          calc.compute();
+        }    
+      }
+      else if(document.getElementById("gasOptionTwo_radio").checked){
+        function submitDollars(){
+          nodes.gasolineCalcMethod.setValueBasic(1);
+          elements.dollars.updateNode();
+          elements.dollarsTimeframe.updateNode();
+          elements.dpg.updateNode();
+          calc.compute();
+        }
+      }
+      else{
+        function submitMileage(){
+          nodes.gasolineCalcMethod.setValueBasic(2);
+          elements.miles.updateNode();
+          elements.milesTimeframe.updateNode();
+          elements.mpg.updateNode();
+          calc.compute();
+        }
+      }
+
+  });
+*/
 
   $("#submitSeatMiles").on("click", 
     function () {

@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head
-         content must come *after* these tags -->
-  <title>Carbon Tax Swap Calculator</title>
-
-  <!--
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <!-- The above 3 meta tags *must* come first in the head; any other head
+         content must come *after* these tags -->         
+        <title>Carbon Tax Swap Calculator</title>         
+        <!--
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
   <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
@@ -17,25 +16,21 @@
   <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
   <script src="assets/javascripts/jquery.validate.js"></script>  
   <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
-  -->
-  
-  <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
-  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
-  <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
-  
-  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
-  <!--
+  -->         
+        <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css"> 
+        <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
+        <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet"> 
+        <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet"> 
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->         
+        <!--
   <script src="assets/javascripts/jquery-1.11.1.js"></script>  
   <script src="assets/javascripts/jquery-ui.min.js"></script>
--->
-  <script src="assets/javascripts/jquery-2.1.4.min.js"></script>
-
-  <!-- Bootstrap -->
-  <script src="assets/javascripts/bootstrap.min.js"></script>
-
-  <script src="assets/javascripts/individual.js"></script>
-  <script>
+-->         
+        <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         
+        <!-- Bootstrap -->         
+        <script src="assets/javascripts/bootstrap.min.js"></script>         
+        <script src="assets/javascripts/individual.js"></script>         
+        <script>
     $(function() {
       $( "#accordion" ).accordion({
         collapsible:true,
@@ -43,124 +38,90 @@
         active: 0
       });
     });
-  </script>
-
-  <script type="text/javascript">
+  </script>         
+        <script type="text/javascript">
     var source=$("navbar_script").html();
     var template=Handlebars.compile(source);
-  </script>
-</head>
+  </script>         
+    </head>     
+    <body class=""> 
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+            <div class="container"> 
+                <div class="navbar-header"> 
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> 
+                        <span class="sr-only">Toggle navigation</span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button>                     
+                    <a class="navbar-brand" href="index.html">Revenue Neutral Carbon Tax Calculator</a> 
+                </div>                 
+                <!-- collapsable nav for small screens -->                 
+                <div id="navbar" class="collapse navbar-collapse"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <li> 
+                            <a href="index.html">Home</a> 
+                        </li>                         
+                        <li> 
+                            <a href="individual.html">Household Calculator</a> 
+                        </li>                         
+                        <li> 
+                            <a href="business.html">Business Calculator</a> 
+                        </li>                         
+                        <li class="active"> 
+                            <a href="about.html">About</a> 
+                        </li>                         
+                    </ul>                     
+                </div>                 
+            </div>             
+        </nav>         
 
-<body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Revenue Neutral Carbon Tax Calculator</a>
-        </div>
-
-        <!-- collapsable nav for small screens -->
-          <div id="navbar" class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li>
-                    <a href="individual.html">Household Calculator</a>
-                  </li>
-                  <li>
-                    <a href="business.html">Business Calculator</a>
-                  </li>
-                  <li class="active">
-                    <a href="about.html">About</a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
-   <!--  <h4>Instructions</h4>
-
-    <p>
-      If you ever need help, click on one of the question marks ( <a class="box"><b>?</b></a> ) for more information about how to fill out the calculator. 
-    </p> -->
-
-  <div class="container">
-    <div class="row row-content">
-      <div class="col-xs-12">
-        <h4>Methodology</h4>
-        <p>
-          Want an in depth look at whats going on behind the scenes as you use this calculator? Check out the <a href="assets/docs/methodology.pdf" target="_blank">methodology report</a> to see how we estimate the financial effect of the policy on your household.
-        </p>
-      </div>
-    </div>
-    <div class="row row-content">
-      <div class="col-xs-12">
-        <h4>About</h4>
-      </div>
-    </div>
-    <div class="row row-content">
-      <div class="col-xs-12">
-        <p>Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
-      </div>
-      <div class="col-xs-12 col-sm-9">
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                  <img class="media-object img-thumbnail"
-                   src="#" alt="Justin profile">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <p>Justin Bare is a PhD student in Computer Science and Engineering at the University of Washington. 
-                    Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    <div class="row row-content">
-      <div class="col-xs-12 col-sm-9">
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                  <img class="media-object img-thumbnail"
-                   src="#" alt="Alan profile">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <p>Alan Borning is a professor in Computer Science and Engineering at the University of Washington. 
-                    Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    <div class="row row-content">
-      <div class="col-xs-12">
-        <h4>Contact Us</h4>
-        <p>
-          If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
-        </p>
-      </div>
-    </div>
-
-    <div class="row row-content">
-      <div class="col-xs-12">
-        <h4>Privacy</h4>
-        <p>
-          No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. 
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/javascripts/jquery.min.js"></script>
-  <script src="assets/javascripts/bootstrap.min.js"></script>
-
-</body>
+        <div class="container">             
+            <div class="row row-content"> 
+                <div class="col-xs-12"> 
+                    <h4>Who We Are</h4> 
+                </div>                 
+            </div>                        
+            <div class="row row-content"> 
+                <div class="col-xs-12">
+                  <p>Meet the creators behind this calculator.</p>
+                    <ul class="media-list"> 
+                        <li class="media"> 
+                            <img class="media-object pull-left" src="" width="100" alt="Justin profile">                             
+                            <div class="media-body"> 
+                                <b>Justin Bare</b> is a PhD student in Computer Science and Engineering at the University of Washington. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.
+                            </div>                             
+                        </li>                         
+                        <li class="media"> 
+                            <img class="media-object pull-left" src="assets/imgs/Borning_UW_Photo.jpg" width="100" alt="Alan profile">                            
+                            <div class="media-body"> 
+                                <b>Alan Borning</b> is a professor in the
+                                <a href="http://www.cs.washington.edu/"> Department of Computer Science &amp; Engineering</a> at the&nbsp;
+                                <a href="http://www.uw.edu/"> University of Washington</a>, an adjunct professor in the
+                                <a href="http://ischool.uw.edu/"> Information School</a>, and a member of the
+                                <a href="http://depts.washington.edu/urbdpphd/"> Interdisciplinary Ph.D. Program in Urban Design and Planning</a>. His current research is in two areas: human-computer interaction and programming languages. You can learn more about him on his 
+                                <a href="http://www.cs.washington.edu/people/faculty/borning">faculty webpage</a>.
+                            </div>                             
+                        </li>                         
+                    </ul>                     
+                    <h4>Methodology</h4> 
+                    <p> Want an in depth look at whats going on behind the scenes as you use this calculator? Check out the <a href="assets/docs/methodology.pdf" target="_blank">methodology report</a> to see how we estimate the financial effect of the policy on your household.</p> 
+                </div>                 
+            </div>             
+            <div class="row row-content"> 
+                <div class="col-xs-12"> 
+                    <h4>Contact Us</h4> 
+                    <p> If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p> 
+                </div>                 
+            </div>             
+            <div class="row row-content"> 
+                <div class="col-xs-12"> 
+                    <h4>Privacy</h4> 
+                    <p> No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. </p> 
+                </div>                 
+            </div>             
+        </div>         
+        <script src="assets/javascripts/jquery.min.js"></script>         
+        <script src="assets/javascripts/bootstrap.min.js"></script>         
+    </body>     
 </html>
