@@ -219,3 +219,26 @@ a:hover {
 .pay{
   color: Crimson;
 }
+
+.row-footer{
+    background-color: #AfAfAf;
+    margin:0px auto;
+    padding: 20px 0px 20px 0px;
+}
+
+.tab_nav{
+  margin: 100px 0px 0px 0px;
+}
+
+.form_box{
+  margin: 100px 0px 0px 0px;
+  border: 1px solid black;
+}
+
+#gasOptionTwo{
+  display: none; /*hide div initially*/
+}
+
+#gasOptionThree{
+  display: none; /*hide div initially*/
+}

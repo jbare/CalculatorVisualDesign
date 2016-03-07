@@ -55,7 +55,7 @@ var displaySalesTaxBlock = "displaySalesTaxBlock";
 
 
 $(document).ready(function () {
-  $( document ).tooltip(); 
+  $( document ).uitooltip(); 
   
   var calc = new Calculator();
   var nodes = {};
@@ -587,6 +587,9 @@ $(document).ready(function () {
     }
   );
 
+
+
+/*
   $(".next").on("click", 
     function(){
       $(this).parent().next().fadeIn("fast");
@@ -608,9 +611,11 @@ $(document).ready(function () {
       $(".active:last").removeClass("active");
     }
   );
+  */
 
   $("#submitSalesTax").on("click", 
     function () {
+      $("#updated_taxes").show();
       nodes.autoUpdateSalesTax.setValueBasic(false);
       elements.salesTax.updateNode();
       calc.compute();
@@ -805,6 +810,7 @@ $(document).ready(function () {
     }
   );
 
+
   $("#split").on("click", 
     function () {
       nodes.split.setValue(true);
@@ -849,6 +855,11 @@ $(document).ready(function () {
 
   $("#yes").on("click", 
     function () {
+      //change button ID on electricity to submitUsage
+      var elec_button_names = document.getElementsByName("placeholder_elec_button");
+      var changeable_elec_name=elec_button_names[0];
+      changeable_elec_name.id="submitUsage";
+
       nodes.noClicked.setValueBasic(false);
       nodes.exactEnergy.setValue(true);
       calc.compute();
@@ -860,6 +871,11 @@ $(document).ready(function () {
 
   $("#no").on("click", 
     function () {
+      //change button ID on electricity to submitPercenteOfAverage
+      var elec_button_names = document.getElementsByName("placeholder_elec_button");
+      var changeable_elec_name=elec_button_names[0];
+      changeable_elec_name.id="submitPercentOfAverage";
+
       nodes.noClicked.setValueBasic(true);
       nodes.exactEnergy.setValue(false);
       calc.compute();
@@ -965,7 +981,7 @@ FormElement.prototype.updateNode = function() {
 FormElement.prototype.validator = function() {
   this.object.prop("title", "");
   this.object.css("background-color", "white");
-  this.object.tooltip({ content: "" });
+  this.object.uitooltip({ content: "" });
 }
 
 FormElement.prototype.invalidator = function() {
@@ -976,7 +992,7 @@ FormElement.prototype.invalidator = function() {
   }
 
   this.object.css("background-color", "#FFCCCC");
-  this.object.tooltip();
+  this.object.uitooltip();
 }
 
 function Node(calc, dataType, name, value, parentNodes) {

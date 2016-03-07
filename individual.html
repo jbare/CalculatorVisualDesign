@@ -26,31 +26,26 @@
   
 
   <script src="assets/javascripts/jquery-2.1.4.min.js"></script> 
-  <!-- Bootstrap -->
-  <script src="assets/javascripts/bootstrap.min.js"></script>
-  
-
-  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
-  <script src="assets/javascripts/jquery-2.1.4.min.js"></script>  
-
   <script src="assets/javascripts/jquery-ui.min.js"></script>
   <script type="text/javascript" src="assets/javascripts/jquery.tooltipster.js"></script>
-  
+
+  <script type="text/javascript">
+  // Change JQueryUI plugin names to fix name collision with Bootstrap.
+    $.widget.bridge('uitooltip', $.ui.tooltip);
+    $.widget.bridge('uibutton', $.ui.button);
+  </script>
 
   <script src="assets/javascripts/individual.js"></script>
-  <script>
-    $(function() {
-      $( "#accordion" ).accordion({
-        collapsible:true,
-        heightStyle: "content",
-        active: 0
-      });
 
-    });
-  </script>
+  <script src="assets/javascripts/bootstrap.min.js"></script>
+
+
+  
+
+
   <script>
     $(document).ready(function() {
-      $('.tooltip').tooltipster();
+      $('.uitooltip').tooltipster();
       $('#salesTaxTool').tooltipster({
         content: $('<img src="salesTaxEstimate.png" style="float:left;margin-right:10px;"/> <div style="float:right;width:300px"> <p >This estimate of the amount of sales tax your household pays per year is computed using data from the <a href="http://dor.wa.gov/content/aboutus/statisticsandreports/wataxstudy/final_report.htm" target="_blank">2002 Tax Structure Study Report</a>. The graph shown here depicts the data from Table 9-1 of this study in <strong><font color="red">red</font></strong>. The <strong>black</strong> line depicts a smooth trend curve among the data points. We input your income into the function represented by this black line and the result is an estimate of the sales tax that you pay. </p> </div>'),
         position: 'left',
@@ -116,6 +111,10 @@
       });
     });
   </script>
+
+  <!-- Bootstrap -->
+  <script src="assets/javascripts/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -128,7 +127,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" id="navbar-title">Revenue Neutral Carbon Tax Calculator</a>
+            <a class="navbar-brand" href="index.html" id="navbar-title">Carbon Tax Swap Calculator</a>
         </div>
 
         <!-- this div hides the items from the navigation bar for smaller screens -->
@@ -150,171 +149,134 @@
           </div>
       </div>
   </nav>
-  <form id="individual_class_form" role="form">
 
-
-    <!-- Progress bar for multi step form -->
-    
-<!--
-    <ul id="individual_progress_bar">
-      <li class="active"><a href="#page_sales_tax">Sales Tax Savings</a></li>
-      <li>Working Family Rebate (WFR)</li>
-      <li>Gasoline and Diesel Usage</li>
-      <li>Air Travel</li>
-      <li>Home Energy Usage</li>
-      <li>Summary</li>
-    </ul>
-  -->
-
-    <!-- pages of forms -->
-    <div class="form_page form-group row row-content" id="page_sales_tax">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0%" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-          <span>0%</span>
+  <div class="container">
+    <div class="form_box">
+      <ul class="nav nav-tabs wizard_tabs" role="tablist" id="wizard_tab_nav">
+        <li class="active" role="presentation"><a href="#intro_page" data-toggle="tab" aria-controls="welcome" role="tab">Welcome</a></li>
+        <li role="presentation"><a href="#sales_tax_page" data-toggle="tab" aria-controls="1. income" role="tab">Income</a></li>
+        <li role="presentation"><a href="#estimated_taxes_page" data-toggle="tab" aria-controls="3. estimated taxes" role="tab">Estimated Taxes</a></li>
+        <li role="presentation"><a href="#wfr_page" data-toggle="tab" aria-controls="3. working family rebate" role="tab">Working Family Rebate</a></li>
+        <li role="presentation"><a href="#eitc_page" data-toggle="tab" aria-controls="4. earned income tax credit" role="tab">EITC</a></li>
+        <li role="presentation"><a href="#gas_page" data-toggle="tab" aria-controls="5. gasoine and diesel usage" role="tab">Gasoline and Diesel Usage</a></li>
+        <li role="presentation"><a href="#air_page" data-toggle="tab" aria-controls="6. air travel" role="tab">Air Travel</a></li>
+        <li role="presentation"><a href="#elec_page" data-toggle="tab" aria-controls="7. home energy usage" role="tab">Home Energy Usage</a></li>
+        <li role="presentation"><a href="#summary_page" data-toggle="tab" aria-controls="8. summary" role="tab">Summary</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="intro_page" role="tabpanel">
+          <h2>Welcome!</h2>
+          <p>Thanks for checking out our household calculator! This should only take a few minutes.</p>
+          <p>We'll ask you a few questions about yourself and your expenses in order to best calculate the impact of CarbonWA's proposal on your and your household. We encourage you to skip around and change your estimates and see how that affects the result.</p>
+          <br>
+          <a class="btn btn-primary next_button">Start Calculating</a>
         </div>
-      </div>
-      <div>
-        <h2 class="fs-title">Sales Tax Savings</h2>
-        <div>
-          <label for="submitIncome" class="control-label">What is your annual household income? $</label>
-          <input type="text" id="income" placeholder="Enter annual income" name="income" role="input">
-          <!--<input type="button" class="btn btn-primary" value="Submit" id="submitIncome" role="button">-->
-        </div>
-      </div>
-      <br>
-      <!--
-      <div>
-        <label for="salesTaxPayment">Estimated state and local sales taxes per year $</label> 
-        <input type="text" id="salesTaxPayment" value="0" > per year. <img id="salesTaxTool" src="questionMark.png"/>
-        <br>
-        <label for"submitSalesTax">Have a better estimate of how much you pay? Edit the estimated taxes and press</label>
-        <input type="button" class="btn btn-primary" value="Update"  id="submitSalesTax"> 
-      </div>
-    -->
 
-      <!--
-      <div class="reveal" id="salesTax" class="form-group">
-    
-        With a 1 percentage point reduction in sales tax, we estimate that your household would save: <br> <br>
-        <center>$<input value="0" type="text" id="salesTaxSavings" class="autofill" readonly> per year <img id="salesTaxSavingsTool" src="questionMark.png"  /></center><br>
-      </div>
-    -->
-      <input type="button" name="submitIncome" class="next btn btn-primary" id = "submitIncome" value="Next" role="button">
-    </div>
-
-    <div class="form_page form-group row row-content">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="100" style="width:10%">
-          <span>10%</span>
-        </div>
-      </div>
-      <div>
-        <p>We estimate that you pay $<span id="salesTaxPayment_filled"></span> per year in state and local sales taxes. <img id="salesTaxTool" src="questionMark.png"/></p>
-        <p>Have a better estimate of how much you pay? Edit Estimated Taxes and press Update.</p>
-        <label for="salesTaxPayment">Estimated Taxes: </label>
-        <input type="text" id="salesTaxPayment" value="0">
-        <input type="button" class="btn btn-primary" value="Update"  id="submitSalesTax">
-      </div>
-
-      <input type="button" name="previous" class="previous btn btn-secondary" value="Previous" id="previous" role="button">
-      <input type="button" name="next" class="next btn btn-primary" value="Next" id="next" role="button">
-    </div>
-
-    <div class="form_page form-group row row-content">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-          <span>20%</span>
-        </div>
-      </div>
-      <h2 class="fs-title">Working Family Rebate (WFR)</h2>
-      <div>
-        <p>
-          If you are sure that your annual household income of $<span id="income1" value="0" class="text_only" readonly>0</span> does not qualify for the federal Earned Income Tax Credit (EITC), please skip this section.
-        </p>
-      </div>
-      <div>
-        <div>
-          <label for="dependents" id="dependents_label">How many dependents do you claim on your taxes?</label>
+        <div class="tab-pane fade" id="sales_tax_page" role="tabpanel">
+          <h2>Income</h2>
           <div>
-            <select class="form-control" id="dependents">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">More than 3</option>
-            </select>
+            <label for="submitIncome" class="control-label">What is your annual household income? $</label>
+            <input type="text" id="income" placeholder="Enter annual income" name="income" role="input">     
           </div>
+            <br>
+            <a class="btn btn-primary prev_button">Previous</a>
+            <a class="btn btn-primary next_button" name="submitIncome" id="submitIncome" role="button">Next</a>
         </div>
-      </div>
-      <div>
-        <label for="taxStatus">Do you file your taxes as married, filing jointly?</label>
-        <div class="radio">
-          <label><input type="radio" name="taxStatus" value="marriedJointly">Yes</label>
-          <label><input type="radio" name="taxStatus" value="single">No</label>
+
+        <div class="tab-pane fade" id="estimated_taxes_page" role="tabpanel">
+          <h2>Estimated Taxes</h2>
+          <div>
+            <p>We estimate that you pay $<span id="salesTaxPayment_filled"></span> per year in state and local sales taxes. <img id="salesTaxTool" src="questionMark.png"/></p>
+            <p>Have a better estimate of how much you pay? Edit Estimated Taxes and press Update.</p>
+            <label for="salesTaxPayment">Estimated Taxes: $</label>
+            <input type="text" id="salesTaxPayment" value="0">
+            <input type="button" class="btn btn-primary" value="Update"  id="submitSalesTax">
+            <div class="reveal" id="updated_taxes">
+              <p id="updated_taxes_text">Thank you. We have updated your tax payment amount.</p>
+            </div>
+          </div>
+          <br>
+          <a class="btn btn-primary prev_button">Previous</a>
+          <a class="btn btn-primary next_button">Next</a>
         </div>
-      </div>
 
-      <!--
-      <div>
-          We estimate that you qualify for a federal EITC of:
-          $<input type="text" id="eitc"> <img id="eitcTool" src="questionMark.png"  /> If you have a better estimate of your federal EITC, please edit the value above and click
-          <input type="button" value="Update" class="btn btn-primary btn-medium" id="submitEITC">.
-      </div>
-    -->
-      <!--
-      <div class="reveal" id="WFR" >
-        <p>
-          We estimate that you qualify for a federal EITC of:
-          $<input type="text" id="eitc"> <img id="eitcTool" src="questionMark.png"  /> If you have a better estimate of your federal EITC, please edit the value above and click
-          <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitEITC">. <br> <br>
-          <br>We estimate that your household would qualify for a state Working Families Rebate of: <br> <br>
-          <center>$<input value="0.00" type="text" id="wfrSavings" readonly> per year <img id="wfrTool" src="questionMark.png"  /></center><br>
-        </p>
-      </div>
-    -->
-      <input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn btn-primary" value="Next" id="next">
-    </div>
-
-    <div class="form_page form-group row row-content">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="100" style="width:30%">
-          <span>30%</span>
+        <div class="tab-pane fade" id="wfr_page" role="tabpanel">
+          <h2 class="fs-title">Working Family Rebate (WFR)</h2>
+          <div>
+            <p>
+              If you are sure that your annual household income of $<span id="income1" value="0" class="text_only" readonly>0</span> does not qualify for the federal Earned Income Tax Credit (EITC), please skip to <a id="skip_to_5" href="#" data-toggle="tab">Gasoline and Diesel Usage</a>
+            </p>
+          </div>
+          <div>
+            <div>
+              <label for="dependents" id="dependents_label">How many dependents do you claim on your taxes?</label>
+              <div>
+                <select class="form-control" id="dependents">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">More than 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="taxStatus">Do you file your taxes as married, filing jointly?</label>
+            <div class="radio">
+              <label><input type="radio" name="taxStatus" value="marriedJointly">Yes</label>
+              <label><input type="radio" name="taxStatus" value="single">No</label>
+            </div>
+          </div>
+          <br>
+          <a class="btn btn-primary prev_button">Previous</a>
+          <a class="btn btn-primary next_button">Next</a>
         </div>
-      </div>
-      <div>
-          <p>We estimate that you qualify for a federal Earned Income Tax Credit(EITC) of $<span id="eitc_filled">0</span>. <img id="eitcTool" src="questionMark.png"/>
-          <p>If you have a better estimate of your federal EITC, please edit the EITC and click Update</p>
-          <label for="eitc">EITC: </label>
-          <input type="text" id="eitc" value="0">
-          <input type="button" value="Update" class="btn btn-primary btn-medium" id="submitEITC">.
-      </div>
-      <!--
-      <p>Great! We estimate that you qualify for a federal Earned Income Tax Credit of $<span id="eitc">0</span>. <img id="salesTaxTool" src="questionMark.png"/></p>
-      <p>Have a better estimate? Blah blah blah blah</p>
-    -->
 
-      <input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button  btn btn-primary" value="Next" id="next">
-    </div>
-
-    <div class="form_page form-group row row-content">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40%" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-          <span>40%</span>
+        <div class="tab-pane fade" id="eitc_page" role="tabpanel">
+          <h2>Earned Income Tax Credit</h2>
+          <div>
+            <p>We estimate that you qualify for a federal Earned Income Tax Credit(EITC) of $<span id="eitc_filled">0</span>. <img id="eitcTool" src="questionMark.png"/>
+            <p>If you have a better estimate of your federal EITC, please edit the EITC and click Update</p>
+            <label for="eitc">EITC: $</label>
+            <input type="text" id="eitc" value="0">
+            <input type="button" value="Update" class="btn btn-primary btn-medium" id="submitEITC">.
+            <div class="reveal" id="updated_eitc">
+              <p id="updated_eitc_text">Thank you. We have updated your EITC estimate.</p>
+            </div>
+          </div>
+          <br>
+          <a class="btn btn-primary prev_button">Previous</a>
+          <a class="btn btn-primary next_button">Next</a>
         </div>
-      </div>
-      <div>
-        <h2 class="fs-title">Gasoline and Diesel Usage</h2>
-        <p>
-          How much gasoline does your household use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <strong>one</strong> of these three calculation options: 
-        </p> 
-        
-        <div class="btn-group" data-toggle="buttons" role="group" aria-label="gasoline options">
-          <div class="radio active">
-            <label>
-              <input type="radio" name="gas" value="one" id ="gasOptionOne_radio" checked>By gallons used
-            </label>
 
+        <div class="tab-pane fade" id="gas_page" role="tabpanel">
+          <h2 class="fs-title">Gasoline and Diesel Usage</h2>
+          <p>
+            How much gasoline does your household use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <strong>one</strong> of these three calculation options: 
+          </p> 
+
+          <!-- Radio buttons to choose submission type-->
+          <div class="btn-group" data-toggle="buttons" role="group" aria-label="gasoline options">
+            <div class="radio active">
+              <label>
+                <input type="radio" name="gas" value="one" id ="gasOptionOne_radio" checked>By gallons used
+              </label>
+            </div>
+            <div class="radio active">
+              <label>
+                <input type="radio" name="gas" value="two" id="gasOptionTwo_radio">By amount spent
+              </label>
+            </div>
+            <div class="radio active">
+              <label>
+                <input type="radio" name="gas" value="three" id="gasOptionThree_radio">By mileage
+              </label>
+            </div>
+          </div>
+
+
+          <!--divs to hide and show based on radio button -->
+          <div id="gas_option_divs">
             <div id="gasOptionOne">
               <label for "gallons" class="col-xs-12">How many gallons does your household use?: </label>
               <div class="col-xs-12">
@@ -326,294 +288,246 @@
                     <option value="1">Year</option>
                   </select>
                 </div>
-                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitGallons"> 
               </div>
             </div>
-          </div>
-
-          <div class="radio active">
-            <label>
-              <input type="radio" name="gas" value="two" id="gasOptionTwo_radio">By amount spent
-            </label>
 
             <div id="gasOptionTwo">
-              <div class="col-xs-12">
-                <label for="gasCost" class="col-xs-12">How much do you pay per gallon? </label>
-                <input type="text" id="gasCost" value="2.40" class="col-xs-2 pull-xs-2" disabled>
-              </div>
+                <div class="col-xs-12">
+                  <label for="gasCost" class="col-xs-12">How much do you pay per gallon? </label>
+                  <input type="text" id="gasCost" value="2.40" class="col-xs-2 pull-xs-2">
+                </div>
 
-              <div class="col-xs-12">
-                <label for="dollars" class="col-xs-12">How much do you spend on gasoline? </label>
-                <input type="text" id="dollars" value="0.00" class="col-xs-2 pull-xs-2" sr-only="Enter cost" disabled required>
-                <div>
-                  <select class="form-control col-xs-4" id="dollarTimeframe">
-                    <option value="52">Week</option>
-                    <option value="12">Month</option>
-                    <option value="1">Year</option>
-                  </select> 
+                <div class="col-xs-12">
+                  <label for="dollars" class="col-xs-12">How much do you spend on gasoline? </label>
+                  <input type="text" id="dollars" value="0.00" class="col-xs-2 pull-xs-2" sr-only="Enter cost"required>
+                  <div>
+                    <select class="form-control col-xs-4" id="dollarTimeframe">
+                      <option value="52">Week</option>
+                      <option value="12">Month</option>
+                      <option value="1">Year</option>
+                    </select> 
+                  </div>
                 </div>
               </div>
-              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitDollars"> 
-            </div>
-          </div>
 
-          <div class="radio active">
-            <label>
-              <input type="radio" name="gas" value="three" id="gasOptionThree_radio">By mileage
-            </label>
-
-            <div id="gasOptionThree">
-              <div class="col-xs-12">
-                <label for="mpg">How many miles per gallon do your vehicles average?</label>
-                <input type="text" id="mpg" value="30" disabled>
-              </div>
-
-              <div class="col-xs-12">
-                <label for="miles" class="col-xs-12">How many miles does your household drive?</labeL>
-                <input type="text" id="miles" value="0" class="col-xs-2 pull-xs-2" disabled required>
-                <div>
-                  <select class="form-control" id="mileageTimeframe">
-                    <option value="52">Week</option>
-                    <option value="12">Month</option>
-                    <option value="1">Year</option>                               
-                  </select>
+              <div id="gasOptionThree">
+                <div class="col-xs-12">
+                  <label for="mpg">How many miles per gallon do your vehicles average?</label>
+                  <input type="text" id="mpg" value="30">
                 </div>
-              </div>
-              
-              <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitMileage"> 
-            
-            </div>
+
+                <div class="col-xs-12">
+                  <label for="miles" class="col-xs-12">How many miles does your household drive?</label>
+                  <input type="text" id="miles" value="0" class="col-xs-2 pull-xs-2"required>
+                  <div>
+                    <select class="form-control" id="mileageTimeframe">
+                      <option value="52">Week</option>
+                      <option value="12">Month</option>
+                      <option value="1">Year</option>                               
+                    </select>
+                  </div>
+                </div>
+              </div> 
           </div>
+
+          <br>
+          <a class="btn btn-primary prev_button">Previous</a>
+          <a class="btn btn-primary next_button" name = "placeholder_btn_name" id="submitGallons">Next</a>
         </div>
 
-        <!--
-        <div class="blankSpace">
-          <p>
-            &nbsp;
-            <br>We estimate that your household would spend this much more due to carbon taxes on gasoline: <br> <br>
-          </p>
-        </div> 
-
-        
-        <div class="result">
-          <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year <img id="gasTool" src="questionMark.png"  /></center><br>
-        </div>
-      -->
-      
-      </div>
-      <input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" id="previous" role="button">
-      <input type="button" name="next" class="next action-button btn btn-primary" value="Next" id="submitGas" role="button">
-    </div>
-
-    <div class="form_page form-group row row-content">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60%" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-          <span>60%</span>
-        </div>
-      </div>
-      <div>
-      <h2 class="fs-title">Air Travel</h2>
-        <div>
-          <label for="seatMiles">How many miles does your household fly for personal reasons per year, taking off from airports in Washington State?</label>
-          <p>
-            Remember to add up the miles for each person. Example: The Smiths, a family of 3, flew from Seattle to Los Angeles, which is 1000 miles. 3 people x 1000 miles = 3000.
-          </p>
+        <div class="tab-pane fade" id="air_page" role="tabpanel">
+          <h2 class="fs-title">Air Travel</h2>
           <div>
-            <input type="text" id="seatMiles" value="0"> seat-miles
+            <label for="seatMiles">How many miles does your household fly for personal reasons per year, taking off from airports in Washington State?</label>
+            <p>
+              Remember to add up the miles for each person. Example: The Smiths, a family of 3, flew from Seattle to Los Angeles, which is 1000 miles. 3 people x 1000 miles = 3000.
+            </p>
+            <div>
+              <input type="text" id="seatMiles" value="0">miles 
+            </div>
           </div>
-          <!--
-            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSeatMiles">
-          -->
+            <br>
+            <a class="btn btn-primary prev_button">Previous</a>
+            <a class="btn btn-primary next_button" id="submitSeatMiles">Next</a>
+        </div>
 
-          <!--
+        <div class="tab-pane fade" id="elec_page" role="tabpanel">
+
+          <h2 class="fs-title">Home Energy Usage</h2>
           <p>
-            <br>We estimate that your household would spend this much more due to carbon taxes on jet fuel: <br> <br>
-            <center>$<input value="0" type="text" id="airTaxes" readonly> per year <img id="airTool" src="questionMark.png"  /></center><br>
+            Is payment for your utility bill split among several people?
           </p>
-        -->
+          <input type="button" value="Yes" class="btn btn-primary btn-medium" id="split"> 
+          <input type="button" value="No" class="btn btn-primary btn-medium" id="noSplit"><br><br>
+
+          <div class="reveal" id="partialEnergy" >
+            What percentage of the utility bill does your household pay? <input type="text" id="percentSplit" value="100">%
+            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSplit"><br><br>
+          </div>
+
+          <div class="reveal" id="electricBlock">
+            <p>What is your zipcode? </p>
+            <input type="text" id="zipcode"> 
+            <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+          </div>
+          <div class="reveal" id="utilityBlock">
+            <p>Who is your electric utility provider?</p>
+            <select id="utilities" >
+            </select>
+          </div>
+
+          <div class="reveal" id="approxOrExact">
+            <br><p>Do you know your home energy usage?</p>
+            <input type="button" value="Yes" class="btn btn-primary btn-medium" id="yes"> 
+            <input type="button" value="No" class="btn btn-primary btn-medium" id="no"><br><br>
+          </div>
+
+          <div class="reveal" id="energyUsage">
+            <span id="exactLabel">Enter your household&#39;s energy use per year:</span> <br>
+            <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
+            <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
+            <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
+          </div>
+
+          <div class="reveal" id="approxEnergy" >
+            How is your home heated? <br>
+            <input class="radioLeft" type="radio" name="heating" value="natGas">
+            Natural gas<br>
+            <input class="radioLeft" type="radio" name="heating" value="fuelOil">
+            Fuel oil<br>
+            <input class="radioLeft" type="radio" name="heating" value="elec">
+            Electricity<br>
+            <input class="radioLeft" type="radio" name="heating" value="wood">
+            Wood or wood pellets<br>
+            <input class="radioLeft" type="radio" name="heating" value="other">
+            Other/don't know (we will assume you use natural gas.)<br><br>
+          </div>
+          <div class="reveal" id="approxPercentage" >
+            <p>
+              How much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200": <br><br> 
+            </p>
+
+            <input type="text" id="percentOfAverage" value="100"> %
+
+          </div>
+            <br>
+            <a class="btn btn-primary prev_button">Previous</a>
+            <a class="btn btn-primary next_button" name="placeholder_elec_button">Next</a>
         </div>
-     </div>
-      <input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn btn-primary" value="Next" id="submitSeatMiles">
+
+        <div class="tab-pane fade" id="summary_page" role="tabpanel">
+            <h2 class="fs-title">Summary</h2>
+
+            <p>We estimate that your household's tax <strong>savings</strong> would be $<span id="totalSavings_static" class="save">0</span> per year.</p>
+            <p>We estimate that your household <strong>payments</strong> would total $<span id="totalCosts_static" class="pay">0</span> per year. </p>
+
+            <div id="results">
+              <p>In total we estimate <span id="final_summary"></span><span id ="totalNet_static">0</span> per year.</p>
+            </div>
+          
+
+            <h3>Calculations</h3>
+            <p>Interested in how we reached that conclusion? Check out the sections below.</p>
+            <ul class="nav nav-pills" data-tables="tabs">
+              <li class="active"><a data-toggle="pill" href="#salesTax_results">Sales Tax Savings</a></li>
+              <li><a data-toggle="pill" href="#WFR_results">Working Family Rebate</a></li>
+              <li><a data-toggle="pill" href="#Gas_results">Gasoline and Diesel Usage</a></li>
+              <li><a data-toggle="pill" href="#Air_results">Air Travel</a></li>
+              <li><a data-toggle="pill" href="#Energy_results">Home Energy Usage</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+              <div id="salesTax_results" class="tab-pane fade in active">
+                <h3>Sales Tax Savings</h3>
+                <p>With a 1 percentage point reduction in sales tax, we estimate that your household would save $<span id ="salesTaxSavings" class="final save">0</span> per year. <img id="salesTaxSavingsTool" src="questionMark.png"  />
+                </p>
+              </div>
+
+              <div id="WFR_results" class="tab-pane fade">
+                <h3>Working Family Rebate</h3>
+                <p>We estimate that your household would qualify for a state Working Families Rebate of $<span id="wfrSavings" class="final save">0</span> per year. <img id="wfrTool" src="questionMark.png"  />
+                </p>
+              </div>
+
+              <div id="Gas_results" class="tab-pane fade">
+                <h3>Gasoline and Diesel Usage</h3>
+                <p>We estimate that your household would spend $<span id ="gasolineLosses" class="final pay">0</span> more per year due to carbon taxes on gasoline. <img id="gasTool" src="questionMark.png"  />
+                </p>
+              </div>
+
+              <div id="Air_results" class="tab-pane fade">
+                <h3>Air Travel</h3>
+                <p>We estimate that your household would spend $<span id="airTaxes" class="final pay">0</span> more per year due to carbon taxes on jet fuel. <img id="airTool" src="questionMark.png"  />
+                </p>
+              </div>
+
+              <div id="Energy_results" class="tab-pane fade">
+                <h3>Home Energy Usage</h3>
+                <p>We estimate that your household would spend this much more due to carbon taxes on fossil fuel sources for home energy:</p>
+                <p><label for="natGasLosses" class="lineupLabel">Natural gas: $<span id="natGasLosses" class="final pay">0</span>per year</label> <img id="natGasTool" src="questionMark.png"  /></p>
+                <p><label for="fuelOilLosses" class="lineupLabel">Fuel oil: $<span id = "fuelOilLosses" class= "final pay">0</span> per year</label><img id="fuelOilTool" src="questionMark.png"  /></p>
+                <p><label for="elecLosses" class="lineupLabel">Electricity: $<span id ="elecLosses" class="final pay">0</span> per year</label><img id="elecTool" src="questionMark.png"  /></p>
+                <p><label for="homeEnergyLosses" class="lineupLabel">Total: $<span id="homeEnergyLosses" class="final pay">0</span> per year</label></p>
+              </div>
+
+            </div>
+
+            <br>
+            <p>Thank you! You can go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
+          <br>
+          <a class="btn btn-primary prev_button">Previous</a>
+        </div>
+
+      </div>
     </div>
+  </div>
 
-    <div class="form_page">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80%" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-          <span>80%</span>
-        </div>
-      </div>
-      <h2 class="fs-title">Home Energy Usage</h2>
-      <p>
-        Is payment for your utility bill split among several people?
-      </p>
-      <input type="button" value="Yes" class="btn btn-primary btn-medium" id="split"> 
-      <input type="button" value="No" class="btn btn-primary btn-medium" id="noSplit"><br><br>
-
-      <div class="reveal" id="partialEnergy" >
-        What percentage of the utility bill does your household pay? <input type="text" id="percentSplit" value="100">%
-        <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSplit"><br><br>
-      </div>
-
-      <div class="reveal" id="electricBlock">
-        <p>What is your zipcode? </p>
-        <input type="text" id="zipcode"> 
-        <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
-      </div>
-      <div class="reveal" id="utilityBlock">
-        <p>Who is your electric utility provider?</p>
-        <select id="utilities" >
-        </select>
-      </div>
-
-      <div class="reveal" id="approxOrExact">
-        <br><p>Do you know your home energy usage?</p>
-        <input type="button" value="Yes" class="btn btn-primary btn-medium" id="yes"> 
-        <input type="button" value="No" class="btn btn-primary btn-medium" id="no"><br><br>
-      </div>
-
-      <div class="reveal" id="energyUsage">
-        <span id="exactLabel">Enter your household&#39;s energy use per year:</span> <br>
-        <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
-        <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
-        <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
-        <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitUsage"> <br><br>
-      </div>
-
-      <div class="reveal" id="approxEnergy" >
-        How is your home heated? <br>
-        <input class="radioLeft" type="radio" name="heating" value="natGas">
-        Natural gas<br>
-        <input class="radioLeft" type="radio" name="heating" value="fuelOil">
-        Fuel oil<br>
-        <input class="radioLeft" type="radio" name="heating" value="elec">
-        Electricity<br>
-        <input class="radioLeft" type="radio" name="heating" value="wood">
-        Wood or wood pellets<br>
-        <input class="radioLeft" type="radio" name="heating" value="other">
-        Other/don't know (we will assume you use natural gas.)<br><br>
-      </div>
-      <div class="reveal" id="approxPercentage" >
-        <p>
-          How much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200": <br><br> 
-        </p>
-
-        <input type="text" id="percentOfAverage" value="100"> %
-        <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitPercentOfAverage"> <br><br>
-
-      </div>
-
-      <!--
-      <div class="reveal" id="energyResult">
-        <br><br>We estimate that your household would spend this much more due to carbon taxes on fossil fuel sources for home energy: <br> <br>
-        <label for="natGasLosses" class="lineupLabel">Natural gas: $</label><input class="lineup" value="0" type="text" id="natGasLosses" readonly> <label for="natGasLosses" class="lineupPostLabel" >per year <img id="natGasTool" src="questionMark.png"  /></label><br>
-        <label for="fuelOilLosses" class="lineupLabel">Fuel oil: $</label><input value="0" class="lineup" type="text" id="fuelOilLosses" readonly> <label for="fuelOilLosses" class="lineupPostLabel">per year <img id="fuelOilTool" src="questionMark.png"  /></label><br>
-        <label for="elecLosses" class="lineupLabel">Electricity: $</label><input value="0" class="lineup" type="text" id="elecLosses" readonly> <label for="elecLosses" class="lineupPostLabel">per year <img id="elecTool" src="questionMark.png"  /></label><br>
-        <label for="homeEnergyLosses" class="lineupLabel"><b>Total: $</b></label><input value="0" class="lineup" type="text" id="homeEnergyLosses" readonly> <label for="homeEnergyLosses" class="lineupPostLabel"><b>per year</b></label><br>
-      </div>
-    -->
-      <input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" id="previous">
-      <input type="button" name="next" class="next action-button btn btn-primary" value="Next" id="next">
-    </div>
-
-    <div class="form_page">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100%" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-          <span>100%</span>
-        </div>
-      </div>
-      <h2 class="fs-title">Summary</h2>
-
-      <p>We estimate that your household's tax <strong>savings</strong> would be $<span id="totalSavings_static" class="save">0</span> per year.</p>
-      <p>We estimate that your household <strong>payments</strong> would total $<span id="totalCosts_static" class="pay">0</span> per year. </p>
-
-      <!--
-      We estimate your household's tax <strong>savings</strong> would be: <br><br>
-      <center>$<input value="0" type="text" id="totalSavings" readonly> per year</center><br><br>
-    -->
-
-    <!--
-      Based on the information you entered and our calculations, we estimate your household's tax <strong>payments</strong> would total: <br><br>
-      <center>$<input value="0" type="text" id="totalCosts" readonly> per year</center><br><br>
-    -->
-
-      <div id="results">
-        <p>In total we estimate <span id="final_summary"></span><span id ="totalNet_static">0</span> per year.</p>
-      </div>
-
-      <!--
-      <div class="reveal" id="save">
-        <p>In total we estimate you would <strong>save</strong> $
-      </div>
-      <div class="reveal" id="pay">
-        <p>In total we estimate you would <strong>pay</strong> $
-      </div>
-      <div id="zero">
-        <p>Overall we estimate the effect on your household would be <strong>neutral</strong>:
-      </div>
-      <span id="totalNet_static">0</span>  per year.</p>
-    -->
-
-      <!--
-      <center>$<input value="0" type="text" id="totalNet" readonly> per year</center><br><br>
-    -->
-    
-
-      <h3>Calculations</h3>
-      <p>Interested in how we reached that conclusion? Check out the sections below.</p>
-      <ul class="nav nav-pills" data-tables="tabs">
-        <li class="active"><a data-toggle="pill" href="#salesTax_results">Sales Tax Savings</a></li>
-        <li><a data-toggle="pill" href="#WFR_results">Working Family Rebate</a></li>
-        <li><a data-toggle="pill" href="#Gas_results">Gasoline and Diesel Usage</a></li>
-        <li><a data-toggle="pill" href="#Air_results">Air Travel</a></li>
-        <li><a data-toggle="pill" href="#Energy_results">Home Energy Usage</a></li>
-      </ul>
-
-      <div class="tab-content">
-
-        <div id="salesTax_results" class="tab-pane fade in active">
-          <h3>Sales Tax Savings</h3>
-          <p>With a 1 percentage point reduction in sales tax, we estimate that your household would save $<span id ="salesTaxSavings" class="final save">0</span> per year. <img id="salesTaxSavingsTool" src="questionMark.png"  />
-          </p>
-        </div>
-
-        <div id="WFR_results" class="tab-pane fade">
-          <h3>Working Family Rebate</h3>
-          <p>We estimate that your household would qualify for a state Working Families Rebate of $<span id="wfrSavings" class="final save">0</span> per year. <img id="wfrTool" src="questionMark.png"  />
-          </p>
-        </div>
-
-        <div id="Gas_results" class="tab-pane fade">
-          <h3>Gasoline and Diesel Usage</h3>
-          <p>We estimate that your household would spend $<span id ="gasolineLosses" class="final pay">0</span> more per year due to carbon taxes on gasoline. <img id="gasTool" src="questionMark.png"  />
-          </p>
-        </div>
-
-        <div id="Air_results" class="tab-pane fade">
-          <h3>Air Travel</h3>
-          <p>We estimate that your household would spend $<span id="airTaxes" class="final pay">0</span> more per year due to carbon taxes on jet fuel. <img id="airTool" src="questionMark.png"  />
-          </p>
-        </div>
-
-        <div id="Energy_results" class="tab-pane fade">
-          <h3>Home Energy Usage</h3>
-          <p>We estimate that your household would spend this much more due to carbon taxes on fossil fuel sources for home energy:</p>
-          <p><label for="natGasLosses" class="lineupLabel">Natural gas: $<span id="natGasLosses" class="final pay">0</span>per year</label> <img id="natGasTool" src="questionMark.png"  /></p>
-          <p><label for="fuelOilLosses" class="lineupLabel">Fuel oil: $<span id = "fuelOilLosses" class= "final pay">0</span> per year</label><img id="fuelOilTool" src="questionMark.png"  /></p>
-          <p><label for="elecLosses" class="lineupLabel">Electricity: $<span id ="elecLosses" class="final pay">0</span> per year</label><img id="elecTool" src="questionMark.png"  /></p>
-          <p><label for="homeEnergyLosses" class="lineupLabel">Total: $<span id="homeEnergyLosses" class="final pay">0</span> per year</label></p>
-        </div>
-
-      </div>
-
-      <br>
-      <p>Thank you! You can go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
-      <input type="button" name="previous" class="previous action-button" value="Previous" id="previous">
-    </div>
+  
 
 
-  </form>
+  <script>
+    $('.next_button').click(function(){
+      $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
 
+    $('.prev_button').click(function(){
+      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+  </script>
+
+  <script>
+    $('#skip_to_5').click(function(){
+      $('#wizard_tab_nav a[href="#gas_page"]').tab('show');
+    });
+  </script>
+
+  <script>
+
+    var gas_button_names = document.getElementsByName("placeholder_btn_name");
+    var changeable_gas_name=gas_button_names[0];
+
+    $("#gasOptionOne_radio").click(function(){
+      $("#gasOptionOne").show();
+      $("#gasOptionTwo").hide();
+      $("#gasOptionThree").hide();
+      changeable_gas_name.id= "submitGallons"
+    });
+
+    $("#gasOptionTwo_radio").click(function(){
+      $("#gasOptionTwo").show();
+      $("#gasOptionOne").hide();
+      $("#gasOptionThree").hide();
+      changeable_gas_name.id= "submitDollars"
+    });
+
+    $("#gasOptionThree_radio").click(function(){
+      $("#gasOptionThree").show();
+      $("#gasOptionOne").hide();
+      $("#gasOptionTwo").hide();
+      changeable_gas_name.id= "submitMileage"
+    });
+  </script>
 
 </body>
 </html>
