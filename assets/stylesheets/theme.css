@@ -76,10 +76,10 @@ input[type="text"][readonly]:focus {
 body {    
     font-family: "Droid Sans", sans-serif;
     margin: 1% 10% 10% 10%;
-    padding:80px 0px 0px 0px;
+    padding: 50px 0px 0px 0px;
 }
 
-h1, h4, .center {
+h1, .center {
   text-align: center;
 }
 
@@ -109,6 +109,7 @@ a:hover {
   position: relative;
 }
 
+/*
 .form_page{
   background: white;
   border: 0 none;
@@ -121,7 +122,7 @@ a:hover {
   width: 100%;
   margin 0 10%;
 
-  /* stacking pages so only one is shown at a time */
+  //stacking pages so only one is shown at a time
   position: absolute;
 }
 
@@ -129,12 +130,12 @@ a:hover {
   display:none;
 }
 
-/*progress bar styling */
+//progress bar styling 
 #individual_progress_bar{
-  /*margin-bottom: 20px;*/
+  //margin-bottom: 20px;
   margin: 0 auto 20px 200px;
   overflow: hidden;
-   /* counters to number progress bar steps */
+   // counters to number progress bar steps
    counter-reset: step;
 }
 
@@ -160,8 +161,11 @@ a:hover {
   border-radius: 3px;
   margin: 0 auto 5px auto;
 }
+*/
+
 
 /*connectors between steps */
+/*
 #individual_progress_bar li:after{
   content: "";
   width: 100%;
@@ -170,11 +174,11 @@ a:hover {
   position: absolute;
   left: -50%;
   top: 9px;
-  z-index: -1; /* places line behind numbers */
+  z-index: -1; //places line behind numbers 
 }
 
 #individual_progress_bar li:first-child:after{
-  /*first item doesn't need line behind it */
+  //first item doesn't need line behind it
   content: none;
 }
 
@@ -182,6 +186,8 @@ a:hover {
   background: #27AE60;
   color: white;
 }
+*/
+
 
 .navbar-inverse{
   background: #2e2929;
@@ -241,4 +247,20 @@ a:hover {
 
 #gasOptionThree{
   display: none; /*hide div initially*/
+}
+
+.tab-pane{
+  padding: 20px;
+}
+
+.wizard_tabs li{
+}
+
+.jumbotron{
+  margin: 0px auto;
+  padding: 70px 30px;
+}
+
+#indiv_calc_section{
+  background-color: #77CC55;
 }

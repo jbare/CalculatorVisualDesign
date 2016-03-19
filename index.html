@@ -23,6 +23,7 @@
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
   <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="assets/stylesheets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   
   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
   <!--
@@ -70,65 +71,96 @@
       </div>
   </nav>
 
-  <div class="container">
-    <div class="jumbotron"> 
+  <header class="jumbotron"> 
+    <div class="container">
       <h1>Carbon Tax Calculator</h1>
       <center><p>A nonpartisan way to estimate how Carbon Washington's proposal impacts you</p></center>
     </div>
+  </header>
 
-    <div class="row row-content">
-      <p>
-        A proposal, from <a href="http://yeson732.org/" target="_blank">Carbon Washington</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
-      </p>
+  <div class="container">
+    <div class="section">
+      <div class="row col-xs-12">
+        <p>
+          A proposal, from <a href="http://yeson732.org/" target="_blank">Carbon Washington</a>, would impose a carbon tax and use the revenues to reduce sales taxes and business taxes, and to fund a Working Families Rebate for low-income households.<br><br>
+        </p>
+      </div>
     </div>
 
-    <div class="row row-content">
-      <h2>Nonpartisan estimate</h2>
-      <h3>We don't want to sway you one way or the other</h3>
-      <p>This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.</p>
 
-      <p>It will show you an estimate of the amount of money you or your business would save from the reduced sales tax, the Working Families Rebate, and the elimination of the B&O Manufacturing Tax. </p>
+    <div class="section">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="" class="img-responsive" alt="image of balanced scales">
+          <h2>Get a nonpartisan estimate</h2>
+          <h4>We don't want to sway you one way or the other.</h4>
+          <p>This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.</p>
+        </div>
 
-      <p>It will also show you an estimate of the amount you or your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home or building.</p>
+        <div class="col-md-4">
+          <img src="" class="img-responsive" alt="image of something">
+          <h2>Find out the impact on you</h2>
+          <h4>Estimate the financial effect on your household or business</h4>
+          <p>Use our <a href="#calculators" alt="link to calculator section" role="link">calculators</a> to estimate what your savings and payments would be under Carbon Washington's proposal</p>
+        </div>
+
+        <div class="col-md-4">
+          <img src="" class="img-responsive" alt="image of another thing">
+          <h2>Examine our methods</h2>
+          <h4>Our calculations and methodology are transparent</h4>
+          <p>Want to know how we reached any of our results? Just click or hover on the <img src="questionMark.png" alt="How'd you get this number?"/> icons. You can also read up on our <a href="./about.html#methodology" alt="methodology link" role="link">methodology</a>.</p>
+        </div>
+      </div>
     </div>
 
-    <div class="row row-content">
-      <h2>Find out the impact on you </h2>
-      <h3>Use our calculators to estimate the financial effect on your household or business</h3>
-      <p>The calculator will estimate your savings and payments under the CarbonWA.org proposal. It should only take about 10 minutes.</p>
-      <p>If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter.</p>
-      <div>
-        <a href="./individual.html" class="btn btn-primary">Household</a>
-        <a href="./business.html" class="btn btn-primary">Business</a>
+    <div class="section" id="indiv_calc_section">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="" class="img-responsive" alt="image of person">
+        </div>
+        <div class="col-md-6">
+          <h1>Individual Calculator</h1>
+          <p>Use our individual calculator to discover how Carbon Washington's proposal will affect you. Answer a few questions about XX and YY and we'll crunch the numbers for you. The calculator will show you an estimate of the amount of money you would save from the reduced sales tax and the Working Families Rebate.</p>
+          <p>The calculator will also show you an estimate of the amount you would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home.</p>
+              <a href="./individual.html" class="btn btn-primary" role="button">Household</a>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="bus_calc_section">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Business Calculator</h1>
+          <p>Use our business calculator to discover how Carbon Washington's proposal will affect your business. Answer a few questions about XX and YY and we'll crunch the numbers for you. It will show you an estimate of the amount of money your business would save from the reduced sales tax and the elimination of the B&O Manufacturing Tax.</p>
+          <p>It will also show you an estimate of the amount your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your building.</p>
+              <a href="./business.html" class="btn btn-primary" role="button">Business</a>
+        </div>
+        <div class="col-md-6">
+          <img src="" class="img-responsive" alt="image of building">
+        </div>
       </div>
       <br>
-      <div class="alert alert-info" role="alert">
-        Please note: You must allow scripts to run on this website for proper calculator functionality.
-      </div>
     </div>
   </div>  
 
   <footer class="row-footer">
     <div class="container">
       <div class="row">
-         <div class="col-xs-12">
-            <h5>Site Map</h5>
-            <ul class="list-unstyled">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="individual.html">Household Calculator</a></li>
-                <li><a href="business.html">Business Calculator</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-          </div>
-      </div>
+        <div class="col-md-8">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Individual Calculator</a></li>
+            <li><a href="#">Household Calculator/a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+            <h5>Contact Us</h5>
+            <a href="mailto:carbon@cs.washington.edu"><span class="fa fa-envelope-o"
+                         aria-hidden="true"></span> carbon@cs.washington.edu</a>
+        </div>
     </div>
   </footer>
-    
-   <!--  <h4>Instructions</h4>
-
-    <p>
-      If you ever need help, click on one of the question marks ( <a class="box"><b>?</b></a> ) for more information about how to fill out the calculator. 
-    </p> -->
 
   <script src="assets/javascripts/bootstrap.min.js"></script>
   <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         
