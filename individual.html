@@ -155,7 +155,7 @@
       <ul class="nav nav-tabs wizard_tabs" role="tablist" id="wizard_tab_nav">
         <li class="active" role="presentation"><a href="#intro_page" data-toggle="tab" aria-controls="welcome" role="tab">Welcome</a></li>
         <li role="presentation"><a href="#sales_tax_page" data-toggle="tab" aria-controls="1. income" role="tab">Income</a></li>
-        <li role="presentation"><a href="#estimated_taxes_page" data-toggle="tab" aria-controls="3. estimated taxes" role="tab">Estimated Taxes</a></li>
+        <li role="presentation"><a href="#estimated_taxes_page" data-toggle="tab" aria-controls="2. estimated taxes" role="tab">Estimated Taxes</a></li>
         <li role="presentation"><a href="#wfr_page" data-toggle="tab" aria-controls="3. working family rebate" role="tab">Working Family Rebate</a></li>
         <li role="presentation"><a href="#eitc_page" data-toggle="tab" aria-controls="4. earned income tax credit" role="tab">EITC</a></li>
         <li role="presentation"><a href="#gas_page" data-toggle="tab" aria-controls="5. gasoine and diesel usage" role="tab">Gasoline and Diesel Usage</a></li>
@@ -169,7 +169,7 @@
           <p>Thanks for checking out our household calculator! This should only take a few minutes.</p>
           <p>We'll ask you a few questions about yourself and your expenses in order to best calculate the impact of CarbonWA's proposal on your and your household. We encourage you to skip around and change your estimates and see how that affects the result.</p>
           <p>If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter.</p>
-          <a class="btn btn-primary next_button">Start Calculating</a>
+          <button class="btn btn-primary next_button">Start Calculating</button>
         </div>
 
         <div class="tab-pane fade" id="sales_tax_page" role="tabpanel">
@@ -179,8 +179,8 @@
             <input type="text" id="income" placeholder="Enter annual income" name="income" role="input">     
           </div>
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
-            <a class="btn btn-primary next_button" name="submitIncome" id="submitIncome" role="button">Next</a>
+            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-primary next_button" name="submitIncome" id="submitIncome">Next</button>
         </div>
 
         <div class="tab-pane fade" id="estimated_taxes_page" role="tabpanel">
@@ -196,8 +196,8 @@
             </div>
           </div>
           <br>
-          <a class="btn btn-primary prev_button">Previous</a>
-          <a class="btn btn-primary next_button">Next</a>
+          <button class="btn btn-primary prev_button">Previous</button>
+          <button class="btn btn-primary next_button">Next</button>
         </div>
 
         <div class="tab-pane fade" id="wfr_page" role="tabpanel">
@@ -228,8 +228,8 @@
             </div>
           </div>
           <br>
-          <a class="btn btn-primary prev_button">Previous</a>
-          <a class="btn btn-primary next_button">Next</a>
+          <button class="btn btn-primary prev_button">Previous</button>
+          <button class="btn btn-primary next_button">Next</button>
         </div>
 
         <div class="tab-pane fade" id="eitc_page" role="tabpanel">
@@ -245,8 +245,8 @@
             </div>
           </div>
           <br>
-          <a class="btn btn-primary prev_button">Previous</a>
-          <a class="btn btn-primary next_button">Next</a>
+          <button class="btn btn-primary prev_button">Previous</button>
+          <button class="btn btn-primary next_button">Next</button>
         </div>
 
         <div class="tab-pane fade" id="gas_page" role="tabpanel">
@@ -331,8 +331,8 @@
           </div>
 
           <br>
-          <a class="btn btn-primary prev_button">Previous</a>
-          <a class="btn btn-primary next_button" name = "placeholder_btn_name" id="submitGallons">Next</a>
+          <button class="btn btn-primary prev_button">Previous</button>
+          <button class="btn btn-primary next_button" name = "placeholder_btn_name" id="submitGallons">Next</button>
         </div>
 
         <div class="tab-pane fade" id="air_page" role="tabpanel">
@@ -347,8 +347,8 @@
             </div>
           </div>
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
-            <a class="btn btn-primary next_button" id="submitSeatMiles">Next</a>
+            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-primary next_button" id="submitSeatMiles">Next</button>
         </div>
 
         <div class="tab-pane fade" id="elec_page" role="tabpanel">
@@ -361,17 +361,18 @@
           <input type="button" value="No" class="btn btn-primary btn-medium" id="noSplit"><br><br>
 
           <div class="reveal" id="partialEnergy" >
-            What percentage of the utility bill does your household pay? <input type="text" id="percentSplit" value="100">%
+            <label for="percentSplit">What percentage of the utility bill does your household pay?</label>
+            <input type="text" id="percentSplit" value="100">%
             <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSplit"><br><br>
           </div>
 
           <div class="reveal" id="electricBlock">
-            <p>What is your zipcode? </p>
+            <label for="zipcode">What is your zipcode? </label>
             <input type="text" id="zipcode"> 
             <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
           </div>
           <div class="reveal" id="utilityBlock">
-            <p>Who is your electric utility provider?</p>
+            <label for="utilites">Who is your electric utility provider?</label>
             <select id="utilities" >
             </select>
           </div>
@@ -389,7 +390,7 @@
             <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
           </div>
 
-          <div class="reveal" id="approxEnergy" >
+          <div class="reveal btn-group" data-toggle="buttons" role="group" aria-label="electricity options" id="approxEnergy" >
             How is your home heated? <br>
             <input class="radioLeft" type="radio" name="heating" value="natGas">
             Natural gas<br>
@@ -402,17 +403,17 @@
             <input class="radioLeft" type="radio" name="heating" value="other">
             Other/don't know (we will assume you use natural gas.)<br><br>
           </div>
-          <div class="reveal" id="approxPercentage" >
-            <p>
-              How much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200": <br><br> 
-            </p>
 
+
+          <div class="reveal" id="approxPercentage" >
+            <label for="percentOfAverage">As a percentage, how much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)?</label>
+            <p>For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200"</p>
             <input type="text" id="percentOfAverage" value="100"> %
 
           </div>
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
-            <a class="btn btn-primary next_button" name="placeholder_elec_button">Next</a>
+            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-primary next_button" name="placeholder_elec_button">Next</button>
         </div>
 
         <div class="tab-pane fade" id="summary_page" role="tabpanel">
@@ -428,7 +429,7 @@
 
             <h2>Calculations</h2>
             <p>Interested in how we reached that conclusion? Check out the sections below.</p>
-            <ul class="nav nav-pills" data-tables="tabs">
+            <ul class="nav nav-pills" data-tables="tabs" role="tablist">
               <li class="active"><a data-toggle="pill" href="#salesTax_results">Sales Tax Savings</a></li>
               <li><a data-toggle="pill" href="#WFR_results">Working Family Rebate</a></li>
               <li><a data-toggle="pill" href="#Gas_results">Gasoline and Diesel Usage</a></li>
@@ -438,31 +439,31 @@
 
             <div class="tab-content">
 
-              <div id="salesTax_results" class="tab-pane fade in active">
+              <div id="salesTax_results" class="tab-pane fade in active" role="tabpanel">
                 <h3>Sales Tax Savings</h3>
                 <p>With a 1 percentage point reduction in sales tax, we estimate that your household would save $<span id ="salesTaxSavings" class="final save">0</span> per year. <img id="salesTaxSavingsTool" src="questionMark.png"  />
                 </p>
               </div>
 
-              <div id="WFR_results" class="tab-pane fade">
+              <div id="WFR_results" class="tab-pane fade" role="tabpanel">
                 <h3>Working Family Rebate</h3>
                 <p>We estimate that your household would qualify for a state Working Families Rebate of $<span id="wfrSavings" class="final save">0</span> per year. <img id="wfrTool" src="questionMark.png"  />
                 </p>
               </div>
 
-              <div id="Gas_results" class="tab-pane fade">
+              <div id="Gas_results" class="tab-pane fade" role="tabpanel">
                 <h3>Gasoline and Diesel Usage</h3>
                 <p>We estimate that your household would spend $<span id ="gasolineLosses" class="final pay">0</span> more per year due to carbon taxes on gasoline. <img id="gasTool" src="questionMark.png"  />
                 </p>
               </div>
 
-              <div id="Air_results" class="tab-pane fade">
+              <div id="Air_results" class="tab-pane fade" role="tabpanel">
                 <h3>Air Travel</h3>
                 <p>We estimate that your household would spend $<span id="airTaxes" class="final pay">0</span> more per year due to carbon taxes on jet fuel. <img id="airTool" src="questionMark.png"  />
                 </p>
               </div>
 
-              <div id="Energy_results" class="tab-pane fade">
+              <div id="Energy_results" class="tab-pane fade" role="tabpanel">
                 <h3>Home Energy Usage</h3>
                 <p>We estimate that your household would spend this much more due to carbon taxes on fossil fuel sources for home energy:</p>
                 <p><label for="natGasLosses" class="lineupLabel">Natural gas: $<span id="natGasLosses" class="final pay">0</span>per year</label> <img id="natGasTool" src="questionMark.png"  /></p>
@@ -476,7 +477,7 @@
             <br>
             <p>Thank you! You can go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
           <br>
-          <a class="btn btn-primary prev_button">Previous</a>
+          <button class="btn btn-primary prev_button">Previous</button>
         </div>
 
       </div>

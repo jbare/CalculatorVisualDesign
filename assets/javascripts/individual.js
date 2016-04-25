@@ -673,17 +673,6 @@ $(document).ready(function () {
           elements.gallons.updateNode();
           elements.gallonsTimeframe.updateNode();
 
-          //disable text entry fields for option 2
-          $("#gasCost").attr('disabled', 'disabled');
-          $("#dollars").attr('disabled', 'disabled');
-
-          //enable text entry field for option 1
-          $("#gallons").removeAttr('disabled');
-
-          //disable text entry field for option 3
-          $("#mpg").attr('disabled', 'disabled');
-          $("#miles").attr('disabled', 'disabled');
-
         } else if (_i == 1) {
           $("#gasOptionOne").attr('disabled', 'disabled');
           $("#gasOptionOne").css('background-color', 'white');
@@ -696,18 +685,6 @@ $(document).ready(function () {
           elements.dollarsTimeframe.updateNode();
           elements.dpg.updateNode();
 
-
-          //enable text entry fields for option 2
-          $("#gasCost").removeAttr('disabled');
-          $("#dollars").removeAttr('disabled');
-
-          //disable text entry field for option 1
-          $("#gallons").attr('disabled', 'disabled');
-
-          //disable text entry field for option 3
-          $("#mpg").attr('disabled', 'disabled');
-          $("#miles").attr('disabled', 'disabled');
-
         } else {
           $("#gasOptionOne").attr('disabled', 'disabled');
           $("#gasOptionOne").css('background-color', 'white');
@@ -719,17 +696,6 @@ $(document).ready(function () {
           elements.miles.updateNode();
           elements.milesTimeframe.updateNode();
           elements.mpg.updateNode();
-
-          //disable text entry fields for option 2
-          $("#gasCost").attr('disabled', 'disabled');
-          $("#dollars").attr('disabled', 'disabled');
-
-          //disable text entry field for option 1
-          $("#gallons").attr('disabled', 'disabled');
-
-          //enable text entry field for option 3
-          $("#mpg").removeAttr('disabled');
-          $("#miles").removeAttr('disabled');
         }
         calc.compute();
         
@@ -767,41 +733,6 @@ $(document).ready(function () {
     }
   );
 
-
-/*
-  $("#submitGas").on("click", 
-    function(){
-      if(document.getElementById("gasOptionOne_radio").checked){
-        console.log("foo");
-        function submitGallons(){
-          console.log("inside_foo");
-          nodes.gasolineCalcMethod.setValueBasic(0);
-          elements.gallons.updateNode();
-          elements.gallonsTimeframe.updateNode();
-          calc.compute();
-        }    
-      }
-      else if(document.getElementById("gasOptionTwo_radio").checked){
-        function submitDollars(){
-          nodes.gasolineCalcMethod.setValueBasic(1);
-          elements.dollars.updateNode();
-          elements.dollarsTimeframe.updateNode();
-          elements.dpg.updateNode();
-          calc.compute();
-        }
-      }
-      else{
-        function submitMileage(){
-          nodes.gasolineCalcMethod.setValueBasic(2);
-          elements.miles.updateNode();
-          elements.milesTimeframe.updateNode();
-          elements.mpg.updateNode();
-          calc.compute();
-        }
-      }
-
-  });
-*/
 
   $("#submitSeatMiles").on("click", 
     function () {

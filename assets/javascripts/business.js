@@ -61,7 +61,7 @@ var airPayments = "airPayments";
 var airTaxesCalcMethod = "airTaxesCalcMethod";
 
 $(document).ready(function () {
-  $( document ).tooltip(); 
+  $( document ).uitooltip(); 
   
   var calc = new Calculator();
   var nodes = {};
