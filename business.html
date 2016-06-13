@@ -99,7 +99,7 @@
             <p>Thanks for checking out our business calculator! This should only take a few minutes.</p>
             <p>We'll ask you a few questions about your business expenses in order to best calculate the impact of CarbonWA's proposal on your business. We encourage you to skip around and change your estimates and see how that affects the result.</p>
             <p>If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter.</p>
-            <a class="btn btn-primary next_button">Start Calculating</a>
+            <button class="btn btn-primary next_button">Start Calculating</button>
           </div>
 
           <div class="tab-pane fade" id="bus_sales_tax_page" role="tabpanel">
@@ -275,8 +275,8 @@
               </div>
             </div>
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
-            <a class="btn btn-primary next_button" name="air_btn_placeholder_name" id="submitSeatMiles">Next</a>
+            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-primary next_button" name="air_btn_placeholder_name" id="submitSeatMiles">Next</button>
           </div>
 
           <div class="tab-pane fade" id="elec_page" role="tabpanel">
@@ -285,7 +285,7 @@
               <div id="electricBlock">
                 <label for="zipcode">What zipcode your business is located in:</label>
                 <input type="text" id="zipcode"> 
-                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+                <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
               </div>
               <div class="reveal" id="utilityBlock">
                 <label for="utilities">Who is the electic utility provider for your business?</label>
@@ -305,7 +305,6 @@
                 <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
                 <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
                 <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
-                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitUsage"> <br><br>
               </div>
 
               <div class="reveal" id="approxEnergy" >
@@ -326,45 +325,79 @@
                 How much purchased energy do you think your business uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your business uses half the energy of an average home, enter "50". If your business uses twice the energy of an average home, enter "200": <br><br>
 
                 <input type="text" id="percentOfAverage" value="100"> %
-                <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitPercentOfAverage"> <br><br>
 
               </div>
             </div>
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
-            <a class="btn btn-primary next_button" name="#" id="#" role="button">Next</a>
+            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-primary next_button" id="elecUsage" role="button">Next</button>
           </div>
 
           <div class="tab-pane fade" id="summary_page" role="tabpanel">
-            <h2>Summary</h2>
-            <div>
-              <p>
-                With a 1 percentage point reduction in sales tax, we estimate that your business would save: <br> <br>
-                <center>$<input value="0" type="text" id="salesTaxSavings" class="autofill" readonly> per year</center><br>
-              </p>
-              <p>
-                With the elimination of state manufacturing B&O taxes, we estimate that your business would save: <br> <br>
-                <center>$<input value="0" type="text" id="BOTaxSavings" class="autofill" readonly> per year</center><br>
-              </p>
-              <p>
-                <div class="blankSpace">
-                  <p>
-                    &nbsp;
-                    <br>We estimate that your business would spend this much more due to carbon taxes on gasoline: <br> <br>
-                  </p>
-                </div>
-                
-                <div class="result">
-                  <center>$<input value="0" type="text" id="gasolineLosses" readonly> per year</center><br>
-                </div>
-              </p>
-              <p>
-                <br>We estimate that your business would spend this much more due to carbon taxes on jet fuel: <br> <br>
-                <center>$<input value="0" type="text" id="airTaxes" readonly> per year</center><br>
-              </p>
+            <h2 class="fs-title">Summary</h2>
+
+            <p>We estimate that your business's tax <strong>savings</strong> would be $<span id="totalSavings_static" class="save">0</span> per year.</p>
+            <p>We estimate that your business's tax <strong>payments</strong> would total $<span id="totalCosts_static" class="pay">0</span> per year. </p>
+
+            <div id="results">
+              <p>In total we estimate <span id="final_summary"></span><span id ="totalNet_static">0</span> per year.</p>
             </div>
+
+            <h2>Calculations</h2>
+            <p>Interested in how we reached that conclusion? Check out the sections below.</p>
+            <ul class="nav nav-pills" data-tables="tabs" role="tablist">
+              <li class="active"><a data-toggle="pill" href="#salesTax_results">Sales Tax Savings</a></li>
+              <li><a data-toggle="pill" href="#BO_results">B&O Taxes</a></li>
+              <li><a data-toggle="pill" href="#Gas_results">Gasoline and Diesel Usage</a></li>
+              <li><a data-toggle="pill" href="#Air_results">Air Travel</a></li>
+              <li><a data-toggle="pill" href="#Energy_results">Facility Energy Usage</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+              <div id="salesTax_results" class="tab-pane fade in active" role="tabpanel">
+                <h3>Sales Tax Savings</h3>
+                <p>
+                  With a 1 percentage point reduction in sales tax, we estimate that your business would save $<span id ="salesTaxSavings" class="final save">0</span> per year.
+                </p>
+              </div>
+
+              <div id="BO_results" class="tab-pane fade" role="tabpanel">
+                <h3>B&O Taxes</h3>
+                <p>
+                  With the elimination of state manufacturing B&O taxes, we estimate that your business would save $<span id = "BOTaxSavings" class="final save">0</span> per year.
+                </p>
+              </div>
+
+              <div id="Gas_results" class="tab-pane fade" role="tabpanel">
+                <h3>Gasoline and Diesel Usage</h3>
+                <p>
+                  We estimate that your business would spend $<span id ="gasolineLosses" class="final pay">0</span> more per year due to carbon taxes on gasoline.
+                </p>
+              </div>
+
+              <div id="Air_results" class="tab-pane fade" role="tabpanel">
+                <h3>Air Travel</h3>
+                <p>
+                  We estimate that your business would spend $<span id="airTaxes" class="final pay">0</span> more per year due to carbon taxes on jet fuel.
+                </p>
+              </div>
+
+              <div id="Energy_results" class="tab-pane fade" role="tabpanel">
+                <h3>Facility Energy Usage</h3>
+                <div>
+                  <p>We estimate that your business would spend this much more due to carbon taxes on fossil fuel sources for business energy:</p>
+                  <p><label for="natGasLosses" class="lineupLabel">Natural gas: $<span id="natGasLosses" class="final pay">0</span>per year</label></p>
+                  <p><label for="fuelOilLosses" class="lineupLabel">Fuel oil: $<span id = "fuelOilLosses" class= "final pay">0</span> per year</label></p>
+                  <p><label for="elecLosses" class="lineupLabel">Electricity: $<span id ="elecLosses" class="final pay">0</span> per year</label></p>
+                  <p><label for="homeEnergyLosses" class="lineupLabel">Total: $<span id="homeEnergyLosses" class="final pay">0</span> per year</label></p>
+                </div>
+              </div>
+            </div>
+
             <br>
-            <a class="btn btn-primary prev_button">Previous</a>
+            <p>Thank you! And feel free to go back and change any information to see how it affects the results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
+            <button class="btn btn-primary prev_button">Previous</button>
           </div>
 
 
@@ -372,64 +405,6 @@
 
       </div>
     </div>
-
-  <div align="center">
-    <header>
-        <h1>Revenue Neutral Carbon Tax Calculator</h1>
-        <h2>For Businesses</h2>
-    </header>
-  </div>
-
-  <div id="accordion">
-
-
-    <h3>Facility Energy Usage</h3>
-    <div>
-      <p>
-        <form>
-          <fieldset>
-
-            
-
-            <div class="reveal" id="energyResult">
-              <br><br>We estimate that your business would spend this much more due to carbon taxes on fossil fuel sources for home energy: <br> <br>
-              <label for="natGasLosses" class="lineupLabel">Natural gas: $</label><input class="lineup" value="0" type="text" id="natGasLosses" readonly> <label for="natGasLosses" class="lineupPostLabel" >per year</label><br>
-              <label for="fuelOilLosses" class="lineupLabel">Fuel oil: $</label><input value="0" class="lineup" type="text" id="fuelOilLosses" readonly> <label for="fuelOilLosses" class="lineupPostLabel">per year</label><br>
-              <label for="elecLosses" class="lineupLabel">Electricity: $</label><input value="0" class="lineup" type="text" id="elecLosses" readonly> <label for="elecLosses" class="lineupPostLabel">per year</label><br>
-              <label for="homeEnergyLosses" class="lineupLabel"><b>Total: $</b></label><input value="0" class="lineup" type="text" id="homeEnergyLosses" readonly> <label for="homeEnergyLosses" class="lineupPostLabel"><b>per year</b></label><br>
-            </div>
-          </fieldset>
-        </form>
-      </p>
-    </div>
-    <h3>Summary of Results</h3>
-    <div>
-      <p>
-        <form>
-          <fieldset>
-            Based on the information you entered and our calculations, we estimate your business's tax <b>savings</b> would total: <br><br>
-            <center>$<input value="0" type="text" id="totalSavings" readonly> per year</center><br><br>
-
-            Based on the information you entered and our calculations, we estimate your business's tax <b>payments</b> would total: <br><br>
-            <center>$<input value="0" type="text" id="totalCosts" readonly> per year</center><br><br>
-
-            <div class="reveal" id="save">
-              In total we estimate your business would <b>save</b>: <br><br>
-            </div>
-            <div class="reveal" id="pay">
-              In total we estimate your business would <b>pay</b>: <br><br>
-            </div>
-            <div id="zero">
-              Overall we estimate the effect on your business would be <b>neutral</b>: <br><br>
-            </div>
-            <center>$<input value="0" type="text" id="totalNet" readonly> per year</center><br><br>
-
-            Thank you! And feel free to go back and change any information to see how it affects the results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.
-          </fieldset>
-        </form>
-      </p>
-    </div>
-  </div>
 
   <script>
     $('.next_button').click(function(){

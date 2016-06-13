@@ -59,6 +59,8 @@ var BOTaxSavings = "BOTaxSavings";
 var BOTaxes = "BOTaxes";
 var airPayments = "airPayments";
 var airTaxesCalcMethod = "airTaxesCalcMethod";
+var usage_or_percentage = "";
+
 
 $(document).ready(function () {
   $( document ).uitooltip(); 
@@ -73,18 +75,20 @@ $(document).ready(function () {
   nodes.totalNet.computeSpecific = function() {
     this.value = Math.round(this.children[totalSavings].getValue() - this.children[totalCosts].getValue());
 
+    //update net total
+    var net_total = document.getElementById("totalNet_static");
+    var net_total_value = nodes.totalNet.value;
+    net_total.innerHTML = net_total_value;
+
+    //update whether save/pay/neutral
+    var total_summary = document.getElementById("final_summary");
+
     if (this.value > 0) {
-      this.divs.save.css( "display", "block");
-      this.divs.pay.css( "display", "none");
-      this.divs.zero.css( "display", "none");
+      total_summary.innerHTML="you would save $";
     } else if (this.value < 0) {
-      this.divs.save.css( "display", "none");
-      this.divs.pay.css( "display", "block");
-      this.divs.zero.css( "display", "none");
+      total_summary.innerHTML="you would pay $";
     } else {
-      this.divs.save.css( "display", "none");
-      this.divs.pay.css( "display", "none");
-      this.divs.zero.css( "display", "block");
+      total_summary.innerHTML = "would be neutral: $";
     }
   }  
 
@@ -92,10 +96,20 @@ $(document).ready(function () {
   nodes.totalCosts.computeSpecific = function() {
     this.value = Math.round(this.children[gasolineTaxes].getValue() + this.children[airTaxes].getValue() + this.children[homeTaxes].getValue());
 
+    //update summary total cost
+    var costs_total = document.getElementById("totalCosts_static");
+    var costs_total_value = nodes.totalCosts.value;
+    costs_total.innerHTML = costs_total_value;
+
   }
   nodes.totalSavings = new Node(calc, {type: "num", round: 0}, totalSavings, 0, [nodes.totalNet]);
   nodes.totalSavings.computeSpecific = function() {
     this.value = Math.round(this.children[salesTaxSavings].getValue() + this.children[BOTaxSavings].getValue());
+
+    //update summary total savings
+    var savings_total = document.getElementById("totalSavings_static");
+    var savings_total_value = nodes.totalSavings.value;
+    savings_total.innerHTML = savings_total_value;
 
   }
 
@@ -104,6 +118,10 @@ $(document).ready(function () {
   nodes.salesTaxSavings = new Node(calc, {type: "num", round: 0}, salesTaxSavings, 0, [nodes.totalSavings]);
   nodes.salesTaxSavings.computeSpecific = function() {
     this.value = Math.round(this.children[salesTax].getValue()/this.children[salesTaxRate].getValue());
+
+    //update sales tax summary savings
+    var sales_tax_savings_total = document.getElementById("salesTaxSavings");
+    sales_tax_savings_total.innerHTML = nodes.salesTaxSavings.value;
   }
 
   nodes.salesTaxRate = new Node(calc, {type: "num", round: 2}, salesTaxRate, 8.95, [nodes.salesTaxSavings]);
@@ -147,7 +165,9 @@ $(document).ready(function () {
     } else {
       this.value = Math.round(this.children[miles].getValue()/this.children[mpg].getValue()*this.children[milesTimeframe].getValue()*8.91/1000*25);
     }
-
+    //update gas
+    var gas_cost_final = document.getElementById("gasolineLosses");
+    gas_cost_final.innerHTML = nodes.gasolineTaxes.value;
   }
 
   nodes.gasolineCalcMethod = new Node(calc, {type: "num", round: 0}, gasolineCalcMethod, 0, [nodes.gasolineTaxes]);
@@ -179,6 +199,10 @@ $(document).ready(function () {
     else {
       this.value = Math.round(this.children[airPayments].getValue()/0.13/2/60*9.57/1000*25);
     }
+
+    //update final air taxes summary
+    var airTaxes_final = document.getElementById("airTaxes");
+    airTaxes_final.innerHTML = nodes.airTaxes.value;
   }
   nodes.seatMiles = new Node(calc, {type: "num", round: 0}, seatMiles, 0, [nodes.airTaxes]);
 
@@ -203,6 +227,10 @@ $(document).ready(function () {
 
       this.divs.energyResult.css( "display", "block");
     }
+
+    //update span for total energy usages
+    var homeTaxes_final = document.getElementById("homeEnergyLosses");
+    homeTaxes_final.innerHTML = nodes.homeTaxes.value;
   }
   nodes.noClicked = new Node(calc, {type: "bool"}, noClicked, false, [nodes.homeTaxes]);
   nodes.displayApproxPercentage = new Node(calc, {type: "bool"}, displayApproxPercentage, false, [nodes.homeTaxes]);
@@ -219,6 +247,9 @@ $(document).ready(function () {
         this.value = 0;
       }
     }
+    //update summary for natural gas
+    var natGas_final = document.getElementById("natGasLosses");
+    natGas_final.innerHTML = nodes.natGasLosses.value;
   }
 
   nodes.fuelOilLosses = new Node(calc, {type: "num", round: 0}, fuelOilLosses, 0, [nodes.homeTaxes]);
@@ -232,6 +263,9 @@ $(document).ready(function () {
         this.value = 0;
       }
     }
+    //update summary span for fuel
+    var fuelOil_final = document.getElementById("fuelOilLosses");
+    fuelOil_final.innerHTML = nodes.fuelOilLosses.value;
   }
 
   nodes.elecLosses = new Node(calc, {type: "num", round: 0}, elecLosses, 0, [nodes.homeTaxes]);
@@ -245,6 +279,9 @@ $(document).ready(function () {
         this.value = Math.round(this.children[utilityCostRate].getValue()*(11000)/100*this.children[usageComp].getValue()/100);
       }
     }
+    //update summary span for electricity
+    var elecLosses_final = document.getElementById("elecLosses");
+    elecLosses_final.innerHTML = nodes.elecLosses.value;
   }
   nodes.heatingType = new Node(calc, {type: "num"}, heatingType, natGas, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
 
@@ -572,6 +609,8 @@ $(document).ready(function () {
       $("#approxEnergy").css("display", "none");
       $("#approxPercentage").css("display", "none");
       $("#energyUsage").css("display", "block");
+
+      usage_or_percentage="submitUsage";
     }
   );
 
@@ -582,6 +621,25 @@ $(document).ready(function () {
       calc.compute();
       $("#approxEnergy").css("display", "block");
       $("#energyUsage").css("display", "none");
+
+      usage_or_percentage="submitPercentage";
+    }
+  );
+
+  $("#elecUsage").on("click", 
+    function () {
+      if(usage_or_percentage=="submitUsage"){
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.thermsNatGas.updateNode();
+        elements.gallonsFuelOil.updateNode();
+        elements.kWhElec.updateNode();
+        calc.compute();
+      }
+      else{
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.usageComp.updateNode();
+        calc.compute();
+      }
     }
   );
 
@@ -617,8 +675,10 @@ $(document).ready(function () {
     }
   );
 
+
 }
 );
+
 
 function inheritPrototype(childObject, parentObject) {
   var copyOfParent = Object.create(parentObject.prototype);
