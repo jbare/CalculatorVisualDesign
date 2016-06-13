@@ -7,32 +7,19 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head
          content must come *after* these tags -->         
         <title>Carbon Tax Swap Calculator</title>         
-        <!--
-  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-  <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
-  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-  <script src="assets/bootstrap/js/bootstrap.js"></script>  
-  <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
-  <script src="assets/javascripts/jquery.validate.js"></script>  
-  <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
-  -->         
+    
         <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css"> 
         <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
         <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet"> 
         <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet"> 
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->         
-        <!--
-  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
-  <script src="assets/javascripts/jquery-ui.min.js"></script>
--->         
+      
         <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         
         <!-- Bootstrap -->         
         <script src="assets/javascripts/bootstrap.min.js"></script>         
         <script src="assets/javascripts/individual.js"></script>         
                 
     </head>     
-    <body class=""> 
+    <body> 
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
             <div class="container"> 
                 <div class="navbar-header"> 
@@ -64,52 +51,91 @@
             </div>             
         </nav>         
 
+
+        <header class="jumbotron"> 
+          <div class="container">
+            <a href="index.html" alt="home"><center><img src="images/Logo.png" class="img-responsive" alt="Carbon Tax Swap Calculator"></center></a>
+            <center><p>A nonpartisan way to estimate how Carbon Washington's proposal impacts you</p></center>
+          </div>
+        </header>
+
         <div class="container">    
             <div class="section">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h2>Meet the creators behind this calculator</h2>
+                        <h2>Meet the team</h2>
                     </div>
                 </div>
               <div class="row">
                 <div class="col-md-4">
-                  <img src="" class="img-responsive" src="" width="100" alt="Justin profile picture">
-                  <h4>Justin Bare</h4>
-                  <p>Justin is a PhD student in Computer Science and Engineering at the University of Washington. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.</p>
+                  <center><img src="assets/imgs/justin_profile.jpg" class="img-responsive img-circle" width="200" alt="Justin profile picture"></center>
+                  <center><h4>Justin Bare</h4></center>
+                  <p>Justin is a PhD student in Computer Science and Engineering at the University of Washington. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
 
                 <div class="col-md-4">
-                  <img class="img-responsive" src="assets/imgs/Borning_UW_Photo.jpg" width="100" alt="Alan profile picture">
-                  <h4>Alan Borning</h4>
+                  <center><img src="assets/imgs/Borning_UW_Photo.gif" class="img-responsive img-circle" width="200" alt="Alan profile picture"></center>
+                  <center><h4>Alan Borning</h4></center>
                   <p>Alan is a professor in the
-                                <a href="http://www.cs.washington.edu/"> Department of Computer Science &amp; Engineering</a> at the&nbsp;
-                                <a href="http://www.uw.edu/"> University of Washington</a>, an adjunct professor in the
-                                <a href="http://ischool.uw.edu/"> Information School</a>, and a member of the
-                                <a href="http://depts.washington.edu/urbdpphd/"> Interdisciplinary Ph.D. Program in Urban Design and Planning</a>. His current research is in two areas: human-computer interaction and programming languages. You can learn more about him on his 
-                                <a href="http://www.cs.washington.edu/people/faculty/borning">faculty webpage</a>.</p>
+                    <a href="http://www.cs.washington.edu/" alt="Computer Science and Engineering"> Department of Computer Science &amp; Engineering</a> at the&nbsp;
+                    <a href="http://www.uw.edu/" alt="University of Washington link"> University of Washington</a>, an adjunct professor in the
+                    <a href="http://ischool.uw.edu/" alt="Information School"> Information School</a>, and a member of the
+                    <a href="http://depts.washington.edu/urbdpphd/" alt="Ph.D. in Urban Design and Planning"> Interdisciplinary Ph.D. Program in Urban Design and Planning</a>. His current research is in two areas: human-computer interaction and programming languages. You can learn more about him on his 
+                    <a href="http://www.cs.washington.edu/people/faculty/borning" alt="Alan Borning faculty webpage">faculty webpage</a>.
+                  </p>
                 </div>
 
                 <div class="col-md-4">
-                  <img src="" class="img-responsive" src="" width="100" alt="Brittany profile picture">
-                  <h4>Brittany Bentley</h4>
-                  <p>Brittany lorem ipsum dolor ist amit lorem ipsum dolor ist amit lorem ipsum dolor ist amit. lorem ipsum dolor ist amit lorem lorem ipsum dolor ist amit</p>
+                  <center><img src="images/Bentley_profile.jpg" class="img-responsive img-circle" src="" width="200" alt="Brittany profile picture"></center>
+                  <center><h4>Brittany Bentley</h4></center>
+                  <p>Brittany is a designer, programmer, and University of Washington alumna. User Experience Design combines her love of the social sciences and her interest in computer science.</p>
                 </div>
               </div>
-            </div>         
+            </div> 
+
+            <div class="row row-content" id="methodology">
+              <div class="col-xs-12">
+                <h2>Methodology</h2>
+                <p>
+                  Want an in-depth look at what's going on behind the scenes as you use this calculator? Check out our <a href="assets/docs/methodology.pdf" target="_blank" alt="Methodology report">methodology report.</a>
+                </p>
+
+              </div>
+            </div>        
             
             <div class="row row-content"> 
                 <div class="col-xs-12"> 
-                    <h4>Contact Us</h4> 
-                    <p> If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p> 
+                    <h2>Contact Us</h2> 
+                    <p> Have any feedback about the website? Want to suggest a feature? Email us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p> 
                 </div>                 
             </div>             
             <div class="row row-content"> 
                 <div class="col-xs-12"> 
-                    <h4>Privacy</h4> 
-                    <p> No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. </p> 
+                    <h2>Privacy</h2> 
+                    <p> Your privacy is important to us. No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. </p> 
                 </div>                 
             </div>             
-        </div>         
+        </div>     
+
+        <footer class="row-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="individual.html">Household Calculator</a></li>
+                  <li><a href="business.html">Business Calculator</a></li>
+                  <li><a href="about.html">About</a></li>
+                </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Contact Us</h5>
+                  <a href="mailto:carbon@cs.washington.edu"><span class="fa fa-envelope-o"
+                               aria-hidden="true"></span> carbon@cs.washington.edu</a>
+              </div>
+          </div>
+        </footer>    
 
         
         <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         

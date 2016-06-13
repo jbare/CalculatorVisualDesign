@@ -7,29 +7,16 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head
          content must come *after* these tags -->
   <title>Carbon Tax Swap Calculator</title>
-
-  <!--
-  <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-  <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css"> 
-  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-  <script src="assets/bootstrap/js/bootstrap.js"></script>  
-  <script src="assets/javascripts/jquery-validate.bootstrap-tooltip.js"></script>  
-  <script src="assets/javascripts/jquery.validate.js"></script>  
-  <script src="assets/javascripts/jquery.mobile-1.4.4.js"></script>
-  -->
   
   <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
   <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
   <link href="assets/stylesheets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   
-  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->
-  <!--
-  <script src="assets/javascripts/jquery-1.11.1.js"></script>  
-  <script src="assets/javascripts/jquery-ui.min.js"></script>
--->
   <script src="assets/javascripts/jquery-2.1.4.min.js"></script>
 
   <!-- Bootstrap -->
@@ -73,7 +60,7 @@
 
   <header class="jumbotron"> 
     <div class="container">
-      <h1>Carbon Tax Calculator</h1>
+      <a href="index.html" alt="home"><center><img src="images/Logo.png" class="img-responsive" alt="Carbon Tax Swap Calculator"></center></a>
       <center><p>A nonpartisan way to estimate how Carbon Washington's proposal impacts you</p></center>
     </div>
   </header>
@@ -87,58 +74,58 @@
       </div>
     </div>
 
+    <div id="calculators">
+      <div class="section" id="indiv_calc_section">
+        <div class="row">
+          <div class="col-md-6">
+            <center><img src="images/Household.png" class="img-responsive icon" width="250" alt="image of house inside carbon ring"></center>
+          </div>
+          <div class="col-md-6">
+            <h1>Household Calculator</h1>
+            <p>Use our household calculator to discover how Carbon Washington's proposal will affect you and your household. Answer a few questions and we'll crunch the numbers for you. The calculator will take into account savings from the reduced sales tax and the Working Families Rebate and estimate what you would pay due to taxes on fossil fuels for driving and flying, and powering and heating your home.</p>
+                <a href="./individual.html" class="btn btn-primary" role="button" alt="Household Calculator">Household Calculator</a>
+          </div>
+        </div>
+      </div>
+      <div class="section" id="bus_calc_section">
+        <div class="row">
+          <div class="col-md-6">
+            <h1>Business Calculator</h1>
+            <p>Want to see how Carbon Washington's proposal will affect your business? Answer a few questions and our calculator will estimate the amount of money your business would save from the reduced sales tax and the elimination of the B&O Manufacturing Tax as well as what you would pay due to taxes on fossil fuels for driving and flying for business, and powering and heating your business.</p>
+           <a href="./business.html" class="btn btn-primary" role="button" alt="Business Calculator">Business Calculator</a>
+          </div>
+          <div class="col-md-6">
+            <center><img src="images/Business.png" class="img-responsive icon" width="250" alt="image of building inside carbon ring"></center>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
 
-    <div class="section">
+
+    <div class="section" id="features">
       <div class="row">
         <div class="col-md-4">
-          <img src="" class="img-responsive" alt="image of balanced scales">
+          <center><img src="images/Scales.png" class="img-responsive" width="300" alt="image of balanced scales"></center>
           <h2>Get a nonpartisan estimate</h2>
           <h4>We don't want to sway you one way or the other.</h4>
-          <p>This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information upon which to base their voting decision.</p>
+          <p>This website is not intended to advocate for or against this policy, but to provide an unbiased estimate of the impacts of the policy to give voters more information to inform their voting decision.</p>
         </div>
 
         <div class="col-md-4">
-          <img src="" class="img-responsive" alt="image of something">
+          <center><img src="images/Calculator.png" class="img-responsive" id="calculator_image" width="165" alt="image of calculator"></center>
           <h2>Find out the impact on you</h2>
           <h4>Estimate the financial effect on your household or business</h4>
-          <p>Use our <a href="#calculators" alt="link to calculator section" role="link">calculators</a> to estimate what your savings and payments would be under Carbon Washington's proposal</p>
+          <p>Use our <a href="#calculators" alt="calculator section" role="link">calculators</a> to estimate what your savings and payments would be under Carbon Washington's proposal</p>
         </div>
 
         <div class="col-md-4">
-          <img src="" class="img-responsive" alt="image of another thing">
+          <center><img src="images/Search.png" class="img-responsive" id="search_image" width="205" alt="image of magnifying glass over paper"></center>
           <h2>Examine our methods</h2>
           <h4>Our calculations and methodology are transparent</h4>
           <p>Want to know how we reached any of our results? Just click or hover on the <img src="questionMark.png" alt="How'd you get this number?"/> icons. You can also read up on our <a href="./about.html#methodology" alt="methodology link" role="link">methodology</a>.</p>
         </div>
       </div>
-    </div>
-
-    <div class="section" id="indiv_calc_section">
-      <div class="row">
-        <div class="col-md-6">
-          <img src="" class="img-responsive" alt="image of person">
-        </div>
-        <div class="col-md-6">
-          <h1>Individual Calculator</h1>
-          <p>Use our individual calculator to discover how Carbon Washington's proposal will affect you. Answer a few questions about XX and YY and we'll crunch the numbers for you. The calculator will show you an estimate of the amount of money you would save from the reduced sales tax and the Working Families Rebate.</p>
-          <p>The calculator will also show you an estimate of the amount you would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your home.</p>
-              <a href="./individual.html" class="btn btn-primary" role="button">Household</a>
-        </div>
-      </div>
-    </div>
-    <div class="section" id="bus_calc_section">
-      <div class="row">
-        <div class="col-md-6">
-          <h1>Business Calculator</h1>
-          <p>Use our business calculator to discover how Carbon Washington's proposal will affect your business. Answer a few questions about XX and YY and we'll crunch the numbers for you. It will show you an estimate of the amount of money your business would save from the reduced sales tax and the elimination of the B&O Manufacturing Tax.</p>
-          <p>It will also show you an estimate of the amount your business would pay from the new tax on the burning of fossil fuels, from activities such as driving vehicles, flying on airplanes, and powering and heating your building.</p>
-              <a href="./business.html" class="btn btn-primary" role="button">Business</a>
-        </div>
-        <div class="col-md-6">
-          <img src="" class="img-responsive" alt="image of building">
-        </div>
-      </div>
-      <br>
     </div>
   </div>  
 
@@ -148,10 +135,10 @@
         <div class="col-md-8">
           <h5>Links</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Individual Calculator</a></li>
-            <li><a href="#">Household Calculator/a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="individual.html">Household Calculator</a></li>
+            <li><a href="business.html">Business Calculator</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
         </div>
         <div class="col-md-4">
