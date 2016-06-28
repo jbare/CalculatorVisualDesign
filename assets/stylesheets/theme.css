@@ -137,3 +137,8 @@ a:hover {
   margin-bottom: 100px;
   background-color: #f7f7f7;
 }
+
+.form-control{
+  min-width: 100px;
+  margin: 5px;
+}

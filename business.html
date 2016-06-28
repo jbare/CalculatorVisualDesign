@@ -184,12 +184,12 @@
               <div id="gasOptionTwo">
                 <div class="col-xs-12">
                   <label for="gasCost" class="col-xs-12">How much does your business pay per gallon? </label>
-                  <input type="text" id="gasCost" value="2.40" class="col-xs-2 pull-xs-2">
+                  <input type="text" id="gasCost" value="2.40" class="form-control col-xs-2 pull-xs-2" sr-only="Enter gallon cost in dollars" required>
                 </div>
 
                 <div class="col-xs-12">
                   <label for="dollars" class="col-xs-12">How much does your business spend on gasoline? </label>
-                  <input type="text" id="dollars" value="0.00" class="col-xs-2 pull-xs-2" sr-only="Enter cost"required>
+                  <input type="text" id="dollars" value="0.00" class="form-control col-xs-2 pull-xs-2" sr-only="Enter gasoline total" required>
                   <div>
                     <select class="form-control col-xs-4" id="dollarTimeframe">
                       <option value="52">Week</option>
@@ -203,14 +203,14 @@
                 <div id="gasOptionThree">
                   <div class="col-xs-12">
                     <label for="mpg">How many miles per gallon do your vehicles average?</label>
-                    <input type="text" id="mpg" value="30">
+                    <input type="text" id="mpg" value="30" class="form-control">
                   </div>
 
                   <div class="col-xs-12">
                     <label for="miles" class="col-xs-12">How many miles do you or your employees drive for business purposes?</label>
-                    <input type="text" id="miles" value="0" class="col-xs-2 pull-xs-2"required>
+                    <input type="text" id="miles" value="0" class="form-control col-xs-2 pull-xs-2" sr-only="Enter household miles" required>
                     <div>
-                      <select class="form-control" id="mileageTimeframe">
+                      <select class="form-control col-xs-4" id="mileageTimeframe">
                         <option value="52">Week</option>
                         <option value="12">Month</option>
                         <option value="1">Year</option>                               

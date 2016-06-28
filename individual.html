@@ -47,67 +47,85 @@
     $(document).ready(function() {
       $('.uitooltip').tooltipster();
       $('#salesTaxTool').tooltipster({
-        content: $('<img src="salesTaxEstimate.png" style="float:left;margin-right:10px;"/> <div style="float:right;width:300px"> <p >This estimate of the amount of sales tax your household pays per year is computed using data from the <a href="http://dor.wa.gov/content/aboutus/statisticsandreports/wataxstudy/final_report.htm" target="_blank">2002 Tax Structure Study Report</a>. The graph shown here depicts the data from Table 9-1 of this study in <strong><font color="red">red</font></strong>. The <strong>black</strong> line depicts a smooth trend curve among the data points. We input your income into the function represented by this black line and the result is an estimate of the sales tax that you pay. </p> </div>'),
+        content: $('<img class="img-responsive" src="salesTaxEstimate.png" style="float:left;margin-right:10px;"/> <div class="col-xs-12 style="float:right;"> <p>This estimate of the amount of sales tax your household pays per year is computed using data from the <a href="http://dor.wa.gov/content/aboutus/statisticsandreports/wataxstudy/final_report.htm" target="_blank">2002 Tax Structure Study Report</a>. The graph shown here depicts the data from Table 9-1 of this study in <strong><font color="red">red</font></strong>. The <strong>black</strong> line depicts a smooth trend curve among the data points. We input your income into the function represented by this black line and the result is an estimate of the sales tax that you pay. </p> </div>'),
         position: 'left',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#salesTaxSavingsTool').tooltipster({
-        content: $('<p>Given your estimated annual state sales tax payments, the state sales tax rate (8.95%), and the Carbon Wasington sales tax reduction (1%), we can calculate your estimated sales tax savings under the Carbon Wasington policy by multiplying your estimated current payments by the ratio 1/8.95 </p>'),
+        content: $('<div class="col-xs-12"<p>Given your estimated annual state sales tax payments, the state sales tax rate (8.95%), and the Carbon Wasington sales tax reduction (1%), we can calculate your estimated sales tax savings under the Carbon Wasington policy by multiplying your estimated current payments by the ratio 1/8.95 </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#eitcTool').tooltipster({
-        content: $('<img src="eitc.gif" style="float:left;margin-right:10px;max-height:450px"/> <div style="float:right;width:300px"><p>Your estimated federal EITC is computed using the parameters of the federal EITC policy. This graph from the <a href="http://www.taxpolicycenter.org/briefing-book/key-elements/family/eitc.cfm" target="_blank">Tax Policy Center</a> shows how a household&#39;s number of children, marital status, and income affect the level of EITC that household can receive.</p></div>'),
+        content: $('<img src="eitc.gif" class="img-responsive" style="float:left;margin-right:10px;max-height:450px"/> <div class="col-xs-12" style="float:right;"><p>Your estimated federal EITC is computed using the parameters of the federal EITC policy. This graph from the <a href="http://www.taxpolicycenter.org/briefing-book/key-elements/family/eitc.cfm" target="_blank">Tax Policy Center</a> shows how a household&#39;s number of children, marital status, and income affect the level of EITC that household can receive.</p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#wfrTool').tooltipster({
-        content: $('<p>Your Working Families Rebate is estimated as one quarter of your estimated federal EITC.</p>'),
+        content: $('<div class="col-xs-12"><p>Your Working Families Rebate is estimated as one quarter of your estimated federal EITC.</p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#gasTool').tooltipster({
-        content: $('<p>To obtain your estimated additional gas tax, we first use the information you provided to determine approximately how many gallons of fuel you use per year. Then we multiply this number by 0.00891 metric tons of CO<sub>2</sub> per gallon, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        content: $('<div class="col-xs-12"><p>To obtain your estimated additional gas tax, we first use the information you provided to determine approximately how many gallons of fuel you use per year. Then we multiply this number by 0.00891 metric tons of CO<sub>2</sub> per gallon, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#airTool').tooltipster({
-        content: $('<p>This calculation is very similar to the gasoline and diesel usage one above. To obtain your estimated additional air travel tax, we first use the information you provided to determine approximately how many gallons of jet fuel you use through your flights. To do this, we assume a 60 miles per gallon fuel efficiency for each passenger. Then we multiply this number by 0.00957 metric tons of CO<sub>2</sub> per gallon of jet fuel, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        content: $('<div class="col-xs-12"><p>This calculation is very similar to the gasoline and diesel usage one above. To obtain your estimated additional air travel tax, we first use the information you provided to determine approximately how many gallons of jet fuel you use through your flights. To do this, we assume a 60 miles per gallon fuel efficiency for each passenger. Then we multiply this number by 0.00957 metric tons of CO<sub>2</sub> per gallon of jet fuel, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#natGasTool').tooltipster({
-        content: $('<p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many therms of natural gas you use for heating your home. Then we multiply this number by 0.005306 metric tons of CO<sub>2</sub> per therm of natural gas, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of natural gas. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        content: $('<div class="col-xs-12"><p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many therms of natural gas you use for heating your home. Then we multiply this number by 0.005306 metric tons of CO<sub>2</sub> per therm of natural gas, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of natural gas. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#fuelOilTool').tooltipster({
-        content: $('<p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many gallons of fuel oil you use for heating your home. Then we multiply this number by 0.01015 metric tons of CO<sub>2</sub> per gallon of fuel oil, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel oil. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        content: $('<div class="col-xs-12"><p>This calculation is very similar to the gasoline and diesel and air travel ones above. To obtain your estimated additional natural gas taxes, we first use the information you provided to determine approximately how many gallons of fuel oil you use for heating your home. Then we multiply this number by 0.01015 metric tons of CO<sub>2</sub> per gallon of fuel oil, which gives us the amount of carbon dioxide that would be emitted from the combustion of that amount of fuel oil. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
       $('#elecTool').tooltipster({
-        content: $('<p>To obtain your estimated additional electricity taxes, we first use the information you provided to look up the carbon impact (metric tons of CO<sub>2</sub> per kWh) of your electric utility, which is based on the proportions of fuel sources (coal, natural gas, petroleum, and renewables) that are used to generate that electricity. Then we multiply this number by the approximate number of kWh of electricity you use per year. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p>'),
+        content: $('<div class="col-xs-12"><p>To obtain your estimated additional electricity taxes, we first use the information you provided to look up the carbon impact (metric tons of CO<sub>2</sub> per kWh) of your electric utility, which is based on the proportions of fuel sources (coal, natural gas, petroleum, and renewables) that are used to generate that electricity. Then we multiply this number by the approximate number of kWh of electricity you use per year. Finally, this number is multiplied by $25 per metric ton of CO<sub>2</sub>, which is specified by the revenue neutral carbon tax policy. </p></div>'),
         position: 'top',
         maxWidth: 1000,
         interactive: true, 
-        theme: 'tooltipster-shadow'
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
       });
     });
   </script>
@@ -176,7 +194,7 @@
           <h2>Income</h2>
           <div>
             <label for="submitIncome" class="control-label">What is your annual household income? $</label>
-            <input type="text" id="income" placeholder="Enter annual income" name="income" role="input">     
+            <input type="text" id="income" placeholder="Enter annual income" name="income" role="input" value="0">     
           </div>
             <br>
             <button class="btn btn-primary prev_button">Previous</button>
@@ -235,7 +253,7 @@
         <div class="tab-pane fade" id="eitc_page" role="tabpanel">
           <h2>Earned Income Tax Credit</h2>
           <div>
-            <p>We estimate that you qualify for a federal Earned Income Tax Credit(EITC) of $<span id="eitc_filled">0</span>. <img id="eitcTool" src="questionMark.png"/>
+            <p>We estimate that you qualify for a federal Earned Income Tax Credit(EITC) of $<span id="eitc_filled">0</span>. <img class="img-responsive" id="eitcTool" src="questionMark.png"/>
             <p>If you have a better estimate of your federal EITC, please edit the EITC and click Update</p>
             <label for="eitc">EITC: $</label>
             <input type="text" id="eitc" value="0">
@@ -294,12 +312,12 @@
             <div id="gasOptionTwo">
                 <div class="col-xs-12">
                   <label for="gasCost" class="col-xs-12">How much do you pay per gallon? </label>
-                  <input type="text" id="gasCost" value="2.40" class="col-xs-2 pull-xs-2">
+                  <input type="text" id="gasCost" value="2.40" class="form-control col-xs-2 pull-xs-2" sr-only="Enter gallon cost in dollars" required>
                 </div>
 
                 <div class="col-xs-12">
                   <label for="dollars" class="col-xs-12">How much do you spend on gasoline? </label>
-                  <input type="text" id="dollars" value="0.00" class="col-xs-2 pull-xs-2" sr-only="Enter cost"required>
+                  <input type="text" id="dollars" value="0.00" class="form-control col-xs-2 pull-xs-2" sr-only="Enter gasoline total" required>
                   <div>
                     <select class="form-control col-xs-4" id="dollarTimeframe">
                       <option value="52">Week</option>
@@ -313,14 +331,14 @@
               <div id="gasOptionThree">
                 <div class="col-xs-12">
                   <label for="mpg">How many miles per gallon do your vehicles average?</label>
-                  <input type="text" id="mpg" value="30">
+                  <input type="text" id="mpg" value="30" class="form-control">
                 </div>
 
                 <div class="col-xs-12">
                   <label for="miles" class="col-xs-12">How many miles does your household drive?</label>
-                  <input type="text" id="miles" value="0" class="col-xs-2 pull-xs-2"required>
+                  <input type="text" id="miles" value="0" class="form-control col-xs-2 pull-xs-2" sr-only="Enter household miles" required>
                   <div>
-                    <select class="form-control" id="mileageTimeframe">
+                    <select class="form-control col-xs-4" id="mileageTimeframe">
                       <option value="52">Week</option>
                       <option value="12">Month</option>
                       <option value="1">Year</option>                               
