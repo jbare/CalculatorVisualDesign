@@ -79,7 +79,7 @@
           <li role="presentation"><a href="#gas_page" data-toggle="tab" aria-controls="4. gasoine and diesel usage" role="tab">Gasoline and Diesel Usage</a></li>
           <li role="presentation"><a href="#air_page" data-toggle="tab" aria-controls="5. air travel" role="tab">Air Travel</a></li>
           <li role="presentation"><a href="#elec_page" data-toggle="tab" aria-controls="6. facility energy usage" role="tab">Facility Energy Usage</a></li>
-          <li role="presentation"><a href="#summary_page" data-toggle="tab" aria-controls="7. summary" role="tab">Summary</a></li>
+          <li role="presentation"><a href="#summary_page" id="summary" data-toggle="tab" aria-controls="7. summary" role="tab">Summary</a></li>
         </ul>
 
         <div class="tab-content">
@@ -221,7 +221,7 @@
             </div>
             <br>
             <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="placeholder_btn_name" id="submitGallons" role="button">Next</button>
+            <button class="btn btn-primary next_button" id="submitGas" role="button">Next</button>
           </div>
 
           <div class="tab-pane fade" id="air_page" role="tabpanel">
@@ -244,12 +244,12 @@
 
             <div id="air_option_divs">
               <div id="airOptionOne">
-                <label for="seatMiles">How many miles does your household fly for personal reasons per year, taking off from airports in Washington State?</label>
+                <label for="seatMiles">How many miles per year do you or those affiliated with your busines travel, taking off from airports in Washington State?</label>
                 <p>
-                  Remember to add up the miles for each person. Example: The Smiths, a family of 3, flew from Seattle to Los Angeles, which is 1000 miles. 3 people x 1000 miles = 3000.
+                  Remember to add up the miles for each person. Example: Three employees from a single business fly from Seattle to Los Angeles, which is 1000 miles. 3 people x 1000 miles = 3000 miles.
                 </p>
                 <div>
-                  <input type="text" id="seatMiles" value="0">miles 
+                  <input type="text" id="seatMiles" value="0"> miles 
                 </div>
               </div>
 
@@ -259,13 +259,13 @@
                   We then assume $0.13 a mile and divide by two because only half of that travel involves flights taking off from airports in Washington State. First class or business class is taken care of automatically because they're more expensive.
                 </p>
                 <div>
-                  <span>$</span><input type="text" id="airPayments" value="0">per year 
+                  <span>$</span><input type="text" id="airPayments" value="0"> per year 
                 </div>
               </div>
             </div>
             <br>
             <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="air_btn_placeholder_name" id="submitSeatMiles">Next</button>
+            <button class="btn btn-primary next_button" id="submitAir">Next</button>
           </div>
 
           <div class="tab-pane fade" id="elec_page" role="tabpanel">
@@ -412,51 +412,41 @@
   </script>
 
 
-<!--script to change id of button on gas page depending on which option was picked -->
+<!--show appropriate gas section -->
   <script>
-    var gas_button_names = document.getElementsByName("placeholder_btn_name");
-    var changeable_gas_name=gas_button_names[0];
-
     $("#gasOptionOne_radio").click(function(){
       $("#gasOptionOne").show();
       $("#gasOptionTwo").hide();
       $("#gasOptionThree").hide();
-      changeable_gas_name.id= "submitGallons"
     });
 
     $("#gasOptionTwo_radio").click(function(){
       $("#gasOptionTwo").show();
       $("#gasOptionOne").hide();
       $("#gasOptionThree").hide();
-      changeable_gas_name.id= "submitDollars"
     });
 
     $("#gasOptionThree_radio").click(function(){
       $("#gasOptionThree").show();
       $("#gasOptionOne").hide();
       $("#gasOptionTwo").hide();
-      changeable_gas_name.id= "submitMileage"
     });
   </script>
 
-<!--script to change id of button on air page depending on which option was picked -->
+  <!-- show appropriate air section -->
   <script>
-    var air_button_names = document.getElementsByName("air_btn_placeholder_name");
-    var changeable_air_name=air_button_names[0];
-
     $("#airOptionOne_radio").click(function(){
-      $("#airOptionOne").show();
-      $("#airOptionTwo").hide();
-      changeable_air_name.id= "submitSeatMiles"
-    });
+        $("#airOptionOne").show();
+        $("#airOptionTwo").hide();
+      });
 
-    $("#airOptionTwo_radio").click(function(){
-      $("#airOptionTwo").show();
-      $("#airOptionOne").hide();
-      changeable_air_name.id= "submitAirPayments"
-    });
-
+      $("#airOptionTwo_radio").click(function(){
+        $("#airOptionTwo").show();
+        $("#airOptionOne").hide();
+      });
   </script>
+
+
 
 </body>
 </html>

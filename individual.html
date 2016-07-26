@@ -176,10 +176,10 @@
         <li role="presentation"><a href="#estimated_taxes_page" data-toggle="tab" aria-controls="2. estimated taxes" role="tab">Estimated Taxes</a></li>
         <li role="presentation"><a href="#wfr_page" data-toggle="tab" aria-controls="3. working family rebate" role="tab">Working Family Rebate</a></li>
         <li role="presentation"><a href="#eitc_page" data-toggle="tab" aria-controls="4. earned income tax credit" role="tab">EITC</a></li>
-        <li role="presentation"><a href="#gas_page" data-toggle="tab" aria-controls="5. gasoine and diesel usage" role="tab">Gasoline and Diesel Usage</a></li>
+        <li role="presentation"><a href="#gas_page" data-toggle="tab" aria-controls="5. gasoline and diesel usage" role="tab">Gasoline and Diesel Usage</a></li>
         <li role="presentation"><a href="#air_page" data-toggle="tab" aria-controls="6. air travel" role="tab">Air Travel</a></li>
         <li role="presentation"><a href="#elec_page" data-toggle="tab" aria-controls="7. home energy usage" role="tab">Home Energy Usage</a></li>
-        <li role="presentation"><a href="#summary_page" data-toggle="tab" aria-controls="8. summary" role="tab">Summary</a></li>
+        <li role="presentation"><a href="#summary_page" id="summary" data-toggle="tab" aria-controls="8. summary" role="tab">Summary</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade in active" id="intro_page" role="tabpanel">
@@ -350,7 +350,7 @@
 
           <br>
           <button class="btn btn-primary prev_button">Previous</button>
-          <button class="btn btn-primary next_button" name = "placeholder_btn_name" id="submitGallons">Next</button>
+          <button class="btn btn-primary next_button" name = "submitGas" id="submitGas">Next</button>
         </div>
 
         <div class="tab-pane fade" id="air_page" role="tabpanel">
@@ -523,28 +523,23 @@
 
   <script>
 
-    var gas_button_names = document.getElementsByName("placeholder_btn_name");
-    var changeable_gas_name=gas_button_names[0];
-
     $("#gasOptionOne_radio").click(function(){
       $("#gasOptionOne").show();
       $("#gasOptionTwo").hide();
       $("#gasOptionThree").hide();
-      changeable_gas_name.id= "submitGallons"
     });
 
     $("#gasOptionTwo_radio").click(function(){
       $("#gasOptionTwo").show();
       $("#gasOptionOne").hide();
       $("#gasOptionThree").hide();
-      changeable_gas_name.id= "submitDollars"
     });
 
     $("#gasOptionThree_radio").click(function(){
       $("#gasOptionThree").show();
       $("#gasOptionOne").hide();
       $("#gasOptionTwo").hide();
-      changeable_gas_name.id= "submitMileage"
+
     });
   </script>
 

@@ -60,6 +60,8 @@ var BOTaxes = "BOTaxes";
 var airPayments = "airPayments";
 var airTaxesCalcMethod = "airTaxesCalcMethod";
 var usage_or_percentage = "";
+var air_type = "submitSeatMiles";
+var gas_type ="submitGallons";
 
 
 $(document).ready(function () {
@@ -533,6 +535,51 @@ $(document).ready(function () {
 
   //Gasoline tax
 
+   $("#gasOptionOne_radio").on("click",
+    function(){ 
+      gas_type="submitGallons";
+    }
+  );
+
+  $("#gasOptionTwo_radio").on("click",
+    function(){ 
+      gas_type="submitDollars";
+    }
+  );
+
+  $("#gasOptionTwo_radio").on("click",
+    function(){ 
+      gas_type="submitMileage";
+    }
+  );
+
+
+
+  $("#submitGas").on("click", 
+    function () {
+      if(gas_type=="submitGallons"){
+        nodes.gasolineCalcMethod.setValueBasic(0);
+        elements.gallons.updateNode();
+        elements.gallonsTimeframe.updateNode();
+        calc.compute();
+      }
+      else if(gas_type="submitDollars"){
+        nodes.gasolineCalcMethod.setValueBasic(1);
+        elements.dollars.updateNode();
+        elements.dollarsTimeframe.updateNode();
+        elements.dpg.updateNode();
+        calc.compute();
+      }
+      else{ //submitMileage
+        nodes.gasolineCalcMethod.setValueBasic(2);
+        elements.miles.updateNode();
+        elements.milesTimeframe.updateNode();
+        elements.mpg.updateNode();
+        calc.compute();
+      }
+    }
+  );
+
   $("#submitGallons").click(
       function () {
         nodes.gasolineCalcMethod.setValueBasic(0);
@@ -564,6 +611,35 @@ $(document).ready(function () {
 
 
   //Air travel tax
+
+  $("#airOptionOne_radio").on("click",
+    function(){
+      air_type="submitSeatMiles";
+    }
+  );
+
+  $("#airOptionTwo_radio").on("click", 
+    function(){
+      air_type="submitAirPayments";
+    }
+  );
+
+
+
+  $("#submitAir").on("click", 
+    function () {
+      if(gas_type=="submitSeatMiles"){
+        nodes.airTaxesCalcMethod.setValueBasic(0);
+        elements.seatMiles.updateNode();
+        calc.compute();
+      }
+      else{
+        nodes.airTaxesCalcMethod.setValueBasic(1);
+        elements.airPayments.updateNode();
+        calc.compute();
+      }
+    }
+  );
 
   $("#submitSeatMiles").on("click", 
     function () {
@@ -628,6 +704,72 @@ $(document).ready(function () {
 
   $("#elecUsage").on("click", 
     function () {
+      if(usage_or_percentage=="submitUsage"){
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.thermsNatGas.updateNode();
+        elements.gallonsFuelOil.updateNode();
+        elements.kWhElec.updateNode();
+        calc.compute();
+      }
+      else{
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.usageComp.updateNode();
+        calc.compute();
+      }
+    }
+  );
+
+  //update all functions when clicking summary tab
+  $("#summary").on("click",
+    function(){
+      //submit salestax
+      nodes.displaySalesTaxBlock.setValueBasic(true);
+      elements.salesTax.updateNode();
+      calc.compute();
+
+      //submit sales tax rate
+      elements.salesTaxRate.updateNode();
+      calc.compute();
+
+      //submit BO tax
+      nodes.displayBOTaxBlock.setValueBasic(true);
+      elements.BOTaxes.updateNode();
+      calc.compute();
+
+      //submit Gas
+      if(gas_type=="submitGallons"){
+        nodes.gasolineCalcMethod.setValueBasic(0);
+        elements.gallons.updateNode();
+        elements.gallonsTimeframe.updateNode();
+        calc.compute();
+      }
+      else if(gas_type="submitDollars"){
+        nodes.gasolineCalcMethod.setValueBasic(1);
+        elements.dollars.updateNode();
+        elements.dollarsTimeframe.updateNode();
+        elements.dpg.updateNode();
+        calc.compute();
+      }
+      else{ //submitMileage
+        nodes.gasolineCalcMethod.setValueBasic(2);
+        elements.miles.updateNode();
+        elements.milesTimeframe.updateNode();
+        elements.mpg.updateNode();
+        calc.compute();
+      }
+
+      //submit Air
+      nodes.airTaxesCalcMethod.setValueBasic(1);
+      elements.airPayments.updateNode();
+      calc.compute();
+
+      //submit Zipcode
+      nodes.displayUtilityBlock.setValueBasic(true);
+      nodes.autoUpdateChosenUtility.setValue(true);
+      elements.zipcode.updateNode();
+      calc.compute();
+
+      //submit electricity usage
       if(usage_or_percentage=="submitUsage"){
         nodes.displayEnergyResult.setValueBasic(true);
         elements.thermsNatGas.updateNode();

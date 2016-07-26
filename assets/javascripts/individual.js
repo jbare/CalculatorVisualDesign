@@ -53,6 +53,7 @@ var dpg = "gasCost";
 var calculateWFR = "calculateWFR";
 var displaySalesTaxBlock = "displaySalesTaxBlock";
 var usage_or_percentage = "";
+var gas_type ="submitGallons";
 
 
 $(document).ready(function () {
@@ -576,31 +577,6 @@ $(document).ready(function () {
   );
 
 
-
-/*
-  $(".next").on("click", 
-    function(){
-      $(this).parent().next().fadeIn("fast");
-      $(this).parent().css({
-        'display': 'none'
-      });
-
-      $("#individual_progress_bar li").eq($(".form_page").index($(this).parent().next())).addClass("active");
-    }
-  );
-
-  $(".previous").on("click", 
-    function(){
-      $(this).parent().prev().fadeIn("fast");
-      $(this).parent().css({
-        'display': 'none'
-      });
-
-      $(".active:last").removeClass("active");
-    }
-  );
-  */
-
   $("#submitSalesTax").on("click", 
     function () {
       $("#updated_taxes").show();
@@ -691,6 +667,51 @@ $(document).ready(function () {
     })(i);
   }
 
+  $("#gasOptionOne_radio").on("click",
+    function(){ 
+      gas_type="submitGallons";
+    }
+  );
+
+  $("#gasOptionTwo_radio").on("click",
+    function(){ 
+      gas_type="submitDollars";
+    }
+  );
+
+  $("#gasOptionTwo_radio").on("click",
+    function(){ 
+      gas_type="submitMileage";
+    }
+  );
+
+
+
+  $("#submitGas").on("click", 
+    function () {
+      if(gas_type=="submitGallons"){
+        nodes.gasolineCalcMethod.setValueBasic(0);
+        elements.gallons.updateNode();
+        elements.gallonsTimeframe.updateNode();
+        calc.compute();
+      }
+      else if(gas_type="submitDollars"){
+        nodes.gasolineCalcMethod.setValueBasic(1);
+        elements.dollars.updateNode();
+        elements.dollarsTimeframe.updateNode();
+        elements.dpg.updateNode();
+        calc.compute();
+      }
+      else{ //submitMileage
+        nodes.gasolineCalcMethod.setValueBasic(2);
+        elements.miles.updateNode();
+        elements.milesTimeframe.updateNode();
+        elements.mpg.updateNode();
+        calc.compute();
+      }
+    }
+  );
+
 
   $("#submitGallons").click(
       function () {
@@ -729,11 +750,91 @@ $(document).ready(function () {
     }
   );
 
+//every time summary is clicked, update all values
+$("#summary").on("click",
+  function(){
+    //submitIncome
+      nodes.autoUpdateSalesTax.setValueBasic(true);
+      nodes.autoUpdateEITC.setValueBasic(true);
+      elements.income.updateNode();
+      nodes.income1.setValue(nodes.income.getValue());
+      calc.compute();
+
+      //update estimated sales tax payment
+      var sales_tax_elements = document.getElementById("salesTaxPayment_filled");
+      var sales_tax_calc = nodes.salesTax.value;
+      sales_tax_elements.innerHTML = sales_tax_calc;
+
+      //update household income on WFR page
+      var income_elements = document.getElementById("income1");
+      var income_val = nodes.income1.value;
+      income_elements.innerHTML = income_val;
+
+    //submit EITC
+        nodes.autoUpdateEITC.setValueBasic(false);
+        elements.eitc.updateNode();
+        calc.compute();
+
+    //submitGas
+      if(gas_type=="submitGallons"){
+        nodes.gasolineCalcMethod.setValueBasic(0);
+        elements.gallons.updateNode();
+        elements.gallonsTimeframe.updateNode();
+        calc.compute();
+      }
+      else if(gas_type="submitDollars"){
+        nodes.gasolineCalcMethod.setValueBasic(1);
+        elements.dollars.updateNode();
+        elements.dollarsTimeframe.updateNode();
+        elements.dpg.updateNode();
+        calc.compute();
+      }
+      else{ //submitMileage
+        nodes.gasolineCalcMethod.setValueBasic(2);
+        elements.miles.updateNode();
+        elements.milesTimeframe.updateNode();
+        elements.mpg.updateNode();
+        calc.compute();
+      }
+
+
+    //submit seatMiles
+      elements.seatMiles.updateNode();
+      calc.compute();
+
+    //submit Split
+      nodes.displayElectricBlock.setValueBasic(true);
+      elements.percentSplit.updateNode();
+      calc.compute();
+
+    //submit ZipCode
+      nodes.displayUtilityBlock.setValueBasic(true);
+      nodes.autoUpdateChosenUtility.setValue(true);
+      elements.zipcode.updateNode();
+      calc.compute();
+
+    //submit elec usage
+      if (usage_or_percentage == "submitUsage"){
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.thermsNatGas.updateNode();
+        elements.gallonsFuelOil.updateNode();
+        elements.kWhElec.updateNode();
+        calc.compute();
+      }
+      else{
+        nodes.displayEnergyResult.setValueBasic(true);
+        elements.usageComp.updateNode();
+        calc.compute();
+      }
+  }
+);
 
   $("#split").on("click", 
     function () {
       nodes.split.setValue(true);
       calc.compute();
+      console.log(nodes.split.value);
+      console.log(nodes.percentSplit.value);
       $("#partialEnergy").css("display", "block");
     }
   );
@@ -741,7 +842,10 @@ $(document).ready(function () {
   $("#noSplit").on("click", 
     function () {
       nodes.split.setValue(false);
+      nodes.percentSplit.value=100;
       calc.compute();
+      console.log(nodes.split.value);
+      console.log(nodes.percentSplit.value);
       $("#partialEnergy").css("display", "none");
       $("#electricBlock").css("display", "block");
     }
