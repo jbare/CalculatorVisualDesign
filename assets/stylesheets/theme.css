@@ -104,6 +104,10 @@ a:hover {
   display: none; /*hide div initially*/
 }
 
+#airOptionTwo{
+  display: none; /*hide div initially*/
+}
+
 .tab-pane{
   padding: 20px;
 }

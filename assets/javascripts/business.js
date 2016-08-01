@@ -62,6 +62,7 @@ var airTaxesCalcMethod = "airTaxesCalcMethod";
 var usage_or_percentage = "";
 var air_type = "submitSeatMiles";
 var gas_type ="submitGallons";
+var BOTaxSavings_sum = "BOTaxSavings_sum"
 
 
 $(document).ready(function () {
@@ -143,6 +144,10 @@ $(document).ready(function () {
   nodes.BOTaxSavings = new Node(calc, {type: "num", round: 0}, BOTaxSavings, 0, [nodes.totalSavings]);
   nodes.BOTaxSavings.computeSpecific = function() {
     this.value = Math.round(this.children[BOTaxes].getValue());
+
+    //update summary
+    var BOTaxSavings_sum = document.getElementById("BOTaxSavings_sum");
+    BOTaxSavings_sum.innerHTML = nodes.BOTaxSavings.value;
   }
 
   nodes.BOTaxes = new Node(calc, {type: "num", round: 0}, BOTaxes, 0, [nodes.BOTaxSavings]);
@@ -153,6 +158,7 @@ $(document).ready(function () {
     }
   }
   nodes.displayBOTaxBlock = new Node(calc, {type: "bool"}, displayBOTaxBlock, false, [nodes.BOTaxes]);
+
 
 
 
@@ -547,7 +553,7 @@ $(document).ready(function () {
     }
   );
 
-  $("#gasOptionTwo_radio").on("click",
+  $("#gasOptionThree_radio").on("click",
     function(){ 
       gas_type="submitMileage";
     }
@@ -563,7 +569,7 @@ $(document).ready(function () {
         elements.gallonsTimeframe.updateNode();
         calc.compute();
       }
-      else if(gas_type="submitDollars"){
+      else if(gas_type=="submitDollars"){
         nodes.gasolineCalcMethod.setValueBasic(1);
         elements.dollars.updateNode();
         elements.dollarsTimeframe.updateNode();
@@ -580,6 +586,8 @@ $(document).ready(function () {
     }
   );
 
+
+/*
   $("#submitGallons").click(
       function () {
         nodes.gasolineCalcMethod.setValueBasic(0);
@@ -608,6 +616,7 @@ $(document).ready(function () {
         calc.compute();
     }
   );
+*/
 
 
   //Air travel tax
@@ -628,12 +637,12 @@ $(document).ready(function () {
 
   $("#submitAir").on("click", 
     function () {
-      if(gas_type=="submitSeatMiles"){
+      if(air_type=="submitSeatMiles"){
         nodes.airTaxesCalcMethod.setValueBasic(0);
         elements.seatMiles.updateNode();
         calc.compute();
       }
-      else{
+      else{ //submitAirPayments
         nodes.airTaxesCalcMethod.setValueBasic(1);
         elements.airPayments.updateNode();
         calc.compute();
@@ -641,6 +650,7 @@ $(document).ready(function () {
     }
   );
 
+/*
   $("#submitSeatMiles").on("click", 
     function () {
       nodes.airTaxesCalcMethod.setValueBasic(0);
@@ -656,6 +666,7 @@ $(document).ready(function () {
       calc.compute();
     }
   );
+*/
 
 
   //Building energy use tax

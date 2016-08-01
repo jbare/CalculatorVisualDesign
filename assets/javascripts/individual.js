@@ -679,7 +679,7 @@ $(document).ready(function () {
     }
   );
 
-  $("#gasOptionTwo_radio").on("click",
+  $("#gasOptionThree_radio").on("click",
     function(){ 
       gas_type="submitMileage";
     }
@@ -695,7 +695,7 @@ $(document).ready(function () {
         elements.gallonsTimeframe.updateNode();
         calc.compute();
       }
-      else if(gas_type="submitDollars"){
+      else if(gas_type=="submitDollars"){
         nodes.gasolineCalcMethod.setValueBasic(1);
         elements.dollars.updateNode();
         elements.dollarsTimeframe.updateNode();

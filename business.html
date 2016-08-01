@@ -25,15 +25,6 @@
     $.widget.bridge('uibutton', $.ui.button);
   </script>
 
-  <script>
-    $(function() {
-      $( "#accordion" ).accordion({
-        collapsible:true,
-        heightStyle: "content",
-        active: 0
-      });
-    });
-  </script>
 </head>
 
 <body style="background-image:url(images/Mosaic-Background.gif)">
@@ -226,6 +217,9 @@
 
           <div class="tab-pane fade" id="air_page" role="tabpanel">
             <h2>Air Travel</h2>
+            <p>
+              How much air travel does your business do in a year? Please choose <strong>one</strong> of these calculation options:
+            </p> 
 
             <!-- Radio buttons to choose submission type-->
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="air travel options">
@@ -244,7 +238,7 @@
 
             <div id="air_option_divs">
               <div id="airOptionOne">
-                <label for="seatMiles">How many miles per year do you or those affiliated with your busines travel, taking off from airports in Washington State?</label>
+                <label for="seatMiles">How many miles per year do you or those affiliated with your business travel, taking off from airports in Washington State?</label>
                 <p>
                   Remember to add up the miles for each person. Example: Three employees from a single business fly from Seattle to Los Angeles, which is 1000 miles. 3 people x 1000 miles = 3000 miles.
                 </p>
@@ -254,7 +248,7 @@
               </div>
 
               <div id="airOptionTwo">
-                <label for="airPayments">How many miles does your business spend on air travel to or from airports in Washington State?</label>
+                <label for="airPayments">How much does your business spend on air travel to or from airports in Washington State?</label>
                 <p>
                   We then assume $0.13 a mile and divide by two because only half of that travel involves flights taking off from airports in Washington State. First class or business class is taken care of automatically because they're more expensive.
                 </p>
@@ -354,7 +348,7 @@
               <div id="BO_results" class="tab-pane fade" role="tabpanel">
                 <h3>B&O Taxes</h3>
                 <p>
-                  With the elimination of state manufacturing B&O taxes, we estimate that your business would save $<span id = "BOTaxSavings" class="final save">0</span> per year.
+                  With the elimination of state manufacturing B&O taxes, we estimate that your business would save $<span id = "BOTaxSavings_sum" class="final save">0</span> per year.
                 </p>
               </div>
 
