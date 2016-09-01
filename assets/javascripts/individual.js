@@ -1,959 +1,697 @@
-var totalNet = "totalNet";
-var totalCosts = "totalCosts";
-var totalSavings = "totalSavings";
-var airTaxes = "airTaxes";
-var seatMiles = "seatMiles";
-var percentSplit = "percentSplit";
-var homeTaxes = "homeEnergyLosses";
-var heatingType = "heating";
-var usageComp = "percentOfAverage";
-var exactEnergy = "exactEnergy";
-var utilityCostRate = "utilities";
-var split = "split";
-var displayElectricBlock = "displayElectricBlock";
-var chosenUtility = "utilities";
-var utilityList = "utilityList";
-var zipcode = "zipcode";
-var displayUtilityBlock = "displayUtilityBlock";
-var autoUpdateChosenUtility = "autoUpdateChosenUtility";
-var displayEnergyResult = "displayEnergyResult";
-var thermsNatGas = "thermsNatGas";
-var gallonsFuelOil = "gallonsFuelOil";
-var kWhElec = "kWhElec";
-var natGasLosses = "natGasLosses";
-var fuelOilLosses = "fuelOilLosses";
-var elecLosses = "elecLosses";
-var natGas = 0;
-var fuelOil = 1;
-var elec = 2;
-var wood = 3;
-var other = 4;
-var displayApproxPercentage = "displayApproxPercentage";
-var noClicked = "noClicked";
-var income = "income";
-var salesTax = "salesTaxPayment";
-var salesTaxSavings = "salesTaxSavings";
-var autoUpdateSalesTax = "autoUpdateSalesTax";
-var income1 = "income1";
-var eitc = "eitc";
-var wfr = "wfrSavings";
-var dependents = "dependents";
-var taxStatus = "taxStatus";
-var autoUpdateEITC = "autoUpdateEITC";
-var gasolineCalcMethod = "gasolineCalcMethod";
-var gallons = "gallons";
-var gallonsTimeframe = "gasTimeframe";
-var dollars = "dollars";
-var dollarsTimeframe = "dollarTimeframe";
-var miles = "miles";
-var milesTimeframe = "mileageTimeframe";
-var mpg = "mpg";
-var gasolineTaxes = "gasolineLosses";
-var dpg = "gasCost";
-var calculateWFR = "calculateWFR";
-var displaySalesTaxBlock = "displaySalesTaxBlock";
-var usage_or_percentage = "";
-var gas_type ="submitGallons";
-
-
 $(document).ready(function () {
+  
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //     Controller
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   $( document ).uitooltip(); 
-  
-  var calc = new Calculator();
-  var nodes = {};
-  nodes.totalNet = new Node(calc, {type: "num", round: 0}, totalNet, 0);
-  nodes.totalNet.divs = {save: $("#save"), pay: $("#pay"), zero: $("#zero")};
-  nodes.totalNet.computeSpecific = function() {
-    this.value = Math.round(this.children[totalSavings].getValue() - this.children[totalCosts].getValue());
+  INCOME = "#income";
+  SALESTAXPAYMENTMANUAL = "#salesTaxPayment";
+  SALESTAXPAYMENTAUTO = "#salesTaxPayment_filled";
+  DEPENDENTS = "#dependents";
+  EITCAUTO = "#eitc_filled"
+  EITCMANUAL = "#eitc";
+  GALLONS = "#gallons";
+  GALLONSFREQ = "#gasTimeframe";
+  GASCOST = "#gasCost";
+  DOLLARS = "#dollars";
+  DOLLARFREQ = "#dollarTimeframe";
+  MPG = "#mpg";
+  MILES = "#miles";
+  MILEAGEFREQ = "#mileageTimeframe";
+  SEATMILES = "#seatMiles";
+  PERCENTSPLIT = "#percentSplit";
+  ZIPCODE = "#zipcode";
+  UTILITIES = "#utilities";
+  PERCENTOFAVERAGE = "#percentOfAverage";
+  THERMS = "#thermsNatGas";
+  FUELOIL = "#gallonsFuelOil";
+  KWH = "#kWhElec";
+  SALESTAXSAVINGS = "#salesTaxSavings";
+  WFRSAVINGS = "#wfrSavings";
+  GASTAXES = "#gasolineLosses";
+  AIRTAXES = "#airTaxes";
+  NATGASTAXES = "#natGasLosses";
+  FUELOILTAXES = "#fuelOilLosses";
+  ELECTAXES = "#elecLosses";
+  HOMETAXES = "#homeEnergyLosses";
+  TOTALSAVINGS = "#totalSavings_static";
+  TOTALCOSTS = "#totalCosts_static";
+  TOTALNET = "#totalNet_static";
+  UTILITYREMEMBERED = "#utilityRemembered";
+  alertSent = false;
+  prevErrorCount = 0;
 
-    //update net total
-    var net_total = document.getElementById("totalNet_static");
-    var net_total_value = nodes.totalNet.value;
-    net_total.innerHTML = net_total_value;
+  model = new Model();
+  updateRadios();
+  updateUtilities();
+  //updateModel();
+  //updateBoxesAndSpans();
 
-    //update whether save/pay/neutral
-    var total_summary = document.getElementById("final_summary");
+  function updateModel() {
+    model.setIncome($(INCOME).val());
 
-    if (this.value > 0) {
-      total_summary.innerHTML="you would save $";
-    } else if (this.value < 0) {
-      total_summary.innerHTML="you would pay $";
-    } else {
-      total_summary.innerHTML = "would be neutral: $";
+    model.setSalesTax(parseInt($("input[name=taxOption]:checked").val()), $(SALESTAXPAYMENTMANUAL).val());
+
+    model.setEitc(parseInt($(DEPENDENTS).val()), parseInt($("input[name=taxStatus]:checked").val()));
+
+    model.setWfr(parseInt($("input[name=eitcOption]:checked").val()), $(EITCMANUAL).val());
+
+    model.setGas(parseInt($("input[name=gas]:checked").val()), $(GALLONS).val(), $(GALLONSFREQ).val(), 
+      $(GASCOST).val(), $(DOLLARS).val(), $(DOLLARFREQ).val(), 
+      $(MPG).val(), $(MILES).val(), $(MILEAGEFREQ).val());
+
+    model.setAir($(SEATMILES).val());
+
+    billSplitStatus = $("input[name=billSplitStatus]:checked");
+    approxOrExactStatus = $("input[name=approxOrExactStatus]:checked");
+    heating = $("input[name=heating]:checked");
+    homeObject = {};
+    homeObject.percentSplit = $(PERCENTSPLIT).val();
+    homeObject.zipcode = $(ZIPCODE).val();
+    homeObject.utility = $(UTILITIES).val();
+    $(UTILITYREMEMBERED).val(homeObject.utility);
+    homeObject.percentOfAverage = $(PERCENTOFAVERAGE).val();
+    homeObject.therms = $(THERMS).val();
+    homeObject.gallons = $(FUELOIL).val();
+    homeObject.elec = $(KWH).val();
+
+
+    model.setHome(parseInt(billSplitStatus.val()), parseInt(approxOrExactStatus.val()), parseInt(heating.val()), homeObject);
+
+    model.setSummary();
+  }
+
+  function updateGeneral() {
+    updateModel();
+    updateBoxesAndSpans();
+    console.log(model.errorCount);
+    if (model.errorCount > prevErrorCount) {
+      prevErrorCount = model.errorCount;
+      return 0;
     }
-  }  
-
-  nodes.totalCosts = new Node(calc, {type: "num", round: 0}, totalCosts, 0, [nodes.totalNet]);
-  nodes.totalCosts.computeSpecific = function() {
-    this.value = Math.round(this.children[gasolineTaxes].getValue() + this.children[airTaxes].getValue() + this.children[homeTaxes].getValue());
-
-    //update summary total cost
-    var costs_total = document.getElementById("totalCosts_static");
-    var costs_total_value = nodes.totalCosts.value;
-    costs_total.innerHTML = costs_total_value;
-
-  }
-  nodes.totalSavings = new Node(calc, {type: "num", round: 0}, totalSavings, 0, [nodes.totalNet]);
-  nodes.totalSavings.computeSpecific = function() {
-    this.value = Math.round(this.children[salesTaxSavings].getValue() + this.children[wfr].getValue());
-
-    //update summary total savings
-    var savings_total = document.getElementById("totalSavings_static");
-    var savings_total_value = nodes.totalSavings.value;
-    savings_total.innerHTML = savings_total_value;
-  }  
-
-
-  nodes.salesTaxSavings = new Node(calc, {type: "num", round: 0}, salesTaxSavings, 0, [nodes.totalSavings]);
-  nodes.salesTaxSavings.computeSpecific = function() {
-    this.value = Math.round(this.children[salesTax].getValue()/8.95);
-
-    //update sales tax summary savings
-    var sales_tax_savings_total = document.getElementById("salesTaxSavings");
-    sales_tax_savings_total.innerHTML = nodes.salesTaxSavings.value;
-  }
-  nodes.salesTax = new Node(calc, {type: "num", round: 0}, salesTax, 0, [nodes.salesTaxSavings]);
-  nodes.salesTax.computeSpecific = function() {
-    if (this.children[autoUpdateSalesTax].getValue()) {
-      this.value = Math.round(121.59*Math.pow((0.001*this.children[income].getValue()), 0.6919));
-    }
-  }
-  nodes.autoUpdateSalesTax = new Node(calc, {type: "bool"}, autoUpdateSalesTax, true, [nodes.salesTax]);
-  nodes.income = new Node(calc, {type: "num", round: 0}, income, 0, [nodes.salesTax]);
-  nodes.income.divs = {salesTaxBlock: $("#salesTax")};
-  nodes.income.computeSpecific = function() {
-    if (this.children[displaySalesTaxBlock].getValue()) {
-      this.divs.salesTaxBlock.css( "display", "block");
-    }
-    //update sales tax summary savings
-    var sales_tax_savings_total = document.getElementById("salesTaxSavings");
-    sales_tax_savings_total.innerHTML = nodes.salesTaxSavings.value;
-  }
-  nodes.displaySalesTaxBlock = new Node(calc, {type: "bool"}, displaySalesTaxBlock, false, [nodes.income]);
-
-  nodes.wfr = new Node(calc, {type: "num", round: 0}, wfr, 0, [nodes.totalSavings]);
-  nodes.wfr.computeSpecific = function() {
-    if (this.children[calculateWFR].getValue()) {
-      this.value = Math.round(this.children[eitc].getValue() * 0.25);
-    }
-
-    //update WFR summary
-    var wfr_total = document.getElementById("wfrSavings");
-    wfr_total.innerHTML = nodes.wfr.value;
+    prevErrorCount = model.errorCount;
+    return 1;
   }
 
-  nodes.calculateWFR = new Node(calc, {type: "bool"}, calculateWFR, false, [nodes.wfr]);
-
-  nodes.eitc = new Node(calc, {type: "num", round: 0}, eitc, 0, [nodes.wfr]);
-  nodes.eitc.computeSpecific = function() {
-    if (this.children[autoUpdateEITC].getValue()) {
-      var rate = 0;
-      var maxCred = 0;
-      var phaseOut = 0;
-      var phaseOutIncome = 0;
-
-      switch (this.children[dependents].getValue()) {
-        case 0:
-          rate = 0.0765;
-          maxCred = 496;
-          phaseOut = 0.0765;
-          phaseOutIncome = 8110;
-          break; 
-        case 1:
-          rate = 0.34;
-          maxCred = 3305;
-          phaseOut = 0.1598;
-          phaseOutIncome = 17830;
-          break; 
-        case 2:
-          rate = 0.4;
-          maxCred = 5460;
-          phaseOut = 0.2106;
-          phaseOutIncome = 17830;
-          break; 
-        case 3:
-          rate = 0.45;
-          maxCred = 6143;
-          phaseOut = 0.2106;
-          phaseOutIncome = 17830;
-          break; 
-        default: 
-          rate = 0.45;
-          maxCred = 6143;
-          phaseOut = 0.2106;
-          phaseOutIncome = 17830;
-      }
-
-      if (this.children[taxStatus].getValue() == 0) {
-        phaseOutIncome = phaseOutIncome + 5430;
-      }
-
-      //console.log(String(rate) + " " + String(maxCred) + " " +String(phaseOut) + " " +String(phaseOutIncome) + " " +String(taxStatus) + " " +String(dependents) + "\n");
-
-      this.value = Math.min(maxCred, rate*this.children[income1].getValue());
-      if (this.children[income1].getValue() > phaseOutIncome) {
-        this.value = this.value - phaseOut*(this.children[income1].getValue() - phaseOutIncome);
-      }
-
-      this.value = Math.max(this.value, 0);
-    }
-
-    //update eitc
-    var eitc_filled_total = document.getElementById("eitc_filled");
-    eitc_filled_total.innerHTML = Math.round(nodes.eitc.value);
-  }
-
-  nodes.autoUpdateEITC = new Node(calc, {type: "bool"}, autoUpdateEITC, true, [nodes.eitc]);
-
-  nodes.taxStatus = new Node(calc, {type: "num"}, taxStatus, 0, [nodes.eitc]);
-
-  nodes.dependents = new Node(calc, {type: "num"}, dependents, 0, [nodes.eitc]);
-
-  nodes.income1 = new Node(calc, {type: "num", round: 0}, income1, 0, [nodes.eitc]);
-
-  nodes.gasolineTaxes = new Node(calc, {type: "num", round: 0}, gasolineTaxes, 0, [nodes.totalCosts]);
-  nodes.gasolineTaxes.computeSpecific = function() {
-    if (this.children[gasolineCalcMethod].getValue() == 0) {
-      this.value = Math.round(this.children[gallons].getValue()*this.children[gallonsTimeframe].getValue()*8.91/1000*25);
-    } else if (this.children[gasolineCalcMethod].getValue() == 1) {
-      this.value = Math.round(this.children[dollars].getValue()/this.children[dpg].getValue()*this.children[dollarsTimeframe].getValue()*8.91/1000*25);
-    } else {
-      this.value = Math.round(this.children[miles].getValue()/this.children[mpg].getValue()*this.children[milesTimeframe].getValue()*8.91/1000*25);
-    }
-
-    //update gas
-    var gas_cost_final = document.getElementById("gasolineLosses");
-    gas_cost_final.innerHTML = nodes.gasolineTaxes.value;
-  }
-
-  nodes.gasolineCalcMethod = new Node(calc, {type: "num", round: 0}, gasolineCalcMethod, 0, [nodes.gasolineTaxes]);
-
-  nodes.gallons = new Node(calc, {type: "num", round: 2}, gallons, 0, [nodes.gasolineTaxes]);
-
-  nodes.gallonsTimeframe = new Node(calc, {type: "num", round: 0}, gallonsTimeframe, 52, [nodes.gasolineTaxes]);
-
-  nodes.dollars = new Node(calc, {type: "num", round: 2}, dollars, 0, [nodes.gasolineTaxes]);
-
-  nodes.dollarsTimeframe = new Node(calc, {type: "num", round: 0}, dollarsTimeframe, 52, [nodes.gasolineTaxes]);
-
-  nodes.dpg = new Node(calc, {type: "num", round: 2}, dpg, 2.40, [nodes.gasolineTaxes]);
-
-  nodes.miles = new Node(calc, {type: "num", round: 0}, miles, 0, [nodes.gasolineTaxes]);
-
-  nodes.milesTimeframe = new Node(calc, {type: "num", round: 0}, milesTimeframe, 1, [nodes.gasolineTaxes]);
-
-  nodes.mpg = new Node(calc, {type: "num", round: 0}, mpg, 0, [nodes.gasolineTaxes]);
-
-
-
-  nodes.airTaxes = new Node(calc, {type: "num", round: 0}, airTaxes, 0, [nodes.totalCosts]);
-  nodes.airTaxes.computeSpecific = function() {
-    this.value = Math.round(this.children[seatMiles].getValue()/60*9.57/1000*25);
-
-    //update final air taxes summary
-    var airTaxes_final = document.getElementById("airTaxes");
-    airTaxes_final.innerHTML = nodes.airTaxes.value;
-
-  }
-  nodes.seatMiles = new Node(calc, {type: "num", round: 0}, seatMiles, 0, [nodes.airTaxes]);
-  nodes.homeTaxes = new Node(calc, {type: "num", round: 0}, homeTaxes, 0, [nodes.totalCosts]);
-  nodes.homeTaxes.divs = {energyResult: $("#energyResult"), approxPercentage: $("#approxPercentage")};
-  nodes.homeTaxes.computeSpecific = function() {
-    
-    if (this.children[displayApproxPercentage].getValue() && this.children[noClicked].getValue()) {
-      this.divs.approxPercentage.css( "display", "block");
-    }
-
-    if (this.children[displayEnergyResult].getValue()) {
-      this.value = Math.round(this.children[natGasLosses].getValue() + this.children[fuelOilLosses].getValue() + this.children[elecLosses].getValue());
-
-      this.divs.energyResult.css( "display", "block");
-    }
-
-    //update span for total energy usages
-    var homeTaxes_final = document.getElementById("homeEnergyLosses");
-    homeTaxes_final.innerHTML = nodes.homeTaxes.value;
-  }
-  nodes.noClicked = new Node(calc, {type: "bool"}, noClicked, false, [nodes.homeTaxes]);
-  nodes.displayApproxPercentage = new Node(calc, {type: "bool"}, displayApproxPercentage, false, [nodes.homeTaxes]);
-  nodes.displayEnergyResult = new Node(calc, {type: "bool"}, displayEnergyResult, false, [nodes.homeTaxes]);
-
-  nodes.natGasLosses = new Node(calc, {type: "num", round: 0}, natGasLosses, 0, [nodes.homeTaxes]);
-  nodes.natGasLosses.computeSpecific = function() {
-    if (this.children[exactEnergy].getValue()) {
-      this.value = Math.round(5.306*25*this.children[thermsNatGas].getValue()/1000*this.children[percentSplit].getValue()/100);
-    } else {
-      if (this.children[heatingType].getValue() == natGas || this.children[heatingType].getValue() == other) {
-        this.value = Math.round(5.306*25*732/1000*this.children[usageComp].getValue()/100*this.children[percentSplit].getValue()/100);
-      } else {
-        this.value = 0;
-      }
-    }
-
-    //update summary for natural gas
-    var natGas_final = document.getElementById("natGasLosses");
-    natGas_final.innerHTML = nodes.natGasLosses.value;
-  }
-
-  nodes.fuelOilLosses = new Node(calc, {type: "num", round: 0}, fuelOilLosses, 0, [nodes.homeTaxes]);
-  nodes.fuelOilLosses.computeSpecific = function() {
-    if (this.children[exactEnergy].getValue()) {
-      this.value = Math.round(10.15*25*this.children[gallonsFuelOil].getValue()/1000*this.children[percentSplit].getValue()/100);
-    } else {
-      if (this.children[heatingType].getValue() == fuelOil) {
-        this.value = Math.round(10.15*25*527/1000*this.children[usageComp].getValue()/100*this.children[percentSplit].getValue()/100);
-      } else {
-        this.value = 0;
-      }
-    }
-
-    //update summary span for fuel
-    var fuelOil_final = document.getElementById("fuelOilLosses");
-    fuelOil_final.innerHTML = nodes.fuelOilLosses.value;
-  }
-
-  nodes.elecLosses = new Node(calc, {type: "num", round: 0}, elecLosses, 0, [nodes.homeTaxes]);
-  nodes.elecLosses.computeSpecific = function() {
-    if (this.children[exactEnergy].getValue()) {
-      this.value = Math.round(this.children[utilityCostRate].getValue()*this.children[kWhElec].getValue()/100*this.children[percentSplit].getValue()/100);
-    } else {
-      if (this.children[heatingType].getValue() == elec) {
-        this.value = Math.round(this.children[utilityCostRate].getValue()*(11000 + 11360)/100*this.children[usageComp].getValue()/100*this.children[percentSplit].getValue()/100);
-      } else {
-        this.value = Math.round(this.children[utilityCostRate].getValue()*(11000)/100*this.children[usageComp].getValue()/100*this.children[percentSplit].getValue()/100);
-      }
-    }
-
-    //update summary span for electricity
-    var elecLosses_final = document.getElementById("elecLosses");
-    elecLosses_final.innerHTML = nodes.elecLosses.value;
-  }
-  nodes.heatingType = new Node(calc, {type: "num"}, heatingType, natGas, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
-
-  nodes.usageComp = new Node(calc, {type: "num", round: 0}, usageComp, 100, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
-  
-  
-  nodes.thermsNatGas = new Node(calc, {type: "num", round: 0}, thermsNatGas, 0, [nodes.natGasLosses]);
-  nodes.gallonsFuelOil = new Node(calc, {type: "num", round: 0}, gallonsFuelOil, 0, [nodes.fuelOilLosses]);
-  nodes.kWhElec = new Node(calc, {type: "num", round: 0}, kWhElec, 0, [nodes.elecLosses]);
-  
-  nodes.exactEnergy = new Node(calc, {type: "bool"}, exactEnergy, true, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
-  
-  nodes.utilityCostRate = new Node(calc, {type: "num", round: 2}, utilityCostRate, 1, [nodes.elecLosses]);
-  nodes.utilityCostRate.computeSpecific = function() {
-    this.value = getUtilityStats(this.children[chosenUtility].getValue())[1];
-  }
-
-  nodes.chosenUtility = new Node(calc, {type: "utility"}, chosenUtility, ["Seattle City Light", 0.02], [nodes.utilityCostRate]);
-  nodes.chosenUtility.computeSpecific = function() {
-    if (this.children[autoUpdateChosenUtility].getValue()) {
-      this.value = this.children[utilityList].getValue()[0];
-    }
-
-  }
-  nodes.autoUpdateChosenUtility = new Node(calc, {type: "bool"}, autoUpdateChosenUtility, true, [nodes.chosenUtility]);
-  nodes.utilityList = new Node(calc, {type: "utilityList"}, utilityList, ["SCL","","","",""], [nodes.chosenUtility]);
-  nodes.utilityList.divs = {utilityBlock: $("#utilityBlock"), approxOrExact: $("#approxOrExact")};
-
-  nodes.utilityList.computeSpecific = function() {
-    this.value = getUtilities(this.children[zipcode].getValue());
-    $('#utilities').empty();
-    for (var i = 0; i < 5; i ++) {
-      if (this.value[i].length > 0) {
-        var utilityStats = getUtilityStats(this.value[i]);
-        $('#utilities').append($('<option>').text(utilityStats[0]).attr('value', this.value[i]));
-      }
-    }
-
-    if (this.children[displayUtilityBlock].getValue()) {
-      this.divs.utilityBlock.css( "display", "block");
-      this.divs.approxOrExact.css( "display", "block");
-    }
-  }
-
-  nodes.displayUtilityBlock = new Node(calc, {type: "bool"}, displayUtilityBlock, false, [nodes.utilityList]);
-  nodes.zipcode = new Node(calc, {type: "zipcode", round: 0}, zipcode, 98105, [nodes.utilityList]);
-
-  nodes.percentSplit = new Node(calc, {type: "num", round: 0}, percentSplit, 100, [nodes.natGasLosses, nodes.fuelOilLosses, nodes.elecLosses]);
-  nodes.percentSplit.divs = {electricBlock: $("#electricBlock")};
-  nodes.percentSplit.computeSpecific = function() {
-    if (this.children[displayElectricBlock].getValue()) {
-      this.divs.electricBlock.css( "display", "block");
-    }
-  }
-  nodes.split = new Node(calc, {type: "bool"}, split, true, [nodes.percentSplit]);
-  nodes.displayElectricBlock = new Node(calc, {type: "bool"}, displayElectricBlock, false, [nodes.percentSplit]);
-
-
-
-
-  var elements = {};
-  elements.totalNet = new FormElement(totalNet, $("#" + totalNet));
-  elements.totalNet.setNode(nodes.totalNet);
-  nodes.totalNet.setFormElement(elements.totalNet);
-  elements.totalCosts = new FormElement(totalCosts, $("#" + totalCosts));
-  elements.totalCosts.setNode(nodes.totalCosts);
-  nodes.totalCosts.setFormElement(elements.totalCosts);
-  elements.totalSavings = new FormElement(totalSavings, $("#" + totalSavings));
-  elements.totalSavings.setNode(nodes.totalSavings);
-  nodes.totalSavings.setFormElement(elements.totalSavings);
-
-  elements.salesTaxSavings = new FormElement(salesTaxSavings, $("#" + salesTaxSavings));
-  elements.salesTaxSavings.setNode(nodes.salesTaxSavings);
-  nodes.salesTaxSavings.setFormElement(elements.salesTaxSavings);
-
-  elements.salesTax = new FormElement(salesTax, $("#" + salesTax));
-  elements.salesTax.setNode(nodes.salesTax);
-  nodes.salesTax.setFormElement(elements.salesTax);
-
-  elements.income = new FormElement(income, $("#" + income));
-  elements.income.setNode(nodes.income);
-  nodes.income.setFormElement(elements.income);
-
-  elements.wfr = new FormElement(wfr, $("#" + wfr));
-  elements.wfr.setNode(nodes.wfr);
-  nodes.wfr.setFormElement(elements.wfr);
-
-  elements.eitc = new FormElement(eitc, $("#" + eitc));
-  elements.eitc.setNode(nodes.eitc);
-  nodes.eitc.setFormElement(elements.eitc);
-
-  elements.dependents = new FormElement(dependents, $("#" + dependents));
-  elements.dependents.setNode(nodes.dependents);
-  nodes.dependents.setFormElement(elements.dependents);
-  elements.dependents.setAppearance = function() {
-
-  }
-
-  elements.income1 = new FormElement(income1, $("#" + income1));
-  elements.income1.setNode(nodes.income1);
-  nodes.income1.setFormElement(elements.income1);
-
-  elements.gasolineTaxes = new FormElement(gasolineTaxes, $("#" + gasolineTaxes));
-  elements.gasolineTaxes.setNode(nodes.gasolineTaxes);
-  nodes.gasolineTaxes.setFormElement(elements.gasolineTaxes);
-
-  elements.gasolineCalcMethod = new FormElement(gasolineCalcMethod, $("#" + gasolineCalcMethod));
-  elements.gasolineCalcMethod.setNode(nodes.gasolineCalcMethod);
-  nodes.gasolineCalcMethod.setFormElement(elements.gasolineCalcMethod);
-
-  elements.gallons = new FormElement(gallons, $("#" + gallons));
-  elements.gallons.setNode(nodes.gallons);
-  nodes.gallons.setFormElement(elements.gallons);
-
-  elements.gallonsTimeframe = new FormElement(gallonsTimeframe, $("#" + gallonsTimeframe));
-  elements.gallonsTimeframe.setNode(nodes.gallonsTimeframe);
-  nodes.gallonsTimeframe.setFormElement(elements.gallonsTimeframe);
-  elements.gallonsTimeframe.setAppearance = function() {
-
-  }
-
-  elements.dollars = new FormElement(dollars, $("#" + dollars));
-  elements.dollars.setNode(nodes.dollars);
-  nodes.dollars.setFormElement(elements.dollars);
-
-  elements.dollarsTimeframe = new FormElement(dollarsTimeframe, $("#" + dollarsTimeframe));
-  elements.dollarsTimeframe.setNode(nodes.dollarsTimeframe);
-  nodes.dollarsTimeframe.setFormElement(elements.dollarsTimeframe);
-  elements.dollarsTimeframe.setAppearance = function() {
-
-  }
-
-  elements.dpg = new FormElement(dpg, $("#" + dpg));
-  elements.dpg.setNode(nodes.dpg);
-  nodes.dpg.setFormElement(elements.dpg);
-
-  elements.miles = new FormElement(miles, $("#" + miles));
-  elements.miles.setNode(nodes.miles);
-  nodes.miles.setFormElement(elements.miles);
-
-  elements.milesTimeframe = new FormElement(milesTimeframe, $("#" + milesTimeframe));
-  elements.milesTimeframe.setNode(nodes.milesTimeframe);
-  nodes.milesTimeframe.setFormElement(elements.milesTimeframe);
-  elements.milesTimeframe.setAppearance = function() {
-
-  }
-
-  elements.mpg = new FormElement(mpg, $("#" + mpg));
-  elements.mpg.setNode(nodes.mpg);
-  nodes.mpg.setFormElement(elements.mpg);
-
-
-
-
-
-  elements.airTaxes = new FormElement(airTaxes, $("#" + airTaxes));
-  elements.airTaxes.setNode(nodes.airTaxes);
-  nodes.airTaxes.setFormElement(elements.airTaxes);
-  
-  elements.seatMiles = new FormElement(seatMiles, $("#" + seatMiles));
-  elements.seatMiles.setNode(nodes.seatMiles);
-  nodes.seatMiles.setFormElement(elements.seatMiles);
-
-  elements.homeTaxes = new FormElement(homeTaxes, $("#" + homeTaxes));
-  elements.homeTaxes.setNode(nodes.homeTaxes);
-  nodes.homeTaxes.setFormElement(elements.homeTaxes);
-
-  elements.natGasLosses = new FormElement(natGasLosses, $("#" + natGasLosses));
-  elements.natGasLosses.setNode(nodes.natGasLosses);
-  nodes.natGasLosses.setFormElement(elements.natGasLosses);
-
-  elements.fuelOilLosses = new FormElement(fuelOilLosses, $("#" + fuelOilLosses));
-  elements.fuelOilLosses.setNode(nodes.fuelOilLosses);
-  nodes.fuelOilLosses.setFormElement(elements.fuelOilLosses);
-
-  elements.elecLosses = new FormElement(elecLosses, $("#" + elecLosses));
-  elements.elecLosses.setNode(nodes.elecLosses);
-  nodes.elecLosses.setFormElement(elements.elecLosses);
-
-  elements.thermsNatGas = new FormElement(thermsNatGas, $("#" + thermsNatGas));
-  elements.thermsNatGas.setNode(nodes.thermsNatGas);
-  nodes.thermsNatGas.setFormElement(elements.thermsNatGas);
-
-  elements.gallonsFuelOil = new FormElement(gallonsFuelOil, $("#" + gallonsFuelOil));
-  elements.gallonsFuelOil.setNode(nodes.gallonsFuelOil);
-  nodes.gallonsFuelOil.setFormElement(elements.gallonsFuelOil);
-
-  elements.kWhElec = new FormElement(kWhElec, $("#" + kWhElec));
-  elements.kWhElec.setNode(nodes.kWhElec);
-  nodes.kWhElec.setFormElement(elements.kWhElec);
-
-  elements.percentSplit = new FormElement(percentSplit, $("#" + percentSplit));
-  elements.percentSplit.setNode(nodes.percentSplit);
-  nodes.percentSplit.setFormElement(elements.percentSplit);
-
-  elements.zipcode = new FormElement(zipcode, $("#" + zipcode));
-  elements.zipcode.setNode(nodes.zipcode);
-  nodes.zipcode.setFormElement(elements.zipcode);
-  elements.zipcode.setError("Please enter a valid zipcode for the state of Washington");
-
-  elements.chosenUtility = new FormElement(chosenUtility, $("#" + chosenUtility));
-  elements.chosenUtility.setNode(nodes.chosenUtility);
-  nodes.chosenUtility.setFormElement(elements.chosenUtility);
-  elements.chosenUtility.setAppearance = function() {
-
-  }
-
-  elements.usageComp = new FormElement(usageComp, $("#" + usageComp));
-  elements.usageComp.setNode(nodes.usageComp);
-  nodes.usageComp.setFormElement(elements.usageComp);
-  
-
-
-  //Use for-loop here
-  calc.addNode(nodes.totalNet);
-  calc.addNode(nodes.totalCosts);
-  calc.addNode(nodes.totalSavings);
-  calc.addNode(nodes.airTaxes);
-  calc.addNode(nodes.seatMiles);
-
-
-  $("#gasOptionOne").removeAttr('disabled');
-  $("#gasOptionOne").css('background-color', '#E8F6FF');
-  $("#gasOptionTwo").attr('disabled', 'disabled');
-  $("#gasOptionThree").attr('disabled', 'disabled');
-
-
-  $("#submitIncome").on("click", 
+  $(".next_button").on("click", 
     function () {
-      nodes.displaySalesTaxBlock.setValueBasic(true);
-      nodes.autoUpdateSalesTax.setValueBasic(true);
-      nodes.autoUpdateEITC.setValueBasic(true);
-      elements.income.updateNode();
-      nodes.income1.setValue(nodes.income.getValue());
-      calc.compute();
-      $(".next").removeClass("disabled");
-
-      //update estimated sales tax payment
-      var sales_tax_elements = document.getElementById("salesTaxPayment_filled");
-      var sales_tax_calc = nodes.salesTax.value;
-      sales_tax_elements.innerHTML = sales_tax_calc;
-
-      //update household income on WFR page
-      var income_elements = document.getElementById("income1");
-      var income_val = nodes.income1.value;
-      income_elements.innerHTML = income_val;
+      $('.nav-tabs > .active').next('li').find('a').trigger('click');
+      
     }
   );
 
-
-  $("#submitSalesTax").on("click", 
+  $(".prev_button").on("click", 
     function () {
-      $("#updated_taxes").show();
-      nodes.autoUpdateSalesTax.setValueBasic(false);
-      elements.salesTax.updateNode();
-      calc.compute();
+      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
     }
   );
 
-  $("#skip").click(
+  $('#skip_to_5').on("click", 
     function () {
-      $( "#accordion" ).accordion( "option", "active", 2 );
-    }
-  );
-
-  $("#dependents").on("change", 
-    function () {
-      nodes.autoUpdateEITC.setValueBasic(true);
-      elements.dependents.updateNode();
-      calc.compute();
-    }
-  );
-
-  var rad = document.getElementsByName( "taxStatus" );
-  //console.log(rad);
-  for(var i = 0; i < rad.length; i++) {
-    (function (_i) {
-      rad[_i].onclick = function() {
-        nodes.calculateWFR.setValueBasic(true);
-        nodes.autoUpdateEITC.setValueBasic(true);
-        nodes.taxStatus.setValue(_i);
-        calc.compute();
-        $("#WFR").css("display", "block");
-      };
-    })(i);
-  }
-
-  $("#submitEITC").click(
-      function () {
-        nodes.autoUpdateEITC.setValueBasic(false);
-        elements.eitc.updateNode();
-        calc.compute();
-    }
-  );
-
-  var gasRadios = document.getElementsByName( "gas" );
-  for(var i = 0; i < gasRadios.length; i++) {
-    (function (_i) {
-      gasRadios[_i].onclick = function() {
-        if (_i == 0) {
-          $("#gasOptionOne").removeAttr('disabled');
-          $("#gasOptionOne").css('background-color', '#E8F6FF');
-          $("#gasOptionTwo").attr('disabled', 'disabled');
-          $("#gasOptionTwo").css('background-color', 'white');
-          $("#gasOptionThree").attr('disabled', 'disabled');
-          $("#gasOptionThree").css('background-color', 'white');
-          nodes.gasolineCalcMethod.setValueBasic(0);
-          elements.gallons.updateNode();
-          elements.gallonsTimeframe.updateNode();
-
-        } else if (_i == 1) {
-          $("#gasOptionOne").attr('disabled', 'disabled');
-          $("#gasOptionOne").css('background-color', 'white');
-          $("#gasOptionTwo").removeAttr('disabled');
-          $("#gasOptionTwo").css('background-color', '#E8F6FF');
-          $("#gasOptionThree").attr('disabled', 'disabled');
-          $("#gasOptionThree").css('background-color', 'white');
-          nodes.gasolineCalcMethod.setValueBasic(1);
-          elements.dollars.updateNode();
-          elements.dollarsTimeframe.updateNode();
-          elements.dpg.updateNode();
-
-        } else {
-          $("#gasOptionOne").attr('disabled', 'disabled');
-          $("#gasOptionOne").css('background-color', 'white');
-          $("#gasOptionTwo").attr('disabled', 'disabled');
-          $("#gasOptionTwo").css('background-color', 'white');
-          $("#gasOptionThree").removeAttr('disabled');
-          $("#gasOptionThree").css('background-color', '#E8F6FF');
-          nodes.gasolineCalcMethod.setValueBasic(2);
-          elements.miles.updateNode();
-          elements.milesTimeframe.updateNode();
-          elements.mpg.updateNode();
-        }
-        calc.compute();
-        
-      };
-    })(i);
-  }
-
-  $("#gasOptionOne_radio").on("click",
-    function(){ 
-      gas_type="submitGallons";
-    }
-  );
-
-  $("#gasOptionTwo_radio").on("click",
-    function(){ 
-      gas_type="submitDollars";
-    }
-  );
-
-  $("#gasOptionThree_radio").on("click",
-    function(){ 
-      gas_type="submitMileage";
-    }
-  );
-
-
-
-  $("#submitGas").on("click", 
-    function () {
-      if(gas_type=="submitGallons"){
-        nodes.gasolineCalcMethod.setValueBasic(0);
-        elements.gallons.updateNode();
-        elements.gallonsTimeframe.updateNode();
-        calc.compute();
-      }
-      else if(gas_type=="submitDollars"){
-        nodes.gasolineCalcMethod.setValueBasic(1);
-        elements.dollars.updateNode();
-        elements.dollarsTimeframe.updateNode();
-        elements.dpg.updateNode();
-        calc.compute();
-      }
-      else{ //submitMileage
-        nodes.gasolineCalcMethod.setValueBasic(2);
-        elements.miles.updateNode();
-        elements.milesTimeframe.updateNode();
-        elements.mpg.updateNode();
-        calc.compute();
+      status = updateGeneral();
+      if (parseInt(status)) {
+        $('#wizard_tab_nav a[href="#gas_page"]').tab('show');
       }
     }
   );
 
-
-  $("#submitGallons").click(
-      function () {
-        nodes.gasolineCalcMethod.setValueBasic(0);
-        elements.gallons.updateNode();
-        elements.gallonsTimeframe.updateNode();
-        calc.compute();
-    }
-  );
-
-  $("#submitDollars").click(
-      function () {
-        nodes.gasolineCalcMethod.setValueBasic(1);
-        elements.dollars.updateNode();
-        elements.dollarsTimeframe.updateNode();
-        elements.dpg.updateNode();
-        calc.compute();
-    }
-  );
-
-  $("#submitMileage").click(
-      function () {
-        nodes.gasolineCalcMethod.setValueBasic(2);
-        elements.miles.updateNode();
-        elements.milesTimeframe.updateNode();
-        elements.mpg.updateNode();
-        calc.compute();
-    }
-  );
-
-
-  $("#submitSeatMiles").on("click", 
+  $("a[role=tab]").on("click", 
     function () {
-      elements.seatMiles.updateNode();
-      calc.compute();
-    }
-  );
-
-//every time summary is clicked, update all values
-$("#summary").on("click",
-  function(){
-    //submitIncome
-      nodes.autoUpdateSalesTax.setValueBasic(true);
-      nodes.autoUpdateEITC.setValueBasic(true);
-      elements.income.updateNode();
-      nodes.income1.setValue(nodes.income.getValue());
-      calc.compute();
-
-      //update estimated sales tax payment
-      var sales_tax_elements = document.getElementById("salesTaxPayment_filled");
-      var sales_tax_calc = nodes.salesTax.value;
-      sales_tax_elements.innerHTML = sales_tax_calc;
-
-      //update household income on WFR page
-      var income_elements = document.getElementById("income1");
-      var income_val = nodes.income1.value;
-      income_elements.innerHTML = income_val;
-
-    //submit EITC
-        nodes.autoUpdateEITC.setValueBasic(false);
-        elements.eitc.updateNode();
-        calc.compute();
-
-    //submitGas
-      if(gas_type=="submitGallons"){
-        nodes.gasolineCalcMethod.setValueBasic(0);
-        elements.gallons.updateNode();
-        elements.gallonsTimeframe.updateNode();
-        calc.compute();
+      status = updateGeneral();
+      if (!parseInt(status)) {
+        alert("Some of the information you provided contains errors. Please go back and fix these in order to receive meaningful results from the calculator");
+          
       }
-      else if(gas_type="submitDollars"){
-        nodes.gasolineCalcMethod.setValueBasic(1);
-        elements.dollars.updateNode();
-        elements.dollarsTimeframe.updateNode();
-        elements.dpg.updateNode();
-        calc.compute();
-      }
-      else{ //submitMileage
-        nodes.gasolineCalcMethod.setValueBasic(2);
-        elements.miles.updateNode();
-        elements.milesTimeframe.updateNode();
-        elements.mpg.updateNode();
-        calc.compute();
-      }
-
-
-    //submit seatMiles
-      elements.seatMiles.updateNode();
-      calc.compute();
-
-    //submit Split
-      nodes.displayElectricBlock.setValueBasic(true);
-      elements.percentSplit.updateNode();
-      calc.compute();
-
-    //submit ZipCode
-      nodes.displayUtilityBlock.setValueBasic(true);
-      nodes.autoUpdateChosenUtility.setValue(true);
-      elements.zipcode.updateNode();
-      calc.compute();
-
-    //submit elec usage
-      if (usage_or_percentage == "submitUsage"){
-        nodes.displayEnergyResult.setValueBasic(true);
-        elements.thermsNatGas.updateNode();
-        elements.gallonsFuelOil.updateNode();
-        elements.kWhElec.updateNode();
-        calc.compute();
-      }
-      else{
-        nodes.displayEnergyResult.setValueBasic(true);
-        elements.usageComp.updateNode();
-        calc.compute();
-      }
-  }
-);
-
-  $("#split").on("click", 
-    function () {
-      nodes.split.setValue(true);
-      calc.compute();
-      console.log(nodes.split.value);
-      console.log(nodes.percentSplit.value);
-      $("#partialEnergy").css("display", "block");
-    }
-  );
-
-  $("#noSplit").on("click", 
-    function () {
-      nodes.split.setValue(false);
-      nodes.percentSplit.value=100;
-      calc.compute();
-      console.log(nodes.split.value);
-      console.log(nodes.percentSplit.value);
-      $("#partialEnergy").css("display", "none");
-      $("#electricBlock").css("display", "block");
-    }
-  );
-
-  $("#submitSplit").on("click", 
-    function () {
-      nodes.displayElectricBlock.setValueBasic(true);
-      elements.percentSplit.updateNode();
-      calc.compute();
     }
   );
 
   $("#submitZipcode").on("click", 
     function () {
-      nodes.displayUtilityBlock.setValueBasic(true);
-      nodes.autoUpdateChosenUtility.setValue(true);
-      elements.zipcode.updateNode();
-      calc.compute();
-    }
-  );
-
-  $("#utilities").on("change", 
-    function () {
-      nodes.autoUpdateChosenUtility.setValue(false);
-      elements.chosenUtility.updateNode();
-      calc.compute();
-    }
-  );
-
-  $("#yes").on("click", 
-    function () {
-      nodes.noClicked.setValueBasic(false);
-      nodes.exactEnergy.setValue(true);
-      calc.compute();
-      $("#approxEnergy").css("display", "none");
-      $("#approxPercentage").css("display", "none");
-      $("#energyUsage").css("display", "block");
-
-      usage_or_percentage = "submitUsage";
-    }
-  );
-
-  $("#no").on("click", 
-    function () {
-      nodes.noClicked.setValueBasic(true);
-      nodes.exactEnergy.setValue(false);
-      calc.compute();
-      $("#approxEnergy").css("display", "block");
-      $("#energyUsage").css("display", "none");
-
-      usage_or_percentage = "submitPercentOfAverage";
-    }
-  );
-
-  $("#elec_usage").on("click", 
-      function () {
-        if (usage_or_percentage == "submitUsage"){
-          nodes.displayEnergyResult.setValueBasic(true);
-          elements.thermsNatGas.updateNode();
-          elements.gallonsFuelOil.updateNode();
-          elements.kWhElec.updateNode();
-          calc.compute();
-        }
-        else{
-          nodes.displayEnergyResult.setValueBasic(true);
-          elements.usageComp.updateNode();
-          calc.compute();
-        }
-      }
-    );
-
-
-
-  $("#submitUsage").on("click", 
-    function () {
-      nodes.displayEnergyResult.setValueBasic(true);
-      elements.thermsNatGas.updateNode();
-      elements.gallonsFuelOil.updateNode();
-      elements.kWhElec.updateNode();
-      calc.compute();
-    }
-  );
-
-  var heatingRadios = document.getElementsByName( "heating" );
-  for(var i = 0; i < heatingRadios.length; i++) {
-    (function (_i) {
-      heatingRadios[_i].onclick = function() {
-        nodes.displayApproxPercentage.setValueBasic(true);
-        nodes.displayEnergyResult.setValueBasic(true);
-        nodes.heatingType.setValue(_i);
-        calc.compute();
-        
-      };
-    })(i);
-  }
-
-  $("#submitPercentOfAverage").on("click", 
-    function () {
-      nodes.displayEnergyResult.setValueBasic(true);
-      elements.usageComp.updateNode();
-      calc.compute();
+      status = updateGeneral();
+      $("#utilityBlock").show();
+      $(UTILITYREMEMBERED).val("");
+      updateUtilities();
+    
       
     }
   );
 
+  $(UTILITIES).on("change", 
+    function () {
+      $(UTILITYREMEMBERED).val($(UTILITIES).val());
+      status = updateGeneral();
+    }
+  );
+
+  $("#submitSplit").on("click",
+    function(){
+      
+      status = updateGeneral();
+      
+      $("#electricBlock").show();
+    
+    
+    }
+  );
+
+  $("#submitUtility").on("click",
+    function(){
+      $("#approxOrExact").show();
+      updateGeneral();
+    
+    }
+  );
+
+  // $("input[type=radio]").on("click", 
+  //   function () {
+  //     status = updateGeneral();
+      
+  //   }
+  // );
+
+  
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //     View
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  function updateRadios() {
+    updateGeneral();
+    if (parseInt($("input[name=taxOption]:checked").val()) == 0) {
+      $("#updated_taxes").hide();
+    } else {
+      $("#updated_taxes").show();
+    }
+
+    if (parseInt($("input[name=eitcOption]:checked").val()) == 0) {
+      $("#updated_eitc").hide();
+    } else {
+      $("#updated_eitc").show();
+    }
+
+    if (parseInt($("input[name=gas]:checked").val()) == 0) {
+      $("#gasOptionOne").show();
+      $("#gasOptionTwo").hide();
+      $("#gasOptionThree").hide();
+    } else if (parseInt($("input[name=gas]:checked").val()) == 1) {
+      $("#gasOptionTwo").show();
+      $("#gasOptionOne").hide();
+      $("#gasOptionThree").hide();
+    } else {
+      $("#gasOptionThree").show();
+      $("#gasOptionOne").hide();
+      $("#gasOptionTwo").hide();
+    }
+    
+    if ($("input[name=billSplitStatus]:checked").length > 0) {
+      if (parseInt($("input[name=billSplitStatus]:checked").val()) == 0) {
+        $("#partialEnergy").show();
+      } else {
+        $("#partialEnergy").hide();
+        $("#electricBlock").show();
+      }
+    }
+
+    if ($("input[name=approxOrExactStatus]:checked").length > 0) { 
+      $("#electricBlock").show();
+      $("#utilityBlock").show();
+      $("#approxOrExact").show();
+
+      if (parseInt($("input[name=approxOrExactStatus]:checked").val()) == 0) {
+        $("#energyUsage").show();
+        $("#approxEnergyDiv").hide();
+      } else {
+        $("#approxEnergyDiv").show();
+        $("#approxEnergy").show();
+        $("#energyUsage").hide();
+      }
+    }
+
+    if ($("input[name=heating]:checked").length > 0) { 
+      $("#approxPercentage").show();
+    }
+
+  }
+
+  function setBox(element, value, error, errorMsg) {
+    if (error == false) {
+      $(element).prop("title", "");
+      $(element).css("background-color", "white");
+      $(element).uitooltip({ content: "" });
+      $(element).val(value);
+    } else {
+      $(element).val(value);
+      $(element).prop("title", errorMsg);
+      $(element).css("background-color", "#FFCCCC");
+      $(element).uitooltip();
+
+    }
+  }
+
+  function updateBoxesAndSpans() {
+    setBox(INCOME, model.income, model.error.income, model.errorMsg.income);
+    setBox(SALESTAXPAYMENTMANUAL, model.salesTax.manualTaxes, model.error.salesTax, model.errorMsg.salesTax);
+    //$(SALESTAXPAYMENTMANUAL).val(model.salesTax.manualTaxes);
+    $(SALESTAXPAYMENTAUTO).text(model.salesTax.autoTaxes);
+    $(EITCAUTO).text(model.wfr.autoEitc);
+    setBox(EITCMANUAL, model.wfr.manualEitc, model.error.wfr, model.errorMsg.wfr);
+    //$(EITCMANUAL).val(model.wfr.manualEitc);
+    setBox(GALLONS, model.gas.gallons, model.error.gallons, model.errorMsg.gas);
+    //$(GALLONS).val(model.gas.gallons);
+    setBox(GASCOST, model.gas.perGallonCost, model.error.gasCost, model.errorMsg.gas);
+    setBox(DOLLARS, model.gas.spending, model.error.dollars, model.errorMsg.gas);
+    //$(GASCOST).val(model.gas.perGallonCost);
+    //$(DOLLARS).val(model.gas.spending);
+    setBox(MPG, model.gas.mpg, model.error.mpg, model.errorMsg.gas);
+    setBox(MILES, model.gas.mileage, model.error.miles, model.errorMsg.gas);
+    //$(MPG).val(model.gas.mpg);
+    //$(MILES).val(model.gas.mileage);
+    setBox(SEATMILES, model.air.miles, model.error.air, model.errorMsg.air);
+    //$(SEATMILES).val(model.air.miles);
+    if (model.home.splitYes) {
+      setBox(PERCENTSPLIT, model.home.splitPercentage, model.error.splitPercentage, model.errorMsg.generic);
+    }
+    setBox(ZIPCODE, model.home.zipcode, model.error.zipcode, model.errorMsg.generic);
+    setBox(PERCENTOFAVERAGE, model.home.energyApproxPercent, model.error.energyApproxPercent, model.errorMsg.generic);
+    setBox(THERMS, model.home.therms, model.error.therms, model.errorMsg.generic);
+    setBox(FUELOIL, model.home.gallons, model.error.fuelOil, model.errorMsg.generic);
+    setBox(KWH, model.home.kwh, model.error.elec, model.errorMsg.generic);
+    //$(PERCENTSPLIT).val(model.home.splitPercentage);
+    //$(ZIPCODE).val(model.home.zipcode);
+    //$(PERCENTOFAVERAGE).val(model.home.energyApproxPercent);
+    //$(THERMS).val(model.home.therms);
+    //$(FUELOIL).val(model.home.gallons);
+    //$(KWH).val(model.home.kwh);
+    $(SALESTAXSAVINGS).text(model.salesTax.savings);
+    $(WFRSAVINGS).text(model.wfr.savings);
+    $(GASTAXES).text(model.gas.taxes);
+    $(AIRTAXES).text(model.air.taxes);
+    $(NATGASTAXES).text(model.home.natGasTaxes);
+    $(FUELOILTAXES).text(model.home.fuelOilTaxes);
+    $(ELECTAXES).text(model.home.elecTaxes);
+    $(HOMETAXES).text(model.home.totalTaxes);
+    $(TOTALSAVINGS).text(model.total.savings);
+    $(TOTALCOSTS).text(model.total.taxes);
+    $(TOTALNET).text(model.total.net);
+    
+  }
+
+  function updateUtilities() {
+    zipcode = $(ZIPCODE).val();
+    utilities = getUtilities(zipcode);
+    $(UTILITIES).empty();
+    if (utilities != 0) {
+      for (var i = 0; i < 5; i ++) {
+        if (utilities[i].length > 0) {
+          var utilityStats = getUtilityStats(utilities[i]);
+          $(UTILITIES).append($('<option>').text(utilityStats[0]).attr('value', utilities[i]));
+        }
+      }
+      
+      if ($(UTILITYREMEMBERED).val().length == 0) {
+        $(UTILITIES).val(utilities[0]);
+      } else {
+        $(UTILITIES).val($(UTILITYREMEMBERED).val());
+      }
+    }
+  }
+  
 }
 );
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//     Model
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function tryMakeValidNumber(num, decimalLen) {
+  value = String(num).replace(",", "").replace("%", "").replace("$", "");
+  if (isNumber(value)) {
+    return parseFloat(parseFloat(value).toFixed(decimalLen));
+  } else {
+    return num;
+  }
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function isZipcode(zip) {
+  if (getUtilities(zip) != 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function tryMakeValidZipcode(value) {
+  value = String(value).replace(",", "").replace("%", "").replace("$", "").replace(".", "").substring(0, 5);
+  return parseInt(value);
+}
+
+function Model() {
+  this.income = 0;
+
+  this.salesTax = {};
+  this.salesTax.savings = 0;
+  this.salesTax.autoSelected = true;
+  this.salesTax.autoTaxes = 0;
+  this.salesTax.manualTaxes = 0;
+
+  this.wfr = {};
+  this.wfr.savings = 0;
+  this.wfr.autoSelected = true;
+  this.wfr.autoEitc = 0;
+  this.wfr.manualEitc = 0;
+  this.wfr.dependents = 0;
+  this.wfr.marriedJoint = null;
+
+  this.gas = {};
+  this.gas.taxes = 0;
+  this.gas.radioSelection = 0;
+  this.gas.gallons = 0;
+  this.gas.gallonsFreq = 52;
+  this.gas.spending = 0;
+  this.gas.perGallonCost = 2.40;
+  this.gas.spendingFreq = 52;
+  this.gas.mileage = 0;
+  this.gas.mpg = 30;
+  this.gas.mileageFreq = 52;
+
+  this.air = {};
+  this.air.taxes = 0;
+  this.air.miles = 0;
+
+  this.home = {};
+  this.home.natGasTaxes = 0;
+  this.home.fuelOilTaxes = 0;
+  this.home.elecTaxes = 0;
+  this.home.totalTaxes = 0;
+  this.home.splitYes = null;
+  this.home.splitPercentage = 100;
+  this.home.zipcode = 98328;
+  this.home.utility = "PSE";
+  this.home.energyExact = null;
+  this.home.therms = 0;
+  this.home.gallons = 0;
+  this.home.kwh = 0;
+  this.home.heatingSelect = 0;
+  this.home.energyApproxPercent = 100;
+
+  this.total = {};
+  this.total.savings = 0;
+  this.total.taxes = 0;
+  this.total.net = 0;
+
+  this.errorCount = 0;
+
+  this.error = {
+    income: false,
+    salesTax: false,
+    wfr: false,
+    gallons: false,
+    gasCost: false,
+    dollars: false, 
+    mpg: false,
+    miles: false,
+    air: false,
+    splitPercentage: false, 
+    zipcode: false,
+    therms: false,
+    fuelOil: false,
+    elec: false,
+    energyApproxPercent: false
+  }
+
+  this.errorMsg = {
+    income: "Please enter a valid income", 
+    salesTax: "Please enter a valid sales tax amount",
+    wfr: "Please enter a valid EITC amount", 
+    gas: "Please enter a valid number",
+    air: "Please enter a valid number of miles", 
+    generic: "Please enter valid data"
+  }
+
+}
+
+Model.prototype.setNumberError = function(val, err) {
+  if (isNumber(val)) {
+    if (err) {
+      this.errorCount = this.errorCount - 1;
+    }
+    return false;
+  } else {
+    if (!err) {
+      this.errorCount = this.errorCount + 1;
+    }
+    return true;
+  }
+}
+
+Model.prototype.setZipcodeError = function(val, err) {
+  if (isZipcode(val)) {
+    if (err) {
+      this.errorCount = this.errorCount - 1;
+    }
+    return false;
+  } else {
+    if (!err) {
+      this.errorCount = this.errorCount + 1;
+    }
+    return true;
+  }
+}
+
+Model.prototype.setIncome = function(income) {
+  this.income = tryMakeValidNumber(income, 2);
+  this.error.income = this.setNumberError(this.income, this.error.income);
+}
+
+Model.prototype.setSalesTax = function(taxOption, salesTaxManual){
+  taxOption = parseInt(taxOption);
+  
+  this.salesTax.autoTaxes = Math.round(121.59*Math.pow(0.001*this.income, 0.6919));
+  this.salesTax.manualTaxes = tryMakeValidNumber(salesTaxManual, 0);
+
+  if (taxOption == 0) {
+    this.salesTax.autoSelected = true;
+    this.error.salesTax = this.setNumberError(0, this.error.salesTax);
+    this.salesTax.savings = Math.round(this.salesTax.autoTaxes/8.95);
+  } else {
+    this.salesTax.autoSelected = false;
+    this.error.salesTax = this.setNumberError(this.salesTax.manualTaxes, this.error.salesTax);
+    this.salesTax.savings = Math.round(this.salesTax.manualTaxes/8.95);
+  }
+  
+}
+
+Model.prototype.setEitc = function(dependents, taxStatus){
+  var rate = 0;
+  var maxCred = 0;
+  var phaseOut = 0;
+  var phaseOutIncome = 0;
+  var eitcEstimate = 0;
+
+  dependents = parseInt(dependents);
+
+  switch (dependents) {
+    case 0:
+      rate = 0.0765;
+      maxCred = 496;
+      phaseOut = 0.0765;
+      phaseOutIncome = 8110;
+      break; 
+    case 1:
+      rate = 0.34;
+      maxCred = 3305;
+      phaseOut = 0.1598;
+      phaseOutIncome = 17830;
+      break; 
+    case 2:
+      rate = 0.4;
+      maxCred = 5460;
+      phaseOut = 0.2106;
+      phaseOutIncome = 17830;
+      break; 
+    case 3:
+      rate = 0.45;
+      maxCred = 6143;
+      phaseOut = 0.2106;
+      phaseOutIncome = 17830;
+      break; 
+    default: 
+      rate = 0.45;
+      maxCred = 6143;
+      phaseOut = 0.2106;
+      phaseOutIncome = 17830;
+  }
+
+  if (taxStatus == 0) {
+    phaseOutIncome = phaseOutIncome + 5430;
+  }
+
+  eitcEstimate = Math.min(maxCred, rate*this.income);
+
+  if (this.income > phaseOutIncome) {
+    eitcEstimate = eitcEstimate - phaseOut*(this.income - phaseOutIncome);
+  }
+
+  eitcEstimate = Math.max(eitcEstimate, 0);
+
+  if (taxStatus == null || isNaN(taxStatus)) {
+    eitcEstimate = 0;
+  }
+  
+  this.wfr.marriedJoint = taxStatus;
+  this.wfr.dependents = dependents;
+  this.wfr.autoEitc = eitcEstimate;
+}
+
+Model.prototype.setWfr = function(eitcOption, eitcManual){
+  this.wfr.manualEitc = tryMakeValidNumber(eitcManual, 0);
+
+  if (eitcOption == 0) {
+    this.wfr.autoSelected == true;
+    this.error.wfr = this.setNumberError(0, this.error.wfr);
+    this.wfr.savings = 0.25 * this.wfr.autoEitc;
+  } else {
+    this.wfr.autoSelected == false;
+    this.error.wfr = this.setNumberError(this.wfr.manualEitc, this.error.wfr);
+    this.wfr.savings = 0.25 * this.wfr.manualEitc;
+  }
+}
+
+Model.prototype.setGas = function(gasOption, gallons, gallonsFreq, gasCost, dollars, dollarFreq, mpg, miles, mileageFreq){
+  this.gas.gallons = tryMakeValidNumber(gallons, 2);
+  this.gas.spending = tryMakeValidNumber(dollars, 2);
+  this.gas.perGallonCost = tryMakeValidNumber(gasCost, 2);
+  this.gas.mileage = tryMakeValidNumber(miles, 0);
+  this.gas.mpg = tryMakeValidNumber(mpg, 0);
+
+  if (gasOption == 0) {
+    gasTaxes = Math.round(this.gas.gallons*gallonsFreq*8.91/1000*25);
+    this.error.gallons = this.setNumberError(this.gas.gallons, this.error.gallons);
+  } else if (gasOption == 1) {
+    gasTaxes = Math.round(this.gas.spending/this.gas.perGallonCost*dollarFreq*8.91/1000*25);
+    this.error.gasCost = this.setNumberError(this.gas.perGallonCost, this.error.gasCost);
+    this.error.dollars = this.setNumberError(this.gas.spending, this.error.dollars);
+
+  } else {
+    gasTaxes = Math.round(this.gas.mileage/this.gas.mpg*mileageFreq*8.91/1000*25);
+    this.error.mpg = this.setNumberError(this.gas.mpg, this.error.mpg);
+    this.error.miles = this.setNumberError(this.gas.mileage, this.error.miles);
+
+  }
+
+  this.gas.taxes = gasTaxes;
+  this.gas.radioSelection = gasOption;
+  this.gas.gallonsFreq = gallonsFreq;
+  this.gas.spendingFreq = dollarFreq;
+  this.gas.mileageFreq = mileageFreq;
+}
+
+Model.prototype.setAir = function(seatMiles){
+  this.air.miles = tryMakeValidNumber(seatMiles, 0);
+  airTaxes = Math.round(this.air.miles/60*9.57/1000*25);
+  this.error.air = this.setNumberError(this.air.miles, this.error.air);
+
+  this.air.taxes = airTaxes;
+  
+}
+
+Model.prototype.setHome = function(billSplitStatus, approxOrExactStatus, heating, homeObject){
+  this.home.splitPercentage = tryMakeValidNumber(homeObject.percentSplit, 0);
+  if (billSplitStatus == 0) {
+    this.error.splitPercentage = this.setNumberError(this.home.splitPercentage, this.error.splitPercentage);
+  }
+  this.home.zipcode = tryMakeValidZipcode(homeObject.zipcode);
+  this.error.zipcode = this.setZipcodeError(this.home.zipcode, this.error.zipcode);
+  this.home.therms = tryMakeValidNumber(homeObject.therms, 0);
+  this.home.gallons = tryMakeValidNumber(homeObject.gallons, 0);
+  this.home.kwh = tryMakeValidNumber(homeObject.elec, 0);
+  this.home.energyApproxPercent = tryMakeValidNumber(homeObject.percentOfAverage, 0);
+  if (approxOrExactStatus == 0) {
+    this.error.therms = this.setNumberError(this.home.therms, this.error.therms);
+    this.error.fuelOil = this.setNumberError(this.home.gallons, this.error.fuelOil);
+    this.error.elec = this.setNumberError(this.home.kwh, this.error.elec);
+  } else if (approxOrExactStatus == 1) {
+    this.error.energyApproxPercent = this.setNumberError(this.home.energyApproxPercent, this.error.energyApproxPercent);
+  }
+  
+  if (!isNaN(billSplitStatus) && !isNaN(approxOrExactStatus) && !(approxOrExactStatus == 1 && isNaN(heating))) {
+
+    if (billSplitStatus == 0) {
+      this.home.splitYes = true;      
+    } else {
+      this.home.splitYes = false;
+      this.home.splitPercentage = 100;
+    }
+
+    if (approxOrExactStatus == 0) {
+      this.home.natGasTaxes = Math.round(5.306*25*this.home.therms/1000*this.home.splitPercentage/100);
+    } else {
+      if (heating == 0 || heating == 4) {
+        this.home.natGasTaxes = Math.round(5.306*25*732/1000*this.home.energyApproxPercent/100*this.home.splitPercentage/100);
+      } else {
+        this.home.natGasTaxes = 0;
+      }
+    }
+
+    if (approxOrExactStatus == 0) {
+      this.home.fuelOilTaxes = Math.round(10.15*25*this.home.gallons/1000*this.home.splitPercentage/100);
+    } else {
+      if (heating == 1) {
+        this.home.fuelOilTaxes = Math.round(10.15*25*527/1000*this.home.energyApproxPercent/100*this.home.splitPercentage/100);
+      } else {
+        this.home.fuelOilTaxes = 0;
+      }
+    }
+
+    if (homeObject.utility != null) {
+      centsPerKwh = getUtilityStats(homeObject.utility)[1];
+
+      if (approxOrExactStatus == 0) {
+        this.home.elecTaxes = Math.round(centsPerKwh*this.home.kwh/100*this.home.splitPercentage/100);
+      } else {
+        if (heating == 2) {
+          this.home.elecTaxes = Math.round(centsPerKwh*(11000 + 11360)/100*this.home.energyApproxPercent/100*this.home.splitPercentage/100);
+        } else {
+          this.home.elecTaxes = Math.round(centsPerKwh*(11000)/100*this.home.energyApproxPercent/100*this.home.splitPercentage/100);
+        }
+      }
+    }
+
+    
+  }
+
+  this.home.totalTaxes = this.home.natGasTaxes + this.home.fuelOilTaxes + this.home.elecTaxes;
+  if (billSplitStatus == 0) {
+    this.home.splitYes = true;
+  } else {
+    this.home.splitYes = false;
+  }
+  //this.home.splitPercentage = homeObject.percentSplit;
+  //this.home.zipcode = homeObject.zipcode;
+  this.home.utility = homeObject.utility;
+  if (approxOrExactStatus == 0) {
+    this.home.energyExact = true;
+  } else {
+    this.home.energyExact = false;
+  }
+  //this.home.therms = homeObject.therms;
+  //this.home.gallons = homeObject.gallons;
+  //this.home.kwh = homeObject.elec;
+  this.home.heatingSelect = heating;
+  //this.home.energyApproxPercent = homeObject.percentOfAverage;
+}
+
+Model.prototype.setSummary = function(){
+  this.total.savings = this.salesTax.savings + this.wfr.savings;
+  this.total.taxes = this.gas.taxes + this.air.taxes + this.home.totalTaxes;
+  this.total.net = this.total.savings - this.total.taxes;
+}
 
 function inheritPrototype(childObject, parentObject) {
   var copyOfParent = Object.create(parentObject.prototype);
@@ -961,285 +699,8 @@ function inheritPrototype(childObject, parentObject) {
   childObject.prototype = copyOfParent;
 }
 
-function FormElement(name, object) {
-  this.setName(name);
-  this.setObject(object);
-}
-
-FormElement.prototype.setName = function(name) {
-  this.name = name;
-}
-
-FormElement.prototype.getName = function() {
-  return this.name;
-}
-
-FormElement.prototype.setObject = function(object) {
-  this.object = object;
-}
-
-FormElement.prototype.getObject = function() {
-  return this.object;
-}
-
-FormElement.prototype.setNode = function(node) {
-  this.node = node;
-}
-
-FormElement.prototype.getNode = function() {
-  return this.node;
-}
-
-FormElement.prototype.setValue = function(value) {
-  this.value = value;
-}
-
-FormElement.prototype.getValue = function() {
-  return this.value;
-}
-
-FormElement.prototype.setAppearance = function(value) {
-  this.object.val(value);
-}
-
-FormElement.prototype.setError = function(error) {
-  this.error = error;
-}
-
-FormElement.prototype.getError = function() {
-  return this.error;
-}
-
-FormElement.prototype.updateNode = function() {
-  this.getNode().setValue(this.getObject().val());
-}
-
-FormElement.prototype.validator = function() {
-  this.object.prop("title", "");
-  this.object.css("background-color", "white");
-  this.object.uitooltip({ content: "" });
-}
-
-FormElement.prototype.invalidator = function() {
-  if (this.error) {
-    this.object.prop("title", this.error);
-  } else {
-    this.object.prop("title", "Please enter a valid number");
-  }
-
-  this.object.css("background-color", "#FFCCCC");
-  this.object.uitooltip();
-}
-
-function Node(calc, dataType, name, value, parentNodes) {
-  this.calc = calc;
-  this.setName(name);
-  this.parents = {};
-  this.children = {};
-
-  this.dataType = dataType;
-
-  this.value = value;
-
-  for (index in parentNodes) {
-    this.addParent(parentNodes[index]);
-    parentNodes[index].addChild(this);
-  }
-
-  this.changed = false;
-  this.root = false;
-
-}
-
-Node.prototype.setName = function(name) {
-  this.name = name;
-}
-
-Node.prototype.getName = function() {
-  return this.name;
-}
-
-Node.prototype.setChanged = function(changed) {
-  this.changed = changed;
-  var parents = this.getParents();
-  for (key in parents) {
-    parents[key].setChanged(true);
-  }
-
-  if (Object.keys(parents).length == 0) {
-    this.setRoot(true);
-  }
-}
-
-Node.prototype.getChanged = function() {
-  return this.changed;
-}
-
-Node.prototype.setRoot = function(root) {
-  this.root = root;
-  this.calc.addRoot(this);
-}
-
-Node.prototype.getRoot = function() {
-  return this.root;
-}
-
-Node.prototype.setValue = function(value) {
-  var valid = this.validSet(value);
-
-  if (valid) {
-    this.setChanged(true);
-    if (this.getFormElement()) {
-      this.getFormElement().validator();
-    }
-  } else if (this.getFormElement()) {
-    this.getFormElement().invalidator();
-  }
-}
-
-Node.prototype.setValueBasic = function(value) {
-  var valid = this.validSet(value);
-
-  if (valid) {
-    if (this.getFormElement()) {
-      this.getFormElement().validator();
-    }
-  } else if (this.getFormElement()) {
-    this.getFormElement().invalidator();
-  }
-}
-
-Node.prototype.getValue = function() {
-  return this.value;
-}
-
-Node.prototype.setFormElement = function(formElement) {
-  this.formElement = formElement;
-}
-
-Node.prototype.getFormElement = function() {
-  return this.formElement;
-}
-
-Node.prototype.addParent = function(parentNode) {
-  this.parents[parentNode.getName()] = parentNode;
-}
-
-Node.prototype.getParents = function() {
-  return this.parents;
-}
-
-Node.prototype.addChild = function(childNode) {
-  this.children[childNode.getName()] = childNode;
-}
-
-Node.prototype.compute = function() {
-  for (key in this.children) {
-    if (this.children[key].getChanged() == true) {
-      this.children[key].compute();
-    }
-  }
-
-  this.computeSpecific();
-
-  if (this.getFormElement()) {
-    this.getFormElement().validator();
-  }
-
-  this.changed = false;
-  if (this.getFormElement()) {
-    this.getFormElement().setAppearance(Math.abs(this.getValue()).toFixed(this.dataType.round));
-  }
-  return this.getValue();
-
-}
-
-Node.prototype.computeSpecific = function() {
-
-}
-
-Node.prototype.validSet = function(value) {
-  
-
-  if (this.dataType.type == "num" ) {
-    value = String(value).replace(",", "").replace("%", "").replace("$", "");
-    if (isNumber(value)) {
-      this.value = parseFloat(value);
-      return true;
-    } else {
-      return false;
-    }
-  } else if (this.dataType.type == "str") {
-    this.value = value;
-    return true;
-  } else if (this.dataType.type == "bool") {
-    this.value = value;
-    return true;
-  } else if (this.dataType.type == "utility") {
-    this.value = value;
-    return true;
-  } else if (this.dataType.type == "zipcode") {
-    value = String(value).replace(",", "").replace("%", "").replace("$", "");
-    if (isNumber(value) && value.length == 5 && getUtilities(value) != 0) {
-      this.value = parseFloat(value);
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-
-}
-
-Node.prototype.validCheck = function() {
-  console.log(this.value);
-  this.value = String(this.value).replace(",", "").replace("%", "").replace("$", "");
-
-  if (isNumber(this.value)) {
-    this.value = Math.round(this.value);
-    this.getFormElement().validator();
-    return true;
-  } else {
-    this.getFormElement().invalidator();
-    return false;
-  }
-
-}
-
-function isNumber(str) {
-  var patt = new RegExp(/^((\d*)(\.\d*)?)$/gi);
-  return patt.test(str);
-}
-
-function Calculator() {
-  this.nodeDictionary = {};
-  this.roots = [];
-}
-
-Calculator.prototype.compute = function() {
-  for (var idx in this.roots) {
-    this.roots[idx].compute();
-  }
-  this.roots = [];
-}
-
-Calculator.prototype.addNode = function(node) {
-
-  this.nodeDictionary[node.getName()] = node;
-}
-
-Calculator.prototype.getNode = function(name) {
-  return this.nodeDictionary[name];
-}
-
-Calculator.prototype.addRoot = function(node) {
-  return this.roots.push(node);
-}
-
-
-
 function getUtilities(zipcode) {
+  zipcode = parseInt(zipcode);
   var utilityArray = 
   [
       [98001,"PSE","","","",""  ],
@@ -1942,10 +1403,14 @@ function getUtilityStats(utility) {
     ["Asotin","PUD No 1 of Asotin County",0.05  ]
   ];
 
-  for (var i = 0; i < utilityArray.length; i++) {
-    if (utilityArray[i][0] == utility) {
-      return (new Array(utilityArray[i][1], utilityArray[i][2]));
+  if (utility != null) {
+    for (var i = 0; i < utilityArray.length; i++) {
+      if (utilityArray[i][0] == utility) {
+        return (new Array(utilityArray[i][1], utilityArray[i][2]));
+      }
     }
   }
+
+  return null;
 
 }

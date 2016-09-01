@@ -140,17 +140,17 @@
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="gasoline options">
               <div class="radio active">
                 <label>
-                  <input type="radio" name="gas" value="one" id ="gasOptionOne_radio" checked>By gallons used
+                  <input type="radio" name="gas" value="0" id ="gasOptionOne_radio" checked>By gallons used
                 </label>
               </div>
               <div class="radio active">
                 <label>
-                  <input type="radio" name="gas" value="two" id="gasOptionTwo_radio">By amount spent
+                  <input type="radio" name="gas" value="1" id="gasOptionTwo_radio">By amount spent
                 </label>
               </div>
               <div class="radio active">
                 <label>
-                  <input type="radio" name="gas" value="three" id="gasOptionThree_radio">By mileage
+                  <input type="radio" name="gas" value="2" id="gasOptionThree_radio">By mileage
                 </label>
               </div>
             </div>
@@ -225,12 +225,12 @@
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="air travel options">
               <div class="radio active">
                 <label>
-                  <input type="radio" name="air" value="one" id ="airOptionOne_radio" checked>By miles flown
+                  <input type="radio" name="air" value="0" id ="airOptionOne_radio" checked>By miles flown
                 </label>
               </div>
               <div class="radio active">
                 <label>
-                  <input type="radio" name="air" value="two" id="airOptionTwo_radio">By amount spent
+                  <input type="radio" name="air" value="1" id="airOptionTwo_radio">By amount spent
                 </label>
               </div>
             </div>
@@ -267,7 +267,7 @@
             <div>
               <div id="electricBlock">
                 <label for="zipcode">What zipcode your business is located in:</label>
-                <input type="text" id="zipcode"> 
+                <input type="text" id="zipcode" value="98328"> 
                 <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
               </div>
               <div class="reveal" id="utilityBlock">
@@ -278,9 +278,13 @@
               </div>
 
               <div class="reveal" id="approxOrExact">
-                <br>Do you know your business's energy usage in units of therms, kWh, etc. (from utility bills or another source)?
-                <input type="button" value="Yes" class="btn btn-primary btn-medium" id="yes"> 
-                <input type="button" value="No" class="btn btn-primary btn-medium" id="no"><br><br>
+                <br><p>Do you know your business's energy usage in units of therms, kWh, etc. (from utility bills or another source)?</p>
+                <label><input type="radio" name="approxOrExactStatus" value="0" id="exact">Yes
+                  
+                </label>
+                <label><input type="radio" name="approxOrExactStatus" value="1" id="approx">No
+                </label>
+                
               </div>
 
               <div class="reveal" id="energyUsage">
@@ -289,26 +293,27 @@
                 <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
                 <input type="text" id="kWhElec" value="0"> kWh of electricity<br>
               </div>
+              <div class="reveal" id="approxEnergyDiv">
+                <div class="reveal" id="approxEnergy" >
+                  We will attempt to help you estimate your business&#39;s energy usage by comparing it to an average house in Washington State. Note that this is just a ballpark estimate and may only be appropriate for certain kinds of businesses. <br><br>
+                  How is your business heated? <br>
+                  <input class="radioLeft" type="radio" name="heating" value="natGas">
+                  Natural gas<br>
+                  <input class="radioLeft" type="radio" name="heating" value="fuelOil">
+                  Fuel oil<br>
+                  <input class="radioLeft" type="radio" name="heating" value="elec">
+                  Electricity<br>
+                  <input class="radioLeft" type="radio" name="heating" value="wood">
+                  Wood or wood pellets<br>
+                  <input class="radioLeft" type="radio" name="heating" value="other">
+                  Other/don't know (we will assume you use natural gas.)<br><br>
+                </div>
+                <div class="reveal" id="approxPercentage" >
+                  How much purchased energy do you think your business uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your business uses half the energy of an average home, enter "50". If your business uses twice the energy of an average home, enter "200": <br><br>
 
-              <div class="reveal" id="approxEnergy" >
-                We will attempt to help you estimate your business&#39;s energy usage by comparing it to an average house in Washington State. Note that this is just a ballpark estimate and may only be appropriate for certain kinds of businesses. <br><br>
-                How is your business heated? <br>
-                <input class="radioLeft" type="radio" name="heating" value="natGas">
-                Natural gas<br>
-                <input class="radioLeft" type="radio" name="heating" value="fuelOil">
-                Fuel oil<br>
-                <input class="radioLeft" type="radio" name="heating" value="elec">
-                Electricity<br>
-                <input class="radioLeft" type="radio" name="heating" value="wood">
-                Wood or wood pellets<br>
-                <input class="radioLeft" type="radio" name="heating" value="other">
-                Other/don't know (we will assume you use natural gas.)<br><br>
-              </div>
-              <div class="reveal" id="approxPercentage" >
-                How much purchased energy do you think your business uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your business uses half the energy of an average home, enter "50". If your business uses twice the energy of an average home, enter "200": <br><br>
+                  <input type="text" id="percentOfAverage" value="100"> %
 
-                <input type="text" id="percentOfAverage" value="100"> %
-
+                </div>
               </div>
             </div>
             <br>
@@ -440,7 +445,37 @@
       });
   </script>
 
+  <script>
+    $("#exact").click(function(){
+        $("#energyUsage").show();
+        $("#approxEnergy").hide();
+        $("#approxPercentage").hide();
+      });
 
+      $("#approx").click(function(){
+        $("#approxEnergy").show();
+        $("#energyUsage").hide();
+      });
+  </script>
+
+  <script>
+    $("#exact").click(function(){
+      $("#energyUsage").show();
+      $("#approxEnergyDiv").hide();
+    });
+
+    $("#approx").click(function(){
+      $("#approxEnergyDiv").show();
+      $("#approxEnergy").show();
+      $("#energyUsage").hide();
+      
+    });
+
+    $("[name='heating']").click(function(){
+      $("#approxPercentage").show();
+      
+    });
+  </script>
 
 </body>
 </html>
