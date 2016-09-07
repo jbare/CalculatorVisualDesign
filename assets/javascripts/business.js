@@ -108,7 +108,7 @@ $(document).ready(function () {
     }
   );
 
-  $('#skip_to_5').on("click", 
+  $('#skip_to_4').on("click", 
     function () {
       status = updateGeneral();
       if (parseInt(status)) {
@@ -131,11 +131,19 @@ $(document).ready(function () {
     function () {
       status = updateGeneral();
       $("#utilityBlock").show();
-      $("#approxOrExact").show();
+      //$("#approxOrExact").show();
       $(UTILITYREMEMBERED).val("");
       updateUtilities();
     
       
+    }
+  );
+
+  $("#submitUtility").on("click",
+    function(){
+      $("#approxOrExact").show();
+      updateGeneral();
+    
     }
   );
 

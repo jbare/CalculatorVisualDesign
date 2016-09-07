@@ -275,6 +275,11 @@
                 Choose the electric utility for your business (if the correct utility is not listed, first check that the zipcode is correct, and then contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>):
                 <select id="utilities" >
                 </select>
+                <input type="button" value="Submit Utility Provider" class="btn btn-primary btn-medium" id="submitUtility"><br>
+              </div>
+
+              <div class="reveal" id="utilityMemory">
+                <input type="text" id="utilityRemembered" value=""> 
               </div>
 
               <div class="reveal" id="approxOrExact">
@@ -297,15 +302,15 @@
                 <div class="reveal" id="approxEnergy" >
                   We will attempt to help you estimate your business&#39;s energy usage by comparing it to an average house in Washington State. Note that this is just a ballpark estimate and may only be appropriate for certain kinds of businesses. <br><br>
                   How is your business heated? <br>
-                  <input class="radioLeft" type="radio" name="heating" value="natGas">
+                  <input class="radioLeft" type="radio" name="heating" value="0">
                   Natural gas<br>
-                  <input class="radioLeft" type="radio" name="heating" value="fuelOil">
+                  <input class="radioLeft" type="radio" name="heating" value="1">
                   Fuel oil<br>
-                  <input class="radioLeft" type="radio" name="heating" value="elec">
+                  <input class="radioLeft" type="radio" name="heating" value="2">
                   Electricity<br>
-                  <input class="radioLeft" type="radio" name="heating" value="wood">
+                  <input class="radioLeft" type="radio" name="heating" value="3">
                   Wood or wood pellets<br>
-                  <input class="radioLeft" type="radio" name="heating" value="other">
+                  <input class="radioLeft" type="radio" name="heating" value="4">
                   Other/don't know (we will assume you use natural gas.)<br><br>
                 </div>
                 <div class="reveal" id="approxPercentage" >
@@ -395,19 +400,19 @@
     </div>
 
   <script>
-    $('.next_button').click(function(){
-      $('.nav-tabs > .active').next('li').find('a').trigger('click');
-    });
+    // $('.next_button').click(function(){
+    //   $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    // });
 
-    $('.prev_button').click(function(){
-      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-    });
+    // $('.prev_button').click(function(){
+    //   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    // });
   </script>
 
   <script>
-    $('#skip_to_4').click(function(){
-      $('#wizard_tab_nav a[href="#gas_page"]').tab('show');
-    });
+    // $('#skip_to_4').click(function(){
+    //   $('#wizard_tab_nav a[href="#gas_page"]').tab('show');
+    // });
   </script>
 
 
