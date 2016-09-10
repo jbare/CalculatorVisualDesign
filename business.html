@@ -7,6 +7,8 @@
   <title>Carbon Tax Swap Calculator</title>
   
   <link href="assets/stylesheets/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster.css" />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/tooltipster-shadow.css" />
   <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="assets/stylesheets/bootstrap-theme.min.css" rel="stylesheet">
   <link href="assets/stylesheets/theme.css" rel="stylesheet" type="text/css">
@@ -14,10 +16,11 @@
   
   <script src="assets/javascripts/jquery-2.1.4.min.js"></script>  
   <script src="assets/javascripts/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="assets/javascripts/jquery.tooltipster.js"></script>
 
   <script src="assets/javascripts/business.js"></script>
 
-  <script src="assets/javascripts/bootstrap.min.js"></script>
+
 
   <script type="text/javascript">
   // Change JQueryUI plugin names to fix name collision with Bootstrap.
@@ -25,11 +28,28 @@
     $.widget.bridge('uibutton', $.ui.button);
   </script>
 
+    <script>
+    $(document).ready(function() {
+      $('.uitooltip').tooltipster();
+      $('#introduction_tooltip').tooltipster({
+        content: $('<div class="col-xs-12 style="float:right;"> <p> You got it! Just hover or click on any icons like this for more info. </p> </div>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
+      });
+    });
+  </script>
+
+  <script src="assets/javascripts/bootstrap.min.js"></script>
+
 </head>
 
 <body style="background-image:url(images/Mosaic-Background.gif)">
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div>
           <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                   <span class="sr-only">Toggle navigation</span>
@@ -61,6 +81,11 @@
     </nav>
 
     <div class="container">
+
+      <div id="business_header">
+        <h1>Business calculator</h1>
+      </div>
+
       <div class="form_box">
         <ul class="nav nav-tabs wizard_tabs" role="tablist" id="wizard_tab_nav">
           <li class="active" role="presentation"><a href="#bus_intro_page" data-toggle="tab" aria-controls="welcome" role="tab">Welcome</a></li>
@@ -75,11 +100,11 @@
 
         <div class="tab-content">
           <div class="tab-pane fade in active" id="bus_intro_page" role="tabpanel">
-            <h2>Welcome!</h2>
-            <p>Thanks for checking out our business calculator! This should only take a few minutes.</p>
-            <p>We'll ask you a few questions about your business expenses in order to best calculate the impact of CarbonWA's proposal on your business. We encourage you to skip around and change your estimates and see how that affects the result.</p>
-            <p>If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter.</p>
-            <button class="btn btn-primary next_button">Start Calculating</button>
+            <h2>Welcome</h2>
+            <p>Thank you for taking the time to learn more about how Carbon Washington's proposal would impact your business</p>
+            <p>We'll ask you a few questions about your business expenses in order to best calculate how your household would be affected. We encourage you to skip around and to change your estimates to see how that affects the result.</p>
+             <p>Curious about how we calculated a value? Check out the <img src="questionMark.png" id="introduction_tooltip" alt="question mark icon"/> icons for more detail.</p>
+            <button class="btn btn-primary next_button btn-outline">Start Calculating</button>
           </div>
 
           <div class="tab-pane fade" id="bus_sales_tax_page" role="tabpanel">
@@ -89,8 +114,8 @@
               <input type="text" id="salesTaxPayment" placeholder="Enter annual income" name="salesTaxPayment" value="0">     
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="submitSalesTax" id="submitSalesTax">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" name="submitSalesTax" id="submitSalesTax">Next</button>
           </div>
 
           <div class="tab-pane fade" id="bus_sales_tax_rate_page" role="tabpanel">
@@ -100,8 +125,8 @@
             <input type="text" id="salesTaxRate" value="8.95"> % 
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="submitSalesTaxRate" id="submitSalesTaxRate">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" name="submitSalesTaxRate" id="submitSalesTaxRate">Next</button>
           </div>
 
           <div class="tab-pane fade" id="estimated_taxes_page" role="tabpanel">
@@ -125,8 +150,8 @@
               </p>
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="submitBOTax" id="submitBOTax">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" name="submitBOTax" id="submitBOTax">Next</button>
           </div>
 
           <div class="tab-pane fade" id="gas_page" role="tabpanel">
@@ -211,8 +236,8 @@
                 </div> 
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" id="submitGas" role="button">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" id="submitGas" role="button">Next</button>
           </div>
 
           <div class="tab-pane fade" id="air_page" role="tabpanel">
@@ -258,8 +283,8 @@
               </div>
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" id="submitAir">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" id="submitAir">Next</button>
           </div>
 
           <div class="tab-pane fade" id="elec_page" role="tabpanel">
@@ -322,8 +347,8 @@
               </div>
             </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" id="elecUsage" role="button">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" id="elecUsage" role="button">Next</button>
           </div>
 
           <div class="tab-pane fade" id="summary_page" role="tabpanel">
@@ -390,7 +415,7 @@
 
             <br>
             <p>Thank you! And feel free to go back and change any information to see how it affects the results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
-            <button class="btn btn-primary prev_button">Previous</button>
+            <button class="btn btn-secondary prev_button">Previous</button>
           </div>
 
 

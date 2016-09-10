@@ -121,8 +121,8 @@ $(document).ready(function () {
     function () {
       status = updateGeneral();
       if (!parseInt(status)) {
-        alert("Some of the information you provided contains errors. Please go back and fix these in order to receive meaningful results from the calculator");
-          
+        alert("We were unable to process some of the information you entered. Please go back and fix the highlighted fields in order to receive meaningful results from the calculator");
+        event.stopPropagation(); //stop the click event from executing after pressing OK on the alert
       }
     }
   );

@@ -47,6 +47,15 @@
   <script>
     $(document).ready(function() {
       $('.uitooltip').tooltipster();
+      $('#introduction_tooltip').tooltipster({
+        content: $('<div class="col-xs-12 style="float:right;"> <p> You got it! Just hover or click on any icons like this for more info. </p> </div>'),
+        position: 'top',
+        maxWidth: 1000,
+        interactive: true, 
+        theme: 'tooltipster-shadow',
+        viewportAware: true,
+        minWidth: 200
+      });
       $('#salesTaxTool').tooltipster({
         content: $('<img class="img-responsive" src="salesTaxEstimate.png" style="float:left;margin-right:10px;"/> <div class="col-xs-12 style="float:right;"> <p>This estimate of the amount of sales tax your household pays per year is computed using data from the <a href="http://dor.wa.gov/content/aboutus/statisticsandreports/wataxstudy/final_report.htm" target="_blank">2002 Tax Structure Study Report</a>. The graph shown here depicts the data from Table 9-1 of this study in <strong><font color="red">red</font></strong>. The <strong>black</strong> line depicts a smooth trend curve among the data points. We input your income into the function represented by this black line and the result is an estimate of the sales tax that you pay. </p> </div>'),
         position: 'left',
@@ -138,7 +147,7 @@
 
 <body style="background-image:url(images/Mosaic-Background.gif)">
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navbar_header">
-      <div class="container">
+      <div>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -170,6 +179,11 @@
   </nav>
 
   <div class="container">
+
+    <div id="household_header">
+      <h1>Household calculator</h1>
+    </div>
+
     <div class="form_box">
       <ul class="nav nav-tabs wizard_tabs" role="tablist" id="wizard_tab_nav">
         <li class="active" role="presentation"><a href="#intro_page" data-toggle="tab" aria-controls="welcome" role="tab">Welcome</a></li>
@@ -184,11 +198,11 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade in active" id="intro_page" role="tabpanel">
-          <h2>Welcome!</h2>
-          <p>Thanks for checking out our household calculator! This should only take a few minutes.</p>
-          <p>We'll ask you a few questions about yourself and your expenses in order to best calculate the impact of CarbonWA's proposal on you and your household. We encourage you to skip around and change your estimates and see how that affects the result.</p>
-          <p>If you are ever skeptical or curious about how any of the values were computed, be sure to check out the <img src="questionMark.png" /> icons which explain the steps for performing the computations based on the input you enter.</p>
-          <button class="btn btn-primary next_button">Start Calculating</button>
+          <h2>Welcome</h2>
+          <p>Thank you for taking the time to learn more about how Carbon Washington's proposal would impact your household</p>
+          <p>We'll ask you a few questions about yourself and your expenses in order to best calculate how your household would be affected. We encourage you to skip around and to change your estimates to see how that affects the result.</p>
+          <p>Curious about how we calculated a value? Check out the <img src="questionMark.png" id="introduction_tooltip" alt="question mark icon" /> icons for more detail.</p>
+          <button class="btn btn-primary next_button btn-outline">Start Calculating</button>
         </div>
 
         <div class="tab-pane fade" id="sales_tax_page" role="tabpanel">
@@ -198,8 +212,8 @@
             <input type="text" id="income" placeholder="Enter annual income" name="income" role="input" value="0">     
           </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" name="submitIncome" id="submitIncome">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" type="button" name="submitIncome" id="submitIncome">Next</button>
         </div>
 
         <div class="tab-pane fade" id="estimated_taxes_page" role="tabpanel">
@@ -228,8 +242,8 @@
             
           </div>
           <br>
-          <button class="btn btn-primary prev_button">Previous</button>
-          <button class="btn btn-primary next_button">Next</button>
+          <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+          <button class="btn btn-primary next_button btn-outline">Next</button>
         </div>
 
         <div class="tab-pane fade" id="wfr_page" role="tabpanel">
@@ -260,8 +274,8 @@
             </div>
           </div>
           <br>
-          <button class="btn btn-primary prev_button">Previous</button>
-          <button class="btn btn-primary next_button">Next</button>
+          <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+          <button class="btn btn-primary next_button btn-outline">Next</button>
         </div>
 
         <div class="tab-pane fade" id="eitc_page" role="tabpanel">
@@ -290,8 +304,8 @@
             
           </div>
           <br>
-          <button class="btn btn-primary prev_button">Previous</button>
-          <button class="btn btn-primary next_button">Next</button>
+          <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+          <button class="btn btn-primary next_button btn-outline">Next</button>
         </div>
 
         <div class="tab-pane fade" id="gas_page" role="tabpanel">
@@ -376,8 +390,8 @@
           </div>
 
           <br>
-          <button class="btn btn-primary prev_button">Previous</button>
-          <button class="btn btn-primary next_button" name = "submitGas" id="submitGas">Next</button>
+          <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+          <button class="btn btn-primary next_button btn-outline" name = "submitGas" id="submitGas">Next</button>
         </div>
 
         <div class="tab-pane fade" id="air_page" role="tabpanel">
@@ -392,8 +406,8 @@
             </div>
           </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" id="submitSeatMiles">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" id="submitSeatMiles">Next</button>
         </div>
 
         <div class="tab-pane fade" id="elec_page" role="tabpanel">
@@ -472,8 +486,8 @@
             </div>
           </div>
             <br>
-            <button class="btn btn-primary prev_button">Previous</button>
-            <button class="btn btn-primary next_button" id="elec_usage">Next</button>
+            <button class="btn btn-secondary prev_button btn-outline">Previous</button>
+            <button class="btn btn-primary next_button btn-outline" id="elec_usage">Next</button>
         </div>
 
         <div class="tab-pane fade" id="summary_page" role="tabpanel">
@@ -537,7 +551,7 @@
             <br>
             <p>Thank you! You can go back and change any information to see how it affects your results. If you have any feedback about this website, please contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p>
           <br>
-          <button class="btn btn-primary prev_button">Previous</button>
+          <button class="btn btn-secondary prev_button btn-outline">Previous</button>
         </div>
 
       </div>

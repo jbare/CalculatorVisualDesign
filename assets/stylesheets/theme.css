@@ -49,6 +49,12 @@ a:hover {
 
 #navbar li> a{
   color: #ECF0F1;
+  margin: 0px 20px 0px 5px;
+}
+
+.nav .active a{
+  background: #2E7D32!important;
+  color: #FFFFFF!important;
 }
 
 #navbar-title{
@@ -118,9 +124,14 @@ a:hover {
   background-image: url("../../images/Mosaic-Background.gif");
 }
 
+.jumbotron p{
+  color: #FFFFFF;
+}
+
 #indiv_calc_section{
-  padding: 20px;
+  padding: 60px;
   background-color: #f7f7f7;
+  margin-bottom: 60px;
 }
 
 #bus_calc_section{
@@ -132,17 +143,233 @@ a:hover {
 }
 
 #calculators{
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   margin-top: 50px;
 }
 
 #features{
-  padding: 20px;
+  padding: 40px;
   margin-bottom: 100px;
   background-color: #f7f7f7;
+}
+
+#features p{
+  font-size: 16px;
 }
 
 .form-control{
   min-width: 100px;
   margin: 5px;
+}
+
+#color_block{
+  background-color: #2E7D32;
+  padding:60px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+#color_block p{
+  color: #FFFFFF;
+  font-size: 22px;
+  font-style: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+#color_block a{
+  color: #4FC3F7;
+}
+
+
+#feature_nonpartisan_estimate h2{
+  text-align: center;
+}
+
+#feature_nonpartisan_estimate p{
+  text-align: center;
+  padding: 0px 40px 0px 40px;
+}
+
+#feature_quick_calculation h2{
+  text-align: center;
+}
+
+#feature_quick_calculation p{
+  text-align: center;
+  padding: 0px 40px 0px 40px;
+}
+
+#feature_methodology h2{
+  text-align: center;
+}
+
+#feature_methodology p{
+  text-align: center;
+  padding: 0px 40px 0px 40px;
+}
+
+#Business_calc_text{
+  text-align: center;
+  font-size: 16px;
+}
+
+#business_logo{
+}
+
+#household_calc_text{
+  text-align: center;
+  font-size: 16px;
+}
+
+#household_logo{
+  vertical-align: text-top;
+}
+
+.row-footer h5{
+  font-size: 20px;
+}
+
+.row-footer li{
+  font-size: 14px;
+}
+
+.about_div{
+  text-align: center;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn.btn-outline {
+    background: none;
+    padding: 12px 22px;
+}
+.btn-primary.btn-outline {
+    border: 2px solid #2E7D32;
+    color: #2E7D32;
+}
+
+.btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active, .btn-primary.btn-outline.active, .open > .dropdown-toggle.btn-primary {
+    color: #FFFFFF;
+    background-color: #2E7D32;
+    border-color: #2E7D32;
+}
+.btn-primary.btn-outline:active, .btn-primary.btn-outline.active {
+    border-color: #2E7D32;
+    color: #2E7D32;
+    box-shadow: none;
+}
+
+.btn-secondary.btn-outline {
+    border: 1px solid #333333;
+    color: #000000;
+}
+.btn-secondary.btn-outline:hover, .btn-secondary.btn-outline:focus, .btn-secondary.btn-outline:active, .btn-secondary.btn-outline.active, .open > .dropdown-toggle.btn-primary {
+    color: #33a6cc;
+    border-color: #33a6cc;
+}
+.btn-secondary.btn-outline:active, .btn-secondary.btn-outline.active {
+    border-color: #007299;
+    color: #007299;
+    box-shadow: none;
+}
+
+.btn-primary.inverse {
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.btn-primary.inverse:hover, .btn-primary.inverse:focus, .btn-primary.inverse:active, .btn-primary.inverse.active, .open > .dropdown-toggle.btn-primary {
+    color: #2E7D32;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+.btn-primary.inverse:active, .btn-primary.inverse.active {
+    border-color: #FFFFFF;
+    color: #2E7D32;
+    box-shadow: none;
+}
+
+#team_profile{
+  /*background-color: #f7f7f7;*/
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+#team_profile p{
+  color: #000000;
+  font-size: 16px;
+}
+
+#team_profile a{
+  color: #01579B;
+}
+
+#Business_calc_text p{
+  font-size: 16px;
+}
+
+#about_us{
+  background-color: #2E7D32;
+  padding: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#about_us p{
+  color: #FFFFFF;
+  font-size: 22px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#about_us h1{
+  color: #FFFFFF;
+}
+
+#contact_us{
+  /*background-color: #97C7C9;*/
+  background-color: #f7f7f7;
+  padding: 40px;
+  font-size: 22px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+#contact_us a{
+  color: #01579B;
+}
+
+#privacy_policy{
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  margin-bottom: 60px;
+}
+
+#form_box p{
+  font-size: 16px;
+}
+
+#form_box li{
+  font-size: 14px;
+}
+
+#household_header{
+  color: #FFFFFF;
+}
+
+#business_header{
+  color: #FFFFFF;
 }

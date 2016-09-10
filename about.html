@@ -15,13 +15,12 @@
       
         <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         
         <!-- Bootstrap -->         
-        <script src="assets/javascripts/bootstrap.min.js"></script>         
-        <!--script src="assets/javascripts/individual.js"></script-->         
+        <script src="assets/javascripts/bootstrap.min.js"></script>                 
                 
     </head>     
     <body> 
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
-            <div class="container"> 
+            <div> 
                 <div class="navbar-header"> 
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> 
                         <span class="sr-only">Toggle navigation</span> 
@@ -59,63 +58,72 @@
           </div>
         </header>
 
-        <div class="container">    
+        <div class="container" id="about_content">
+
+          <div>
             <div class="section">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h2>Meet the team</h2>
-                    </div>
-                </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <center><img src="assets/imgs/justin_profile.jpg" class="img-responsive img-circle" width="200" alt="Justin profile picture"></center>
-                  <center><h4>Justin Bare</h4></center>
-                  <p>Justin is a PhD student in Computer Science and Engineering at the University of Washington. His research analyzes technology in its social and political context and aims to design tools that make a positive contribution in that context.</p>
-                </div>
-
-                <div class="col-md-4">
-                  <center><img src="assets/imgs/Borning_UW_Photo.gif" class="img-responsive img-circle" width="200" alt="Alan profile picture"></center>
-                  <center><h4>Alan Borning</h4></center>
-                  <p>Alan is a professor in the
-                    <a href="http://www.cs.washington.edu/" alt="Computer Science and Engineering"> Department of Computer Science &amp; Engineering</a> at the&nbsp;
-                    <a href="http://www.uw.edu/" alt="University of Washington link"> University of Washington</a>, an adjunct professor in the
-                    <a href="http://ischool.uw.edu/" alt="Information School"> Information School</a>, and a member of the
-                    <a href="http://depts.washington.edu/urbdpphd/" alt="Ph.D. in Urban Design and Planning"> Interdisciplinary Ph.D. Program in Urban Design and Planning</a>. His current research is in two areas: human-computer interaction and programming languages. You can learn more about him on his 
-                    <a href="http://www.cs.washington.edu/people/faculty/borning" alt="Alan Borning faculty webpage">faculty webpage</a>.
+              <div class="about_div">
+                <div id="about_us" class="row row-content col-xs-12">
+                  <p>
+                    We created this website to provide votors an unbiased estimate on the impacts of Carbon Washington's proposal and not to advocate for or against the proposal.
                   </p>
+                  <br>
+                  <p>
+                    We aim to be transparent about how all our values are calculated and what assumptions we've made. That's why we've posted our full methodology report for those who are curious.
+                  </p>
+                  <br>
+                  <a href="assets/docs/methodology.pdf" id="methodology_button" type="button" class="btn btn-primary btn-outline inverse" alt="Methodology report" target="_blank">View methodology report</a>
                 </div>
+              </div>
+            </div>
 
-                <div class="col-md-4">
-                  <center><img src="images/Bentley_profile.jpg" class="img-responsive img-circle" src="" width="200" alt="Brittany profile picture"></center>
-                  <center><h4>Brittany Bentley</h4></center>
-                  <p>Brittany is a designer, programmer, and University of Washington alumna. User Experience Design combines her love of the social sciences and her interest in computer science.</p>
+            <div class="section">
+              <div class="about_div">
+                <div id="team_profile" class="row row-content col-xs-12">
+                    <div>
+                      <div class="col-xs-12">
+                        <h2>Meet the team</h2>
+                        <br>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                    <center><img src="assets/imgs/justin_profile.jpg" class="img-responsive img-circle" width="200" alt="Justin profile picture"></center>
+                    <center><h4>Justin Bare</h4></center>
+                    <p>Justin is a PhD student in Computer Science and Engineering at the University of Washington. His research analyzes technology in its social and political context and aims to design tools that make a positive contribution in that context.</p>
+                  </div>
+
+                  <div class="col-md-4 col-xs-12">
+                    <center><img src="assets/imgs/Borning_UW_Photo.gif" class="img-responsive img-circle" width="200" alt="Alan profile picture"></center>
+                    <center><h4>Alan Borning</h4></center>
+                    <p>Alan is a professor in the
+                      <a href="http://www.cs.washington.edu/" alt="Computer Science and Engineering"> Department of Computer Science &amp; Engineering</a> at the&nbsp;
+                      <a href="http://www.uw.edu/" alt="University of Washington link"> University of Washington</a>, an adjunct professor in the
+                      <a href="http://ischool.uw.edu/" alt="Information School"> Information School</a>, and a member of the
+                      <a href="http://depts.washington.edu/urbdpphd/" alt="Ph.D. in Urban Design and Planning"> Interdisciplinary Ph.D. Program in Urban Design and Planning</a>. His current research is in two areas: human-computer interaction and programming languages. You can learn more about him on his 
+                      <a href="http://www.cs.washington.edu/people/faculty/borning" alt="Alan Borning faculty webpage">faculty webpage</a>.
+                    </p>
+                  </div>
+
+                  <div class="col-md-4 col-xs-12">
+                    <center><img src="images/Bentley_profile.jpg" class="img-responsive img-circle" src="" width="200" alt="Brittany profile picture"></center>
+                    <center><h4>Brittany Bentley</h4></center>
+                    <p>Brittany is a designer, programmer, and University of Washington alumna. Human Centered Design combines her fascination with people and her interest in computer science.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="about_div">
+                <div id="contact_us" class="row row-content col-xs-12">
+                  <h2>Contact us</h2> 
+                  <br>
+                  <p> Have any feedback about the website? Want to suggest a feature? Email us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p> 
                 </div>
               </div>
             </div> 
-
-            <div class="row row-content" id="methodology">
-              <div class="col-xs-12">
-                <h2>Methodology</h2>
-                <p>
-                  Want an in-depth look at what's going on behind the scenes as you use this calculator? Check out our <a href="assets/docs/methodology.pdf" target="_blank" alt="Methodology report">methodology report.</a>
-                </p>
-
-              </div>
-            </div>        
-            
-            <div class="row row-content"> 
-                <div class="col-xs-12"> 
-                    <h2>Contact Us</h2> 
-                    <p> Have any feedback about the website? Want to suggest a feature? Email us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>.</p> 
-                </div>                 
-            </div>             
-            <div class="row row-content"> 
-                <div class="col-xs-12"> 
-                    <h2>Privacy</h2> 
-                    <p> Your privacy is important to us. No information that you enter into this website is saved anywhere. We use a basic Google Analytics setup to track how many visitors we get to the website. </p> 
-                </div>                 
-            </div>             
-        </div>     
+          </div>
+        </div>  
 
         <footer class="row-footer">
           <div class="container">
@@ -124,13 +132,13 @@
                 <h5>Links</h5>
                 <ul class="list-unstyled">
                   <li><a href="index.html">Home</a></li>
-                  <li><a href="individual.html">Household Calculator</a></li>
-                  <li><a href="business.html">Business Calculator</a></li>
+                  <li><a href="individual.html">Household calculator</a></li>
+                  <li><a href="business.html">Business calculator</a></li>
                   <li><a href="about.html">About</a></li>
                 </ul>
               </div>
               <div class="col-md-4">
-                  <h5>Contact Us</h5>
+                  <h5>Contact us</h5>
                   <a href="mailto:carbon@cs.washington.edu"><span class="fa fa-envelope-o"
                                aria-hidden="true"></span> carbon@cs.washington.edu</a>
               </div>
@@ -138,7 +146,7 @@
         </footer>    
 
         
-        <script src="assets/javascripts/jquery-2.1.4.min.js"></script>         
-        <script src="assets/javascripts/bootstrap.min.js"></script>         
+        <script src="assets/javascripts/bootstrap.min.js"></script>
+        <script src="assets/javascripts/jquery-2.1.4.min.js"></script>      
     </body>     
 </html>
