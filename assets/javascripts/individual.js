@@ -5,6 +5,7 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   $( document ).uitooltip(); 
+  $('#wizard_tab_nav a[href="#intro_page"]').tab('show')
   INCOME = "#income";
   SALESTAXPAYMENTMANUAL = "#salesTaxPayment";
   SALESTAXPAYMENTAUTO = "#salesTaxPayment_filled";
@@ -39,16 +40,19 @@ $(document).ready(function () {
   TOTALCOSTS = "#totalCosts_static";
   TOTALNET = "#totalNet_static";
   UTILITYREMEMBERED = "#utilityRemembered";
+  PAGEREMEMBERED = "#pageRemembered";
   alertSent = false;
   prevErrorCount = 0;
 
   model = new Model();
   updateRadios();
   updateUtilities();
+  //$('#wizard_tab_nav a[href=' + $(PAGEREMEMBERED).val() + ']').tab('show');
   //updateModel();
   //updateBoxesAndSpans();
 
   function updateModel() {
+    
     model.setIncome($(INCOME).val());
 
     model.setSalesTax(parseInt($("input[name=taxOption]:checked").val()), $(SALESTAXPAYMENTMANUAL).val());
@@ -82,16 +86,26 @@ $(document).ready(function () {
     model.setSummary();
   }
 
+  // function updateCurrentPage() {
+  //   $(PAGEREMEMBERED).val($('.nav-tabs > .active').find('a')[0].hash);
+
+  // }
+
   function updateGeneral() {
     updateModel();
     updateBoxesAndSpans();
     console.log(model.errorCount);
-    if (model.errorCount > prevErrorCount) {
-      prevErrorCount = model.errorCount;
+    if (model.errorCount > 0) {
+      // updateCurrentPage();
       return 0;
     }
-    prevErrorCount = model.errorCount;
     return 1;
+    // if (model.errorCount > prevErrorCount) {
+    //   prevErrorCount = model.errorCount;
+    //   return 0;
+    // }
+    // prevErrorCount = model.errorCount;
+    // return 1;
   }
 
   $(".next_button").on("click", 
@@ -113,6 +127,7 @@ $(document).ready(function () {
       if (parseInt(status)) {
         $('#wizard_tab_nav a[href="#gas_page"]').tab('show');
       }
+      console.log($('.nav-tabs > .active'));
     }
   );
 
@@ -120,9 +135,10 @@ $(document).ready(function () {
     function (event) {
       status = updateGeneral();
       if (!parseInt(status)) {
-        alert("We were unable to process some of the information you entered. Please go back and fix the highlighted fields in order to receive meaningful results from the calculator");
+        alert("We were unable to process some of the information you entered. Please fix the red highlighted fields or refresh the page and start over, in order to receive meaningful results from the calculator");
         event.stopPropagation(); //stop the click event from executing after pressing OK on the alert
       }
+      
     }
   );
 

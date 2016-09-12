@@ -87,12 +87,19 @@ $(document).ready(function () {
     updateModel();
     updateBoxesAndSpans();
     console.log(model.errorCount);
-    if (model.errorCount > prevErrorCount) {
-      prevErrorCount = model.errorCount;
+    if (model.errorCount > 0) {
       return 0;
     }
-    prevErrorCount = model.errorCount;
     return 1;
+    // updateModel();
+    // updateBoxesAndSpans();
+    // console.log(model.errorCount);
+    // if (model.errorCount > prevErrorCount) {
+    //   prevErrorCount = model.errorCount;
+    //   return 0;
+    // }
+    // prevErrorCount = model.errorCount;
+    // return 1;
   }
 
   $(".next_button").on("click", 
@@ -118,12 +125,13 @@ $(document).ready(function () {
   );
 
   $("a[role=tab]").on("click", 
-    function () {
+    function (event) {
       status = updateGeneral();
       if (!parseInt(status)) {
-        alert("We were unable to process some of the information you entered. Please go back and fix the highlighted fields in order to receive meaningful results from the calculator");
+        alert("We were unable to process some of the information you entered. Please fix the red highlighted fields or refresh the page and start over, in order to receive meaningful results from the calculator");
         event.stopPropagation(); //stop the click event from executing after pressing OK on the alert
       }
+      console.log($('.nav-tabs > .active'));
     }
   );
 

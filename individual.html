@@ -208,7 +208,7 @@
         <div class="tab-pane fade" id="sales_tax_page" role="tabpanel">
           <h2>Income</h2>
           <div>
-            <label for="submitIncome" class="control-label">What is your annual household income? $</label>
+            <label for="income" class="control-label">What is your annual household income? $</label>
             <input type="text" id="income" placeholder="Enter annual income" name="income" role="input" value="0">     
           </div>
             <br>
@@ -219,17 +219,22 @@
         <div class="tab-pane fade" id="estimated_taxes_page" role="tabpanel">
           <h2>Estimated Taxes</h2>
           <div>
+            <div>
+              <p>
+                Select which estimate of your annual sales tax you would like to use:
+              </p>
+            </div>
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="estimated taxes options">
               <div class="radio active">
                 <label>
                   <input type="radio" name="taxOption" value="0" id ="taxOptionOne_radio" checked>
-                  <p>We estimate that you pay $<span id="salesTaxPayment_filled"></span> per year in state and local sales taxes. <img id="salesTaxTool" src="questionMark.png"/></p>
+                  <p>Use our estimate of $<span id="salesTaxPayment_filled"></span> per year in state and local sales taxes. <img id="salesTaxTool" src="questionMark.png"/></p>
                 </label>
               </div>
               <div class="radio active">
                 <label>
                   <input type="radio" name="taxOption" value="1" id="taxOptionTwo_radio">
-                  <p>Select this option to enter your own estimate of how much you pay per year in state and local sales taxes (for example if you save your sales receipts): </p>
+                  <p>Enter your own estimate of how much you pay per year in state and local sales taxes (for example if you save your sales receipts): </p>
                   
                   <div class="reveal" id="updated_taxes">
                     <label for="salesTaxPayment">Estimated Taxes: $</label>
@@ -281,17 +286,22 @@
         <div class="tab-pane fade" id="eitc_page" role="tabpanel">
           <h2>Earned Income Tax Credit</h2>
           <div>
+            <div>
+              <p>
+                Choose an estimate of how much federal Earned Income Tax Credit you qualify for:
+              </p>
+            </div>
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="eitc options">
               <div class="radio active">
                 <label>
                   <input type="radio" name="eitcOption" value="0" id ="eitcOptionOne_radio" checked>
-                  <p>We estimate that you qualify for a federal Earned Income Tax Credit(EITC) of $<span id="eitc_filled">0</span>. <img class="img-responsive" id="eitcTool" src="questionMark.png"/>
+                  <p>Use our estimate of $<span id="eitc_filled">0</span>. <img class="img-responsive" id="eitcTool" src="questionMark.png"/></p>
                 </label>
               </div>
               <div class="radio active">
                 <label>
                   <input type="radio" name="eitcOption" value="1" id="eitcOptionTwo_radio">
-                  <p>Select this option to enter your own estimate of your federal EITC:</p>
+                  <p>Enter your own estimate of your federal EITC:</p>
                   <div class="reveal" id="updated_eitc">
                     <label for="eitc">EITC: $</label>
                     <input type="text" id="eitc" value="0">
@@ -444,6 +454,9 @@
 
           <div class="reveal" id="utilityMemory">
             <input type="text" id="utilityRemembered" value=""> 
+          </div>
+          <div class="reveal" id="pageMemory">
+            <input type="text" id="pageRemembered" value="#intro_page"> 
           </div>
 
           <div class="reveal" id="approxOrExact">
