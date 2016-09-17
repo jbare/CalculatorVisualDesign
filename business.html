@@ -156,11 +156,12 @@
 
           <div class="tab-pane fade" id="gas_page" role="tabpanel">
 
-          <p>
-            How much gasoline does your business use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <strong>one</strong> of these three calculation options:
-          </p> 
+          
 
             <h2>Gasoline and Diesel Usage</h2>
+            <p>
+              How much gasoline does your business use? Amounts for diesel vehicle, boat, and small plane fuel/mileage should also be included in the inputs for this section. Please choose <strong>one</strong> of these three calculation options:
+            </p> 
             <!-- Radio buttons to choose submission type-->
             <div class="btn-group" data-toggle="buttons" role="group" aria-label="gasoline options">
               <div class="radio active">
@@ -275,7 +276,7 @@
               <div id="airOptionTwo">
                 <label for="airPayments">How much does your business spend on air travel to or from airports in Washington State?</label>
                 <p>
-                  We then assume $0.13 a mile and divide by two because only half of that travel involves flights taking off from airports in Washington State. First class or business class is taken care of automatically because they're more expensive.
+                  <!-- We then assume $0.13 a mile and divide by two because only half of that travel involves flights taking off from airports in Washington State. --> First class or business class is taken care of automatically because they're more expensive.
                 </p>
                 <div>
                   <span>$</span><input type="text" id="airPayments" value="0"> per year 
@@ -289,18 +290,23 @@
 
           <div class="tab-pane fade" id="elec_page" role="tabpanel">
             <h2>Facility Energy Usage</h2>
+            <p>
+              How much energy does your business use? Please complete the steps below:
+            </p> 
             <div>
               <div id="electricBlock">
+                <h3>Step 1</h3>
                 <label for="zipcode">What zipcode your business is located in:</label>
                 <input type="text" id="zipcode" value="98328"> 
-                <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+                <input type="button" value="Submit Zipcode and Continue" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
               </div>
               <div class="reveal" id="utilityBlock">
+                <h3>Step 2</h3>
                 <label for="utilities">Who is the electic utility provider for your business?</label>
                 Choose the electric utility for your business (if the correct utility is not listed, first check that the zipcode is correct, and then contact us at <a href="mailto:carbon@cs.washington.edu">carbon@cs.washington.edu</a>):
                 <select id="utilities" >
                 </select>
-                <input type="button" value="Submit Utility Provider" class="btn btn-primary btn-medium" id="submitUtility"><br>
+                <input type="button" value="Submit Utility and Continue" class="btn btn-primary btn-medium" id="submitUtility"><br>
               </div>
 
               <div class="reveal" id="utilityMemory">
@@ -308,6 +314,7 @@
               </div>
 
               <div class="reveal" id="approxOrExact">
+                <h3>Step 3</h3>
                 <br><p>Do you know your business's energy usage in units of therms, kWh, etc. (from utility bills or another source)?</p>
                 <label><input type="radio" name="approxOrExactStatus" value="0" id="exact">Yes
                   
@@ -318,6 +325,8 @@
               </div>
 
               <div class="reveal" id="energyUsage">
+                
+                <h3>Step 4</h3>
                 <span id="exactLabel">Enter your business&#39;s energy use per year:</span> <br>
                 <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
                 <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
@@ -325,6 +334,7 @@
               </div>
               <div class="reveal" id="approxEnergyDiv">
                 <div class="reveal" id="approxEnergy" >
+                  <h3>Step 4</h3>
                   We will attempt to help you estimate your business&#39;s energy usage by comparing it to an average house in Washington State. Note that this is just a ballpark estimate and may only be appropriate for certain kinds of businesses. <br><br>
                   How is your business heated? <br>
                   <input class="radioLeft" type="radio" name="heating" value="0">
@@ -339,6 +349,7 @@
                   Other/don't know (we will assume you use natural gas.)<br><br>
                 </div>
                 <div class="reveal" id="approxPercentage" >
+                  <h3>Step 5</h3>
                   How much purchased energy do you think your business uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)? Enter this as a percentage. For example, if your business uses half the energy of an average home, enter "50". If your business uses twice the energy of an average home, enter "200": <br><br>
 
                   <input type="text" id="percentOfAverage" value="100"> %
@@ -354,18 +365,18 @@
           <div class="tab-pane fade" id="summary_page" role="tabpanel">
             <h2 class="fs-title">Summary</h2>
 
-            <p>We estimate that your business's tax <strong>savings</strong> would be $<span id="totalSavings_static" class="save">0</span> per year.</p>
-            <p>We estimate that your business's tax <strong>payments</strong> would total $<span id="totalCosts_static" class="pay">0</span> per year. </p>
+            <p>We estimate that your business's additional tax <strong>savings</strong> as a result of implementing I-732 would total $<span id="totalSavings_static" class="final save">0</span> per year.</p>
+            <p>We estimate that your business's additional tax <strong>payments</strong> as a result of implementing I-732 would total $<span id="totalCosts_static" class="final pay">0</span> per year. </p>
 
             <div id="results">
-              <p>In total we estimate <span id="final_summary"></span><span id ="totalNet_static">0</span> per year.</p>
+              <p>In total we estimate your business would <span id="final_summary" ></span> an additional $<span id ="totalNet_static" class="final">0</span> per year as a result of implementing I-732.</p>
             </div>
 
             <h2>Calculations</h2>
             <p>Interested in how we reached that conclusion? Check out the sections below.</p>
             <ul class="nav nav-pills" data-tables="tabs" role="tablist">
               <li class="active"><a data-toggle="pill" href="#salesTax_results">Sales Tax Savings</a></li>
-              <li><a data-toggle="pill" href="#BO_results">B&O Taxes</a></li>
+              <li><a data-toggle="pill" href="#BO_results">B&O Tax Savings</a></li>
               <li><a data-toggle="pill" href="#Gas_results">Gasoline and Diesel Usage</a></li>
               <li><a data-toggle="pill" href="#Air_results">Air Travel</a></li>
               <li><a data-toggle="pill" href="#Energy_results">Facility Energy Usage</a></li>
@@ -404,7 +415,7 @@
               <div id="Energy_results" class="tab-pane fade" role="tabpanel">
                 <h3>Facility Energy Usage</h3>
                 <div>
-                  <p>We estimate that your business would spend this much more due to carbon taxes on fossil fuel sources for business energy:</p>
+                  <p>We estimate that your business would spend this much more due to carbon taxes on fossil fuel sources of energy:</p>
                   <p><label for="natGasLosses" class="lineupLabel">Natural gas: $<span id="natGasLosses" class="final pay">0</span>per year</label></p>
                   <p><label for="fuelOilLosses" class="lineupLabel">Fuel oil: $<span id = "fuelOilLosses" class= "final pay">0</span> per year</label></p>
                   <p><label for="elecLosses" class="lineupLabel">Electricity: $<span id ="elecLosses" class="final pay">0</span> per year</label></p>

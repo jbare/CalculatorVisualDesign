@@ -9,6 +9,7 @@ $(document).ready(function () {
   INCOME = "#income";
   SALESTAXPAYMENTMANUAL = "#salesTaxPayment";
   SALESTAXPAYMENTAUTO = "#salesTaxPayment_filled";
+  INCOMEWFR = "#income1";
   DEPENDENTS = "#dependents";
   EITCAUTO = "#eitc_filled"
   EITCMANUAL = "#eitc";
@@ -298,6 +299,7 @@ $(document).ready(function () {
     //$(THERMS).val(model.home.therms);
     //$(FUELOIL).val(model.home.gallons);
     //$(KWH).val(model.home.kwh);
+    $(INCOMEWFR).text(model.income);
     $(SALESTAXSAVINGS).text(model.salesTax.savings);
     $(WFRSAVINGS).text(model.wfr.savings);
     $(GASTAXES).text(model.gas.taxes);
@@ -309,6 +311,13 @@ $(document).ready(function () {
     $(TOTALSAVINGS).text(model.total.savings);
     $(TOTALCOSTS).text(model.total.taxes);
     $(TOTALNET).text(model.total.net);
+    if (model.total.savings > model.total.taxes) {
+      $("#final_summary").text("save");
+    } else if (model.total.savings < model.total.taxes) {
+      $("#final_summary").text("spend");
+    } else {
+      $("#final_summary").text("spend");
+    }
     
   }
 
@@ -562,7 +571,7 @@ Model.prototype.setEitc = function(dependents, taxStatus){
   
   this.wfr.marriedJoint = taxStatus;
   this.wfr.dependents = dependents;
-  this.wfr.autoEitc = eitcEstimate;
+  this.wfr.autoEitc = Math.round(eitcEstimate);
 }
 
 Model.prototype.setWfr = function(eitcOption, eitcManual){
@@ -571,11 +580,11 @@ Model.prototype.setWfr = function(eitcOption, eitcManual){
   if (eitcOption == 0) {
     this.wfr.autoSelected == true;
     this.error.wfr = this.setNumberError(0, this.error.wfr);
-    this.wfr.savings = 0.25 * this.wfr.autoEitc;
+    this.wfr.savings = Math.round(0.25 * this.wfr.autoEitc);
   } else {
     this.wfr.autoSelected == false;
     this.error.wfr = this.setNumberError(this.wfr.manualEitc, this.error.wfr);
-    this.wfr.savings = 0.25 * this.wfr.manualEitc;
+    this.wfr.savings = Math.round(0.25 * this.wfr.manualEitc);
   }
 }
 
@@ -682,7 +691,7 @@ Model.prototype.setHome = function(billSplitStatus, approxOrExactStatus, heating
     
   }
 
-  this.home.totalTaxes = this.home.natGasTaxes + this.home.fuelOilTaxes + this.home.elecTaxes;
+  this.home.totalTaxes = Math.round(this.home.natGasTaxes + this.home.fuelOilTaxes + this.home.elecTaxes);
   if (billSplitStatus == 0) {
     this.home.splitYes = true;
   } else {
@@ -706,7 +715,7 @@ Model.prototype.setHome = function(billSplitStatus, approxOrExactStatus, heating
 Model.prototype.setSummary = function(){
   this.total.savings = this.salesTax.savings + this.wfr.savings;
   this.total.taxes = this.gas.taxes + this.air.taxes + this.home.totalTaxes;
-  this.total.net = this.total.savings - this.total.taxes;
+  this.total.net = Math.abs(this.total.savings - this.total.taxes);
 }
 
 function inheritPrototype(childObject, parentObject) {

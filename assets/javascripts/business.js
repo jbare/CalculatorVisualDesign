@@ -275,6 +275,13 @@ $(document).ready(function () {
     $(TOTALSAVINGS).text(model.total.savings);
     $(TOTALCOSTS).text(model.total.taxes);
     $(TOTALNET).text(model.total.net);
+    if (model.total.savings > model.total.taxes) {
+      $("#final_summary").text("save");
+    } else if (model.total.savings < model.total.taxes) {
+      $("#final_summary").text("spend");
+    } else {
+      $("#final_summary").text("spend");
+    }
     
   }
 
@@ -459,7 +466,7 @@ Model.prototype.setSalesTaxRate = function(rate){
 Model.prototype.setBO = function(tax){
   this.bo.taxes = tryMakeValidNumber(tax, 0);
   this.error.bo = this.setNumberError(this.bo.taxes, this.error.bo);
-  this.bo.savings = this.bo.taxes;
+  this.bo.savings = Math.round(this.bo.taxes);
   
 }
 
@@ -567,7 +574,7 @@ Model.prototype.setHome = function(approxOrExactStatus, heating, homeObject){
     
   }
 
-  this.home.totalTaxes = this.home.natGasTaxes + this.home.fuelOilTaxes + this.home.elecTaxes;
+  this.home.totalTaxes = Math.round(this.home.natGasTaxes + this.home.fuelOilTaxes + this.home.elecTaxes);
   
   this.home.utility = homeObject.utility;
   if (approxOrExactStatus == 0) {
@@ -583,7 +590,7 @@ Model.prototype.setHome = function(approxOrExactStatus, heating, homeObject){
 Model.prototype.setSummary = function(){
   this.total.savings = this.salesTax.savings + this.bo.savings;
   this.total.taxes = this.gas.taxes + this.air.taxes + this.home.totalTaxes;
-  this.total.net = this.total.savings - this.total.taxes;
+  this.total.net = Math.abs(this.total.savings - this.total.taxes);
 }
 
 function inheritPrototype(childObject, parentObject) {

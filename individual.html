@@ -423,6 +423,7 @@
         <div class="tab-pane fade" id="elec_page" role="tabpanel">
 
           <h2 class="fs-title">Home Energy Usage</h2>
+          <h3>Step 1</h3>
           <p>
             Is payment for your utility bill split among several people?
           </p>
@@ -437,19 +438,21 @@
           <div class="reveal" id="partialEnergy" >
             <label for="percentSplit">What percentage of the utility bill does your household pay?</label>
             <input type="text" id="percentSplit" value="100">%
-            <input type="button" value="Submit" class="btn btn-primary btn-medium" id="submitSplit"><br><br>
+            <input type="button" value="Submit and Continue" class="btn btn-primary btn-medium" id="submitSplit"><br>
           </div>
 
           <div class="reveal" id="electricBlock">
+            <h3>Step 2</h3>
             <label for="zipcode">What is your zipcode? </label>
             <input type="text" id="zipcode" value="98328"> 
-            <input type="button" value="Find Utility Provider" class="btn btn-primary btn-medium" id="submitZipcode"> <br><br>
+            <input type="button" value="Submit Zipcode and Continue" class="btn btn-primary btn-medium" id="submitZipcode"> <br>
           </div>
           <div class="reveal" id="utilityBlock">
+            <h3>Step 3</h3>
             <label for="utilites">Who is your electric utility provider?</label>
             <select id="utilities" >
             </select>
-            <input type="button" value="Submit Utility Provider" class="btn btn-primary btn-medium" id="submitUtility"><br>
+            <input type="button" value="Submit Utility and Continue" class="btn btn-primary btn-medium" id="submitUtility"><br>
           </div>
 
           <div class="reveal" id="utilityMemory">
@@ -460,6 +463,7 @@
           </div>
 
           <div class="reveal" id="approxOrExact">
+            <h3>Step 4</h3>
             <br><p>Do you know your home's energy usage in units of therms, kWh, etc. (from utility bills or another source)?</p>
             <label><input type="radio" name="approxOrExactStatus" value="0" id="exact">Yes
               
@@ -470,6 +474,7 @@
           </div>
 
           <div class="reveal" id="energyUsage">
+            <h3>Step 5</h3>
             <span id="exactLabel">Enter your household&#39;s energy use per year:</span> <br>
             <input type="text" id="thermsNatGas" value="0"> therms of natural gas<br>
             <input type="text" id="gallonsFuelOil" value="0"> gallons of fuel oil<br>
@@ -477,6 +482,7 @@
           </div>
           <div class="reveal" id="approxEnergyDiv">
             <div class="reveal btn-group" data-toggle="buttons" role="group" aria-label="electricity options" id="approxEnergy" >
+              <h3>Step 5</h3>
               How is your home heated? <br>
               <input class="radioLeft" type="radio" name="heating" value="0">
               Natural gas<br>
@@ -487,11 +493,12 @@
               <input class="radioLeft" type="radio" name="heating" value="3">
               Wood or wood pellets<br>
               <input class="radioLeft" type="radio" name="heating" value="4">
-              Other/don't know (we will assume you use natural gas.)<br><br>
+              Other/don't know (we will assume you use natural gas.)<br>
             </div>
 
 
             <div class="reveal" id="approxPercentage" >
+              <h3>Step 6</h3>
               <label for="percentOfAverage">As a percentage, how much purchased energy do you think your home uses compared to an average house in Washington (2000 sq ft, 3 bedrooms, etc.)?</label>
               <p>For example, if your home uses half the energy of an average home, enter "50". If your home uses twice the energy of an average home, enter "200"</p>
               <input type="text" id="percentOfAverage" value="100"> %
@@ -506,11 +513,11 @@
         <div class="tab-pane fade" id="summary_page" role="tabpanel">
             <h2 class="fs-title">Summary</h2>
 
-            <p>We estimate that your household's tax <strong>savings</strong> would be $<span id="totalSavings_static" class="final save">0</span> per year.</p>
-            <p>We estimate that your household <strong>payments</strong> would total $<span id="totalCosts_static" class="final pay">0</span> per year. </p>
+            <p>We estimate that your household's additional tax <strong>savings</strong> as a result of implementing I-732 would total $<span id="totalSavings_static" class="final save">0</span> per year.</p>
+            <p>We estimate that your household's additional tax <strong>payments</strong> as a result of implementing I-732 would total $<span id="totalCosts_static" class="final pay">0</span> per year. </p>
 
             <div id="results">
-              <p>In total we estimate $<span id="final_summary" ></span><span id ="totalNet_static" class="final">0</span> per year.</p>
+              <p>In total we estimate your household would <span id="final_summary" ></span> an additional $<span id ="totalNet_static" class="final">0</span> per year as a result of implementing I-732.</p>
             </div>
           
 
