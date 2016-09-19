@@ -52,6 +52,8 @@ $(document).ready(function () {
   //updateModel();
   //updateBoxesAndSpans();
 
+  $('#elec_usage').prop('disabled', true);
+
   function updateModel() {
     
     model.setIncome($(INCOME).val());
@@ -175,6 +177,8 @@ $(document).ready(function () {
   $("#submitUtility").on("click",
     function(){
       $("#approxOrExact").show();
+      $('#elec_usage').removeClass('disabled');
+      $('#elec_usage').prop('disabled', false);
       updateGeneral();
     
     }

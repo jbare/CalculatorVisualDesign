@@ -52,6 +52,8 @@ $(document).ready(function () {
   //updateModel();
   //updateBoxesAndSpans();
 
+  $('#elecUsage').prop('disabled', true);
+
   function updateModel() {
 
     model.setSalesTax($(SALESTAXPAYMENTMANUAL).val());
@@ -150,6 +152,8 @@ $(document).ready(function () {
   $("#submitUtility").on("click",
     function(){
       $("#approxOrExact").show();
+      $('#elecUsage').removeClass('disabled');
+      $('#elecUsage').prop('disabled', false);
       updateGeneral();
     
     }
